@@ -1,0 +1,41 @@
+@font-face {
+	font-family: 'hack-bold';
+	src: url('./assets/fonts/hack-bold.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'hack-regular';
+	src: url('./assets/fonts/hack-regular.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'ibm-plex-regular';
+	src: url('./assets/fonts/ibm-plex-sans-v8-latin-regular.woff2')
+		format('woff2');
+}
+
+body {
+	background-color: white;
+	padding: 0;
+}
+
+.CodeMirror {
+	height: 100% !important;
+	font-family: hack-regular !important;
+}
+
+.vscode-light {
+	color: black;
+}
+
+.vscode-dark {
+	color: black;
+}
+
+.vscode-high-contrast {
+	color: black;
+}
+
+.cm-content {
+	font-family: hack-regular;
+}
