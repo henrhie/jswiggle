@@ -22,6 +22,17 @@ body {
 .CodeMirror {
 	height: 100% !important;
 	font-family: hack-regular !important;
+	width: 100%;
+	position: unset;
+}
+
+.CodeMirror-line {
+	padding: 0;
+}
+
+.react-codemirror2 {
+	/* width: 90%; */
+	height: 90%;
 }
 
 .vscode-light {

@@ -14,8 +14,8 @@ interface ResizableProps {
 const Resizable: FC<ResizableProps> = ({ direction, children }) => {
 	const [innerWidth, setInnerWidth] = useState(window.innerWidth);
 	const [innerHeight, setInnerHeight] = useState(window.innerHeight);
-	const [width, setWidth] = useState(window.innerWidth * 0.55);
-	const [height, setHeight] = useState(window.innerHeight * 0.51);
+	const [width, setWidth] = useState(window.innerWidth * 0.5);
+	const [height, setHeight] = useState(window.innerHeight * 0.5);
 
 	useEffect(() => {
 		let timer: NodeJS.Timeout;
