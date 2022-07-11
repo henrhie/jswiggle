@@ -1,12 +1,16 @@
 import * as React from 'react';
 import { render } from 'react-dom';
-import Editor from './components/editor';
+// import Editor from './components/editor';
+import { Provider } from 'react-redux';
+import Console from './components/console';
 
 import Panel from './components/panel';
 import PanelEditor from './components/panel-editor';
+import Preview from './components/preview';
 import Resizable from './components/resizable';
 
 import './index.css';
+import { store } from './redux';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const App = () => {
@@ -29,7 +33,7 @@ const App = () => {
 								<PanelEditor
 									value={htmlValue}
 									setValue={setHtmlValue}
-									language='xml'
+									language='html'
 								/>
 							</Panel>
 						</Resizable>
@@ -55,7 +59,7 @@ const App = () => {
 							height: '100%',
 						}}>
 						<Resizable direction='vertical'>
-							<Panel height='calc(100% - 3px)' color='yellow'>
+							<Panel height='calc(100% - 3px)'>
 								<PanelEditor
 									setValue={setCssValue}
 									value={cssValue}
@@ -63,13 +67,18 @@ const App = () => {
 								/>
 							</Panel>
 						</Resizable>
-						<div style={{ flexGrow: 1 }}>
-							<Panel color='red' height='100%'>
-								<PanelEditor
-									value={cssValue}
-									setValue={cssValue}
-									language='css'
-								/>
+						<div style={{ flexGrow: 1, padding: '4px 0', paddingBottom: '0' }}>
+							<Panel height='100%'>
+								<div
+									style={{
+										display: 'flex',
+										flexDirection: 'column',
+										height: '100%',
+										border: '0.1px solid #39464e',
+									}}>
+									<Preview code='' />
+									<Console />
+								</div>
 							</Panel>
 						</div>
 					</div>
@@ -79,4 +88,9 @@ const App = () => {
 	);
 };
 
-render(<App />, document.querySelector('#root'));
+render(
+	<Provider store={store}>
+		<App />
+	</Provider>,
+	document.querySelector('#root')
+);

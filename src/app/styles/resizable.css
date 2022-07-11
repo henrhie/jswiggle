@@ -3,6 +3,19 @@
 	background-color: #37414b;
 	background-repeat: no-repeat;
 	background-position: 50%;
+	position: relative;
+}
+
+.inner_line {
+	background-color: #39464e;
+	width: 100%;
+	height: 1px;
+}
+
+.center_line {
+	background-color: #39464e;
+	width: 0.1px;
+	height: 100%;
 }
 
 .resize-horizontal {
@@ -11,15 +24,91 @@
 }
 
 .react-resizable-handle-s {
-	height: 3px;
+	display: flex;
+	align-items: center;
+	height: 8px;
 	width: 100%;
-	cursor: row-resize;
-	background-color: blue;
+	cursor: n-resize;
+	background-color: #272c35;
 }
 
 .react-resizable-handle-e {
-	width: 3px;
+	width: 8px;
 	height: 100%;
-	cursor: col-resize;
-	background-color: blue;
+	cursor: e-resize;
+	background-color: #272c35;
+	display: flex;
+	justify-content: center;
+}
+
+.preview-wrapper {
+	position: relative;
+	/* height: 55%; */
+	flex-grow: 1;
+}
+
+.preview-wrapper iframe {
+	height: 100%;
+	width: 100%;
+	border: 0;
+}
+
+.console {
+	height: 45%;
+	width: 100%;
+}
+
+.minimize-console {
+	height: 34.4px;
+	width: 100%;
+	cursor: pointer;
+}
+
+.console-header-wrapper p {
+	margin: 5px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	color: white;
+	font-size: 11px;
+	font-family: fira-regular;
+	word-spacing: -3px;
+	font-weight: 100;
+}
+
+.console-actions {
+	cursor: pointer;
+}
+
+.console-actions p:hover {
+	text-decoration: underline;
+	text-decoration-color: white;
+}
+
+.console-input {
+	caret-color: white;
+	color: white;
+	padding: 0;
+	border: 0;
+	background-color: #141619;
+	font-family: fira-regular;
+	font-size: 11px;
+}
+
+.console-input:focus {
+	outline: none;
+	border: 0;
+}
+
+.ace_conent {
+	width: 300px !important;
+}
+
+.react-draggable-transparent-selection .preview-wrapper:after {
+	content: '';
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	opacity: 0;
 }

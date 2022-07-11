@@ -4,6 +4,11 @@
 }
 
 @font-face {
+	font-family: 'fira-regular';
+	src: url('./assets/fonts/FiraCode-Regular.ttf') format('woff2');
+}
+
+@font-face {
 	font-family: 'hack-regular';
 	src: url('./assets/fonts/hack-regular.woff2') format('woff2');
 }
@@ -14,8 +19,14 @@
 		format('woff2');
 }
 
+.ace_editor {
+	height: 100% !important;
+	width: 100% !important;
+	font-family: fira-regular;
+}
+
 body {
-	background-color: white;
+	background-color: #272c35;
 	padding: 0;
 }
 
