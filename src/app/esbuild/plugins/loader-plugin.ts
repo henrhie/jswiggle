@@ -3,15 +3,14 @@ import axios from 'axios';
 import { cache } from '../cache';
 
 type MapModuleNametoModule = { [key: string]: string };
-type PluginFactoryType = (
-	cells: MapModuleNametoModule
-) => esbuild.Plugin;
+type PluginFactoryType = (cells: MapModuleNametoModule) => esbuild.Plugin;
 
 export const loaderPlugin: PluginFactoryType = (store) => {
 	return {
 		name: 'loader-plugin',
 		setup(build: esbuild.PluginBuild) {
 			build.onLoad({ filter: /^index\.js$/ }, () => {
+				console.log('index.js: ', store._js);
 				return {
 					loader: 'jsx',
 					contents: store._js,
@@ -37,7 +36,9 @@ export const loaderPlugin: PluginFactoryType = (store) => {
 				{ filter: /^https?:\/\//, namespace: 'unpkg' },
 				async (args) => {
 					const { data, request } = await axios.get<string>(args.path);
+					console.log('looooooadL :', request);
 					cache.setModuleData(data, request.path);
+					console.log('after cache called');
 					const chunk: esbuild.OnLoadResult = {
 						loader: 'jsx',
 						contents: data,
@@ -46,21 +47,20 @@ export const loaderPlugin: PluginFactoryType = (store) => {
 				}
 			);
 
-			build.onEnd((result: esbuild.BuildResult) => {
-				const css_ = store._css;
-				const escaped = css_
-						.replace(/\n/g, '')
-						.replace(/"/g, '\\"')
-						.replace(/'/g, "\\'");
+			// build.onEnd((result: esbuild.BuildResult) => {
+			// 	const css_ = store._css;
+			// 	const escaped = css_
+			// 		.replace(/\n/g, '')
+			// 		.replace(/"/g, '\\"')
+			// 		.replace(/'/g, "\\'");
 
-					const contents = `
-			    const style = document.createElement("style");
-			    style.innerText = "${escaped}";
-			    document.head.appendChild(style);
-			  `;
-				result.outputFiles[0].text += contents;
-			});
-
+			// 	const contents = `
+			//     const style = document.createElement("style");
+			//     style.innerText = "${escaped}";
+			//     document.head.appendChild(style);
+			//   `;
+			// 	result.outputFiles[0].text += contents;
+			// });
 
 			build.onLoad(
 				{ filter: /.css$/, namespace: 'unpkg-css' },

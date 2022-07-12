@@ -14,7 +14,7 @@ class Cache {
 	getModuleData(filename: string) {
 		const versionName = this.getModuleVersion(filename);
 		if (!versionName) {
-			return '';
+			return;
 		}
 		return this.cache.get<string>(versionName);
 	}
@@ -30,25 +30,27 @@ class Cache {
 
 	mapPathToVersionName = (path: string) => {
 		const _data_ = [];
-		for (let i = 0; i < path.length; i++) {
+		const splitData = path.split('');
+		for (let i = 0; i < splitData.length; i++) {
 			if (i === 0) {
 				continue;
 			}
-			if (path[i] === '/') {
+			if (splitData[i] === '/') {
 				break;
 			}
-			_data_.push(path[i]);
+			_data_.push(splitData[i]);
 		}
 		return _data_.join('');
 	};
 
 	mapVersionNameTofilename = (versionName: string) => {
 		const _data_ = [];
-		for (let i = 0; i < versionName.length; i++) {
-			if (versionName[i] === '@') {
+		const splitData = versionName.split('');
+		for (let i = 0; i < splitData.length; i++) {
+			if (splitData[i] === '@') {
 				break;
 			}
-			_data_.push(versionName[i]);
+			_data_.push(splitData[i]);
 		}
 		return _data_.join('');
 	};

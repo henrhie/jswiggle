@@ -25,21 +25,23 @@ export const updateJavascript = (content: string) => {
 	};
 };
 
-export const startBundle =  (store: ReturnType<typeof reducer>) => {
+export const startBundle = (store: ReturnType<typeof reducer>) => {
 	return async (dispatch: Dispatch<Action>) => {
 		dispatch({
 			type: ActionType.BUNDLE_START,
 		});
 
+		console.log('store in action creator: ', store);
+
 		const buildOutput = await bundleCode(store);
 		const outputText =
-				buildOutput.outputFiles && buildOutput.outputFiles[0].text;
+			buildOutput.outputFiles && buildOutput.outputFiles[0].text;
 
 		dispatch({
 			type: ActionType.BUNDLE_COMPLETE,
 			payload: {
-				code: outputText
-			}
+				code: outputText,
+			},
 		});
 	};
 };

@@ -2,6 +2,7 @@
 import * as React from 'react';
 import { useStore } from 'react-redux';
 import { useActions } from '../hooks/use-actions';
+import { useTypedSelector } from '../hooks/use-typed-selector';
 import { reducer } from '../redux/reducer';
 import Editor from './editor';
 
@@ -11,6 +12,9 @@ const PanelEditor = ({ value, setValue, language }) => {
 
 	const { startBundle } = useActions();
 	const store = useStore<ReturnType<typeof reducer>>();
+
+	const bundle = useTypedSelector((state) => state.bundle);
+	console.log('bundle: ', bundle);
 
 	switch (language) {
 		case 'html':
@@ -26,9 +30,9 @@ const PanelEditor = ({ value, setValue, language }) => {
 			display_lang = language;
 	}
 
-	const runProcess = async () => {
-		const bundleCode = await startBundle(store.getState());
-		console.log('bundled: ', bundleCode);
+	const runProcess = () => {
+		startBundle(store.getState());
+		console.log('state: ', store.getState());
 		console.log('store: ', store.getState());
 	};
 
@@ -71,7 +75,7 @@ const PanelEditor = ({ value, setValue, language }) => {
 						padding: '5px',
 						backgroundColor: '#272c35',
 						margin: '8px 6px',
-						display: 'flex'
+						display: 'flex',
 					}}>
 					<p
 						style={{
@@ -79,15 +83,20 @@ const PanelEditor = ({ value, setValue, language }) => {
 							marginBottom: '0px',
 							marginLeft: '4px',
 							color: '#fff',
-							fontFamily: 'hack-regular'
+							fontFamily: 'hack-regular',
 						}}>
 						{display_lang}
 					</p>
-					{testJs  && 
-						<div style={{ marginLeft: 'auto', marginRight: '10px'}}>
-							<p className='run-action' onClick={() => runProcess()} style={{ color: 'white', margin: 0}}>Run</p>
+					{testJs && (
+						<div style={{ marginLeft: 'auto', marginRight: '10px' }}>
+							<p
+								className='run-action'
+								onClick={() => runProcess()}
+								style={{ color: 'white', margin: 0 }}>
+								Run
+							</p>
 						</div>
-					}
+					)}
 				</div>
 				<div style={{ flexGrow: '1' }}>
 					<Editor

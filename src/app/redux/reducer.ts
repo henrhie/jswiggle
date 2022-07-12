@@ -5,6 +5,9 @@ export interface IState {
 	_html: string;
 	_css: string;
 	_js: string;
+	loading: string;
+	error: string;
+	bundle: string;
 }
 
 const initState: Partial<IState> = {};
@@ -25,6 +28,17 @@ export const reducer = (state = initState, action: Action) => {
 			return {
 				...state,
 				_js: action.payload,
+			};
+		case ActionType.BUNDLE_START:
+			return {
+				...state,
+				loading: true,
+			};
+		case ActionType.BUNDLE_COMPLETE:
+			return {
+				...state,
+				loading: false,
+				bundle: action.payload.code,
 			};
 		default:
 			return state;

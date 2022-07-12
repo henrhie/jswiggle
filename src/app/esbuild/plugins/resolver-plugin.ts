@@ -20,6 +20,7 @@ export const resolverPlugin: PluginFactoryType = () => {
 						args.importer.startsWith('https://') ||
 						args.importer.startsWith('http://')
 					) {
+						console.log('https:::::////', args.path);
 						return {
 							namespace: 'unpkg',
 							path: new URL(args.path, args.importer + '/').toString(),
@@ -32,6 +33,7 @@ export const resolverPlugin: PluginFactoryType = () => {
 						path: `https://unpkg.com/${args.path}`,
 					};
 				}
+				console.log('got hererererer!!!!', args.path);
 				return {
 					namespace: 'unpkg',
 					path: `https://unpkg.com/${args.path}`,
