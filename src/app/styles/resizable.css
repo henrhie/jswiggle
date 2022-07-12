@@ -64,6 +64,14 @@
 	cursor: pointer;
 }
 
+.run-action {
+	cursor: pointer;
+}
+
+.run-action:hover {
+	text-decoration: underline;
+}
+
 .console-header-wrapper p {
 	margin: 5px;
 	margin-top: 10px;

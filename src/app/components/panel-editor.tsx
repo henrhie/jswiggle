@@ -1,9 +1,16 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import * as React from 'react';
+import { useStore } from 'react-redux';
+import { useActions } from '../hooks/use-actions';
+import { reducer } from '../redux/reducer';
 import Editor from './editor';
 
 const PanelEditor = ({ value, setValue, language }) => {
 	let display_lang: string;
+	const testJs = language === 'javascript';
+
+	const { startBundle } = useActions();
+	const store = useStore<ReturnType<typeof reducer>>();
 
 	switch (language) {
 		case 'html':
@@ -18,6 +25,12 @@ const PanelEditor = ({ value, setValue, language }) => {
 		default:
 			display_lang = language;
 	}
+
+	const runProcess = async () => {
+		const bundleCode = await startBundle(store.getState());
+		console.log('bundled: ', bundleCode);
+		console.log('store: ', store.getState());
+	};
 
 	React.useLayoutEffect(() => {
 		const innerLineLeft = document.createElement('div');
@@ -58,6 +71,7 @@ const PanelEditor = ({ value, setValue, language }) => {
 						padding: '5px',
 						backgroundColor: '#272c35',
 						margin: '8px 6px',
+						display: 'flex'
 					}}>
 					<p
 						style={{
@@ -65,9 +79,15 @@ const PanelEditor = ({ value, setValue, language }) => {
 							marginBottom: '0px',
 							marginLeft: '4px',
 							color: '#fff',
+							fontFamily: 'hack-regular'
 						}}>
 						{display_lang}
 					</p>
+					{testJs  && 
+						<div style={{ marginLeft: 'auto', marginRight: '10px'}}>
+							<p className='run-action' onClick={() => runProcess()} style={{ color: 'white', margin: 0}}>Run</p>
+						</div>
+					}
 				</div>
 				<div style={{ flexGrow: '1' }}>
 					<Editor

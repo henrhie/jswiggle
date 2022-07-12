@@ -10,7 +10,7 @@ import Preview from './components/preview';
 import Resizable from './components/resizable';
 
 import './index.css';
-import { store } from './redux';
+import { store } from './redux/store';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const App = () => {

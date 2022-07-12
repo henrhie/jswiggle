@@ -1,5 +1,8 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 export enum ActionType {
 	UPDATE_HTML_STORE = 'UPDATE:HTML',
 	UPDATE_CSS_STORE = 'UPDATE:CSS',
 	UPDATE_JAVASCRIPT_STORE = 'UPDATE:JAVASCRIPT',
+	BUNDLE_START = 'BUNDLE:START',
+	BUNDLE_COMPLETE='BUNDLE:COMPLETE'
 }

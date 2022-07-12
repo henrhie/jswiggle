@@ -15,7 +15,20 @@ export interface UpdateJavascriptAction {
 	payload: string;
 }
 
+export interface BundleStartAction {
+	type: ActionType.BUNDLE_START;
+}
+
+export interface BundleCompleteAction {
+	type: ActionType.BUNDLE_COMPLETE;
+	payload: {
+		code: string;
+	}
+}
+
 export type Action =
 	| UpdateCSSAction
 	| UpdateHTMLAction
-	| UpdateJavascriptAction;
+	| UpdateJavascriptAction
+	| BundleCompleteAction
+	| BundleStartAction;
