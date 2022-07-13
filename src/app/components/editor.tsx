@@ -21,7 +21,7 @@ import { useActions } from '../hooks/use-actions';
 
 interface EditorProps {
 	value: string;
-	handleValueChange: Function;
+	handleValueChange: (v: string, e: Event) => void;
 	language: string;
 }
 
@@ -30,35 +30,33 @@ const Editor: React.FC<EditorProps> = ({
 	handleValueChange,
 	language,
 }) => {
-	const [text, setText] = React.useState('');
+	// const [text, setText] = React.useState('');
 
-	const { updateHTML, updateCSS, updateJavascript } = useActions();
+	// const { updateHTML, updateCSS, updateJavascript } = useActions();
 
-	const onChange = (nText: string) => {
-		switch (language) {
-			case 'javascript':
-				updateJavascript(nText);
-				break;
-			case 'html':
-				updateHTML(nText);
-				break;
-			case 'css':
-				updateCSS(nText);
-				break;
-			default:
-			//do nothing
-		}
-		setText(nText);
-	};
+	// const onChange = (nText: string) => {
+	// 	switch (language) {
+	// 		case 'javascript':
+	// 			updateJavascript(nText);
+	// 			break;
+	// 		case 'html':
+	// 			updateHTML(nText);
+	// 			break;
+	// 		case 'css':
+	// 			updateCSS(nText);
+	// 			break;
+	// 		default:
+	// 		//do nothing
+	// 	}
+	// 	setText(nText);
+	// };
 
 	return (
 		<AceEditor
+			value={value}
 			mode={language}
 			theme='one_dark'
-			onChange={onChange}
-			name='UNIQUE_ID_OF_DIV'
-			editorProps={{ $blockScrolling: true }}
-			value={text}
+			onChange={handleValueChange}
 			showPrintMargin={false}
 			wrapEnabled
 			enableLiveAutocompletion

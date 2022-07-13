@@ -8,6 +8,7 @@ import Panel from './components/panel';
 import PanelEditor from './components/panel-editor';
 import Preview from './components/preview';
 import Resizable from './components/resizable';
+import { useActions } from './hooks/use-actions';
 import { useTypedSelector } from './hooks/use-typed-selector';
 
 import './index.css';
@@ -19,7 +20,18 @@ const App = () => {
 	const [htmlValue, setHtmlValue] = React.useState('');
 	const [cssValue, setCssValue] = React.useState('');
 
-	const { bundle, _html } = useTypedSelector(({ bundle, _html}) => ({ bundle, _html }));
+	const { updateCSS, updateHTML, updateJavascript } = useActions();
+
+	const dispatchGlobalAction_ = () => {
+		updateHTML(htmlValue);
+		updateCSS(cssValue);
+		updateJavascript(jsValue);
+	};
+
+	const { bundle, _html } = useTypedSelector(({ bundle, _html }) => ({
+		bundle,
+		_html,
+	}));
 
 	return (
 		<div style={{ display: 'flex' }}>
@@ -46,6 +58,7 @@ const App = () => {
 									value={jsValue}
 									setValue={setJsValue}
 									language='javascript'
+									dispatchGlobalAction={dispatchGlobalAction_}
 								/>
 							</Panel>
 						</div>
@@ -79,7 +92,7 @@ const App = () => {
 										height: '100%',
 										border: '0.1px solid #39464e',
 									}}>
-									<Preview code={bundle} html_ext={_html} />
+									<Preview code={bundle} htmlExt={_html} />
 									<Console />
 								</div>
 							</Panel>
@@ -93,7 +106,9 @@ const App = () => {
 
 render(
 	<Provider store={store}>
-		<App />
+		<React.StrictMode>
+			<App />
+		</React.StrictMode>
 	</Provider>,
 	document.querySelector('#root')
 );

@@ -5,7 +5,19 @@ import { useActions } from '../hooks/use-actions';
 import { reducer } from '../redux/reducer';
 import Editor from './editor';
 
-const PanelEditor = ({ value, setValue, language }) => {
+interface IProps {
+	value: string;
+	setValue: (v: string, e: Event) => void;
+	language: string;
+	dispatchGlobalAction?: Function;
+}
+
+const PanelEditor: React.FC<IProps> = ({
+	value,
+	setValue,
+	language,
+	dispatchGlobalAction,
+}) => {
 	let display_lang: string;
 	const testJs = language === 'javascript';
 
@@ -30,6 +42,7 @@ const PanelEditor = ({ value, setValue, language }) => {
 
 	const runProcess = () => {
 		startBundle(store.getState());
+		dispatchGlobalAction();
 	};
 
 	React.useLayoutEffect(() => {

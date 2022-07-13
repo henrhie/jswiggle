@@ -1,11 +1,12 @@
 import * as React from 'react';
 
-
-
 // eslint-disable-next-line @typescript-eslint/naming-convention
-const Preview: React.FC<{ code: string, html_ext: string }> = ({ code, html_ext }) => {
-
-  const html = (ext: string) =>`
+const Preview: React.FC<{ code: string; htmlExt: string }> = ({
+	code,
+	htmlExt,
+}) => {
+	console.log('preview called %%%%%%%%%%%: ', htmlExt);
+	const html = (ext: string) => `
     <html>
     <head>
       <style>html { background-color: white }</style>
@@ -36,23 +37,24 @@ const Preview: React.FC<{ code: string, html_ext: string }> = ({ code, html_ext 
   `;
 	const iframeRef = React.useRef<any>();
 
-
-  React.useEffect(() => {
-    if (!iframeRef) {
+	React.useEffect(() => {
+		if (!iframeRef) {
 			return;
 		}
+		console.log('code:::: ', code);
 		iframeRef.current.contentWindow.postMessage(code, '*');
-  }, [code]);
+	}, [code]);
 
 	React.useEffect(() => {
-		iframeRef.current.srcdoc = html(html_ext);
-	}, [code]);
+		console.log('use effect called 000000000000000000: ', htmlExt);
+		iframeRef.current.srcdoc = html(htmlExt);
+	}, [htmlExt]);
 
 	return (
 		<div className='preview-wrapper'>
-			<iframe ref={iframeRef} sandbox='allow-scripts' srcDoc={html(html_ext)} />
+			<iframe ref={iframeRef} sandbox='allow-scripts' srcDoc={html(htmlExt)} />
 		</div>
 	);
 };
 
-export default Preview;
+export default React.memo(Preview);
