@@ -2,7 +2,6 @@
 import * as React from 'react';
 import { useStore } from 'react-redux';
 import { useActions } from '../hooks/use-actions';
-import { useTypedSelector } from '../hooks/use-typed-selector';
 import { reducer } from '../redux/reducer';
 import Editor from './editor';
 
@@ -13,8 +12,7 @@ const PanelEditor = ({ value, setValue, language }) => {
 	const { startBundle } = useActions();
 	const store = useStore<ReturnType<typeof reducer>>();
 
-	const bundle = useTypedSelector((state) => state.bundle);
-	console.log('bundle: ', bundle);
+	// console.log('bundle: ', bundle);
 
 	switch (language) {
 		case 'html':
@@ -32,8 +30,6 @@ const PanelEditor = ({ value, setValue, language }) => {
 
 	const runProcess = () => {
 		startBundle(store.getState());
-		console.log('state: ', store.getState());
-		console.log('store: ', store.getState());
 	};
 
 	React.useLayoutEffect(() => {
@@ -64,7 +60,6 @@ const PanelEditor = ({ value, setValue, language }) => {
 			<div
 				style={{
 					height: '100%',
-					// padding: '0.5rem 0.7rem',
 					backgroundColor: '#272c35',
 					display: 'flex',
 					flexDirection: 'column',

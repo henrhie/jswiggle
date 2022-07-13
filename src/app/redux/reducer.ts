@@ -10,7 +10,7 @@ export interface IState {
 	bundle: string;
 }
 
-const initState: Partial<IState> = {};
+const initState: Partial<IState> = {_html: '', _css: '', _js: '', bundle: ''};
 
 export const reducer = (state = initState, action: Action) => {
 	switch (action.type) {

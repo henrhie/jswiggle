@@ -1,6 +1,4 @@
 import * as esbuild from 'esbuild';
-import { URL } from 'url';
-
 type PluginFactoryType = () => esbuild.Plugin;
 
 export const resolverPlugin: PluginFactoryType = () => {
@@ -23,7 +21,7 @@ export const resolverPlugin: PluginFactoryType = () => {
 						console.log('https:::::////', args.path);
 						return {
 							namespace: 'unpkg',
-							path: new URL(args.path, args.importer + '/').toString(),
+							path: new URL(args.path, "https://unpkg.com" + args.resolveDir + "/").href
 						};
 					}
 				}

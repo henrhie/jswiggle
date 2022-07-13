@@ -1,12 +1,18 @@
 import * as React from 'react';
 
-const html = `
+
+
+// eslint-disable-next-line @typescript-eslint/naming-convention
+const Preview: React.FC<{ code: string, html_ext: string }> = ({ code, html_ext }) => {
+
+  const html = (ext: string) =>`
     <html>
     <head>
       <style>html { background-color: white }</style>
     </head>
     <body>
     <div id="root"></div>
+    ${ext}
     <script>
     const handleError = (err) => {
       const root = document.querySelector('#root');
@@ -28,25 +34,23 @@ const html = `
     </body>
     </html>
   `;
-
-// eslint-disable-next-line @typescript-eslint/naming-convention
-const Preview: React.FC<{ code: string }> = ({ code }) => {
 	const iframeRef = React.useRef<any>();
 
-	const postForEval = () => {
-		if (!iframeRef) {
+
+  React.useEffect(() => {
+    if (!iframeRef) {
 			return;
 		}
 		iframeRef.current.contentWindow.postMessage(code, '*');
-	};
+  }, [code]);
 
 	React.useEffect(() => {
-		iframeRef.current.srcdoc = html;
-	});
+		iframeRef.current.srcdoc = html(html_ext);
+	}, [code]);
 
 	return (
 		<div className='preview-wrapper'>
-			<iframe ref={iframeRef} sandbox='allow-scripts' srcDoc={html} />
+			<iframe ref={iframeRef} sandbox='allow-scripts' srcDoc={html(html_ext)} />
 		</div>
 	);
 };

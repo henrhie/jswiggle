@@ -1,16 +1,21 @@
 import * as esbuild from 'esbuild';
+import * as localForage from 'localforage';
 import axios from 'axios';
-import { cache } from '../cache';
+
+const fileCache = localForage.createInstance({
+	name: 'cache'
+});
 
 type MapModuleNametoModule = { [key: string]: string };
-type PluginFactoryType = (cells: MapModuleNametoModule) => esbuild.Plugin;
+type PluginFactoryType = (
+	cells: MapModuleNametoModule
+) => esbuild.Plugin;
 
 export const loaderPlugin: PluginFactoryType = (store) => {
 	return {
 		name: 'loader-plugin',
 		setup(build: esbuild.PluginBuild) {
 			build.onLoad({ filter: /^index\.js$/ }, () => {
-				console.log('index.js: ', store._js);
 				return {
 					loader: 'jsx',
 					contents: store._js,
@@ -18,17 +23,11 @@ export const loaderPlugin: PluginFactoryType = (store) => {
 			});
 
 			build.onLoad({ filter: /.*/, namespace: 'unpkg' }, async (args) => {
-				const paths = new URL(args.path).pathname.split('/');
-				const filename = new URL(args.path).pathname.split('/')[
-					paths.length - 1
-				];
-				const cacheData = cache.getModuleData(filename);
+				const cacheData = await fileCache.getItem<esbuild.OnLoadResult>(args.path);
 
 				if (cacheData) {
-					return {
-						contents: cacheData,
-						loader: 'jsx',
-					};
+					console.log('cache data: ', cacheData);
+					return cacheData;
 				}
 			});
 
@@ -36,13 +35,13 @@ export const loaderPlugin: PluginFactoryType = (store) => {
 				{ filter: /^https?:\/\//, namespace: 'unpkg' },
 				async (args) => {
 					const { data, request } = await axios.get<string>(args.path);
-					console.log('looooooadL :', request);
-					cache.setModuleData(data, request.path);
-					console.log('after cache called');
+					
 					const chunk: esbuild.OnLoadResult = {
 						loader: 'jsx',
 						contents: data,
+						resolveDir: new URL('./', request.responseURL).pathname
 					};
+					await fileCache.setItem(args.path, chunk);
 					return chunk;
 				}
 			);
@@ -50,11 +49,11 @@ export const loaderPlugin: PluginFactoryType = (store) => {
 			// build.onEnd((result: esbuild.BuildResult) => {
 			// 	const css_ = store._css;
 			// 	const escaped = css_
-			// 		.replace(/\n/g, '')
-			// 		.replace(/"/g, '\\"')
-			// 		.replace(/'/g, "\\'");
+			// 			.replace(/\n/g, '')
+			// 			.replace(/"/g, '\\"')
+			// 			.replace(/'/g, "\\'");
 
-			// 	const contents = `
+			// 		const contents = `
 			//     const style = document.createElement("style");
 			//     style.innerText = "${escaped}";
 			//     document.head.appendChild(style);
@@ -62,23 +61,14 @@ export const loaderPlugin: PluginFactoryType = (store) => {
 			// 	result.outputFiles[0].text += contents;
 			// });
 
+
 			build.onLoad(
 				{ filter: /.css$/, namespace: 'unpkg-css' },
 				async (args: esbuild.OnLoadArgs) => {
-					const paths = new URL(args.path).pathname.split('/');
-					const filename = new URL(args.path).pathname.split('/')[
-						paths.length - 1
-					];
-					const cacheData = cache.getModuleData(filename.replace(/.css$/, ''));
 
-					if (cacheData) {
-						return {
-							contents: cacheData,
-							loader: 'jsx',
-						};
-					}
 					const { data, request } = await axios.get<string>(
-						args.path.replace(/.css$/, '')
+						// args.path.replace(/.css$/, '')
+						args.path
 					);
 
 					const escaped = data
@@ -95,9 +85,10 @@ export const loaderPlugin: PluginFactoryType = (store) => {
 					const result: esbuild.OnLoadResult = {
 						loader: 'jsx',
 						contents,
+						resolveDir: new URL('./', request.responseURL).pathname
 					};
 
-					cache.setModuleData(contents, request.path);
+					await fileCache.setItem(args.path, result);
 					return result;
 				}
 			);

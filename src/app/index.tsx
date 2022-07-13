@@ -8,6 +8,7 @@ import Panel from './components/panel';
 import PanelEditor from './components/panel-editor';
 import Preview from './components/preview';
 import Resizable from './components/resizable';
+import { useTypedSelector } from './hooks/use-typed-selector';
 
 import './index.css';
 import { store } from './redux/store';
@@ -17,6 +18,8 @@ const App = () => {
 	const [jsValue, setJsValue] = React.useState('');
 	const [htmlValue, setHtmlValue] = React.useState('');
 	const [cssValue, setCssValue] = React.useState('');
+
+	const { bundle, _html } = useTypedSelector(({ bundle, _html}) => ({ bundle, _html }));
 
 	return (
 		<div style={{ display: 'flex' }}>
@@ -76,7 +79,7 @@ const App = () => {
 										height: '100%',
 										border: '0.1px solid #39464e',
 									}}>
-									<Preview code='' />
+									<Preview code={bundle} html_ext={_html} />
 									<Console />
 								</div>
 							</Panel>
