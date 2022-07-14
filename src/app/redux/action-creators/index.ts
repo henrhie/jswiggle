@@ -31,7 +31,7 @@ export const startBundle = (store: ReturnType<typeof reducer>) => {
 			type: ActionType.BUNDLE_START,
 		});
 
-		console.log('store in action creator: ', store);
+		// console.log('store in action creator: ', store);
 
 		const buildOutput = await bundleCode(store);
 		const outputText =

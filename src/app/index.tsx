@@ -21,17 +21,16 @@ const App = () => {
 	const [cssValue, setCssValue] = React.useState('');
 
 	const { updateCSS, updateHTML, updateJavascript } = useActions();
+	const { bundle, _html } = useTypedSelector(({ bundle, _html }) => ({
+		bundle,
+		_html,
+	}));
 
 	const dispatchGlobalAction_ = () => {
 		updateHTML(htmlValue);
 		updateCSS(cssValue);
 		updateJavascript(jsValue);
 	};
-
-	const { bundle, _html } = useTypedSelector(({ bundle, _html }) => ({
-		bundle,
-		_html,
-	}));
 
 	return (
 		<div style={{ display: 'flex' }}>
@@ -42,7 +41,8 @@ const App = () => {
 							display: 'flex',
 							flexDirection: 'column',
 							height: '100%',
-						}}>
+						}}
+					>
 						<Resizable direction='vertical'>
 							<Panel height='calc(100% - 3px)' color='purple'>
 								<PanelEditor
@@ -73,7 +73,8 @@ const App = () => {
 							display: 'flex',
 							flexDirection: 'column',
 							height: '100%',
-						}}>
+						}}
+					>
 						<Resizable direction='vertical'>
 							<Panel height='calc(100% - 3px)'>
 								<PanelEditor
@@ -91,7 +92,8 @@ const App = () => {
 										flexDirection: 'column',
 										height: '100%',
 										border: '0.1px solid #39464e',
-									}}>
+									}}
+								>
 									<Preview code={bundle} htmlExt={_html} />
 									<Console />
 								</div>

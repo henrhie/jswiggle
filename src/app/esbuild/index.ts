@@ -24,7 +24,8 @@ export const bundleCode = async (store: IStore) => {
 			'process.env.NODE_ENV': '"production"',
 			global: 'window',
 		},
-		incremental: false,
+		jsxFactory: 'React.createElement',
+		jsxFragment: 'React.Fragment',
 	});
 
 	return buildResult;

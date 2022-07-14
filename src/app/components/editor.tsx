@@ -10,7 +10,7 @@ import 'ace-builds/src-noconflict/mode-css';
 import 'ace-builds/src-noconflict/mode-html';
 import 'ace-builds/src-noconflict/theme-one_dark';
 import 'ace-builds/src-noconflict/ext-language_tools';
-import { useActions } from '../hooks/use-actions';
+// import { useActions } from '../hooks/use-actions';
 
 // import 'codemirror/lib/codemirror.css';
 // import 'codemirror/theme/material.css';
@@ -59,7 +59,7 @@ const Editor: React.FC<EditorProps> = ({
 			onChange={handleValueChange}
 			showPrintMargin={false}
 			wrapEnabled
-			enableLiveAutocompletion
+			// enableLiveAutocompletion
 			enableSnippets
 			enableBasicAutocompletion
 			tabSize={2}

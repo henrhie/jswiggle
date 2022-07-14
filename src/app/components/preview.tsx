@@ -26,7 +26,9 @@ const Preview: React.FC<{ code: string; htmlExt: string }> = ({
     });
     window.addEventListener('message', (event) => {
       try {
-      eval(event.data);
+      const toEval = event.data
+      eval(toEval);
+      console.log('message in ======>')
       } catch (err) {
         handleError(err);
       }
@@ -38,12 +40,12 @@ const Preview: React.FC<{ code: string; htmlExt: string }> = ({
 	const iframeRef = React.useRef<any>();
 
 	React.useEffect(() => {
+		console.log('html: ', htmlExt);
 		if (!iframeRef) {
 			return;
 		}
-		console.log('code:::: ', code);
 		iframeRef.current.contentWindow.postMessage(code, '*');
-	}, [code]);
+	}, [code, htmlExt]);
 
 	React.useEffect(() => {
 		console.log('use effect called 000000000000000000: ', htmlExt);
