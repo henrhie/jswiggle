@@ -23,7 +23,20 @@ export interface BundleCompleteAction {
 	type: ActionType.BUNDLE_COMPLETE;
 	payload: {
 		code: string;
-	}
+	};
+}
+
+export interface ConsoleLogs {
+	type: ActionType.CONSOLE_LOGS;
+	payload: [];
+}
+
+export interface ClearLogs {
+	type: ActionType.CLEAR_LOGS;
+}
+
+export interface ClearBundle {
+	type: ActionType.CLEAR_BUNDLE;
 }
 
 export type Action =
@@ -31,4 +44,7 @@ export type Action =
 	| UpdateHTMLAction
 	| UpdateJavascriptAction
 	| BundleCompleteAction
+	| ConsoleLogs
+	| ClearLogs
+	| ClearBundle
 	| BundleStartAction;

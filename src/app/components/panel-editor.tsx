@@ -69,8 +69,7 @@ const PanelEditor: React.FC<IProps> = ({
 			style={{
 				height: '100%',
 				backgroundColor: '#272c35',
-			}}
-		>
+			}}>
 			<div
 				style={{
 					height: '100%',
@@ -78,25 +77,22 @@ const PanelEditor: React.FC<IProps> = ({
 					display: 'flex',
 					flexDirection: 'column',
 					alignItems: 'stretch',
-				}}
-			>
+				}}>
 				<div
 					style={{
 						padding: '5px',
 						backgroundColor: '#272c35',
 						margin: '8px 6px',
 						display: 'flex',
-					}}
-				>
+					}}>
 					<p
 						style={{
 							margin: '0',
 							marginBottom: '0px',
 							marginLeft: '4px',
 							color: '#fff',
-							fontFamily: 'hack-regular',
-						}}
-					>
+							fontFamily: 'sf-mono-regular',
+						}}>
 						{display_lang}
 					</p>
 					{testJs && (
@@ -104,8 +100,7 @@ const PanelEditor: React.FC<IProps> = ({
 							<p
 								className='run-action'
 								onClick={() => runProcess()}
-								style={{ color: 'white', margin: 0 }}
-							>
+								style={{ color: 'white', margin: 0 }}>
 								Run
 							</p>
 						</div>

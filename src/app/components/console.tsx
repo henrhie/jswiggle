@@ -1,5 +1,31 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import * as React from 'react';
+import { useActions } from '../hooks/use-actions';
+import { useTypedSelector } from '../hooks/use-typed-selector';
+
+const _ConsoleOutputCell_ = ({ logs }) => {
+	return logs.map((log: any, i: number) => {
+		const isLoadingIndicator = log === 'Running fiddle';
+		const isObject = typeof log === 'object';
+		const isString = typeof log === 'string';
+		log = isObject ? JSON.stringify(log) : log;
+
+		log = isString ? `"${log}"` : log;
+		return (
+			<li
+				key={`${i}${log}`}
+				style={{
+					width: '100%',
+					color: isLoadingIndicator ? '#1363DF' : '#fff',
+					fontSize: '11px',
+				}}>
+				<span>{log}</span>
+			</li>
+		);
+	});
+};
+
+const ConsoleOutputCell = React.memo(_ConsoleOutputCell_);
 
 const ConsoleIcon = () => {
 	return (
@@ -19,9 +45,18 @@ const ConsoleIcon = () => {
 const Console: React.FC = () => {
 	const [minimize, setMinimize] = React.useState(false);
 
+	const logs = useTypedSelector((state) => state.logs);
+	const { clearConsole } = useActions();
+
+	React.useLayoutEffect(() => {
+		const consoleBody = document.querySelector('#outer-console');
+		consoleBody.scrollTop = consoleBody.scrollHeight - consoleBody.clientHeight;
+	});
+
 	return (
 		<div
 			className={minimize ? 'minimize-console' : 'console'}
+			id='outer-console'
 			onClick={() => {
 				if (!minimize) {
 					return;
@@ -34,6 +69,10 @@ const Console: React.FC = () => {
 					width: 'calc(100%-2px)',
 					backgroundColor: '#272c35',
 					display: 'flex',
+					position: 'sticky',
+					borderBottom: '1px solid #39464e',
+					top: 0,
+					left: 0,
 				}}>
 				<div
 					style={{
@@ -49,30 +88,51 @@ const Console: React.FC = () => {
 				{!minimize && (
 					<div
 						className='console-actions'
-						style={{ marginLeft: 'auto', marginRight: '8px', display: 'flex' }}>
-						<p style={{ marginRight: '6px' }}>Clear Console</p>
+						style={{
+							marginLeft: 'auto',
+							marginRight: '8px',
+							display: 'flex',
+						}}>
+						<p style={{ marginRight: '6px' }} onClick={() => clearConsole()}>
+							Clear Console
+						</p>
 						<p onClick={() => setMinimize(!minimize)}>Minimize</p>
 					</div>
 				)}
 			</div>
 			{!minimize && (
-				<div
-					style={{
-						height: '32px',
-						width: '100%',
-						display: 'flex',
-						justifyContent: 'center',
-						alignItems: 'center',
-						backgroundColor: '#141619',
-					}}>
-					<input
-						style={{ height: '67%', width: '95%' }}
-						className='console-input'
-						placeholder='>_'
-						autoFocus={true}
-						// onBlur={({ target }) => target.focus()}
-					/>
-				</div>
+				<>
+					<ul
+						style={{
+							width: '100%',
+							display: 'flex',
+							flexDirection: 'column',
+							overflow: 'auto',
+							padding: 0,
+							// height: 'calc(100% - 32px)',
+						}}>
+						<ConsoleOutputCell logs={logs} />
+					</ul>
+					<div
+						style={{
+							height: '32px',
+							width: '100%',
+							display: 'flex',
+							justifyContent: 'center',
+							alignItems: 'center',
+							backgroundColor: '#141619',
+							position: 'sticky',
+							bottom: 0,
+							left: 0,
+						}}>
+						<input
+							style={{ height: '67%', width: '95%' }}
+							className='console-input'
+							placeholder='>_'
+							autoFocus={true}
+						/>
+					</div>
+				</>
 			)}
 		</div>
 	);

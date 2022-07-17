@@ -1,3 +1,4 @@
+import { count } from 'console';
 import * as React from 'react';
 import { render } from 'react-dom';
 // import Editor from './components/editor';
@@ -19,9 +20,10 @@ const App = () => {
 	const [jsValue, setJsValue] = React.useState('');
 	const [htmlValue, setHtmlValue] = React.useState('');
 	const [cssValue, setCssValue] = React.useState('');
+	const counter = React.useRef(0);
 
 	const { updateCSS, updateHTML, updateJavascript } = useActions();
-	const { bundle, _html } = useTypedSelector(({ bundle, _html }) => ({
+	let { bundle, _html } = useTypedSelector(({ bundle, _html }) => ({
 		bundle,
 		_html,
 	}));
@@ -30,6 +32,7 @@ const App = () => {
 		updateHTML(htmlValue);
 		updateCSS(cssValue);
 		updateJavascript(jsValue);
+		counter.current += 1;
 	};
 
 	return (
@@ -41,8 +44,7 @@ const App = () => {
 							display: 'flex',
 							flexDirection: 'column',
 							height: '100%',
-						}}
-					>
+						}}>
 						<Resizable direction='vertical'>
 							<Panel height='calc(100% - 3px)' color='purple'>
 								<PanelEditor
@@ -73,8 +75,7 @@ const App = () => {
 							display: 'flex',
 							flexDirection: 'column',
 							height: '100%',
-						}}
-					>
+						}}>
 						<Resizable direction='vertical'>
 							<Panel height='calc(100% - 3px)'>
 								<PanelEditor
@@ -84,7 +85,13 @@ const App = () => {
 								/>
 							</Panel>
 						</Resizable>
-						<div style={{ flexGrow: 1, padding: '4px 0', paddingBottom: '0' }}>
+						<div
+							style={{
+								flexGrow: 1,
+								padding: '4px 0',
+								paddingBottom: '0',
+								overflow: 'hidden',
+							}}>
 							<Panel height='100%'>
 								<div
 									style={{
@@ -92,8 +99,7 @@ const App = () => {
 										flexDirection: 'column',
 										height: '100%',
 										border: '0.1px solid #39464e',
-									}}
-								>
+									}}>
 									<Preview code={bundle} htmlExt={_html} />
 									<Console />
 								</div>
@@ -108,9 +114,7 @@ const App = () => {
 
 render(
 	<Provider store={store}>
-		<React.StrictMode>
-			<App />
-		</React.StrictMode>
+		<App />
 	</Provider>,
 	document.querySelector('#root')
 );

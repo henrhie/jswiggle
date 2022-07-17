@@ -1,14 +1,19 @@
 import * as React from 'react';
+import { useActions } from '../hooks/use-actions';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const Preview: React.FC<{ code: string; htmlExt: string }> = ({
 	code,
 	htmlExt,
 }) => {
-	console.log('preview called %%%%%%%%%%%: ', htmlExt);
+	console.log('code in preview: ', code);
+	console.log('html: ', htmlExt);
+	const { updateConsoleLogs } = useActions();
 	const html = (ext: string) => `
     <html>
     <head>
+			<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+			<meta name="viewport" content="width=device-width, initial-scale=1">
       <style>html { background-color: white }</style>
     </head>
     <body>
@@ -24,11 +29,20 @@ const Preview: React.FC<{ code: string; htmlExt: string }> = ({
       e.preventDefault();
       handleError(e.error);
     });
+
+    console.stdlog = console.log.bind(console);
+	  console.logs = [];
+	  console.log = function () {
+		  console.logs.push(Array.from(arguments));
+		  console.stdlog.apply(console, arguments);
+	  };
+
     window.addEventListener('message', (event) => {
       try {
-      const toEval = event.data
-      eval(toEval);
-      console.log('message in ======>')
+        eval(event.data)
+        console.logs = JSON.parse(JSON.stringify(console.logs));
+        window.parent.postMessage(console.logs, '*')
+				console.logs.length = 0
       } catch (err) {
         handleError(err);
       }
@@ -40,17 +54,27 @@ const Preview: React.FC<{ code: string; htmlExt: string }> = ({
 	const iframeRef = React.useRef<any>();
 
 	React.useEffect(() => {
-		console.log('html: ', htmlExt);
+		const logListener = (e: any) => {
+			console.log('event: ', e.data);
+			if (e.data.length > 0) {
+				updateConsoleLogs(e.data);
+			}
+		};
+		window.addEventListener('message', logListener);
+		return () => {
+			window.removeEventListener('message', logListener);
+		};
+	});
+
+	React.useEffect(() => {
 		if (!iframeRef) {
 			return;
 		}
-		iframeRef.current.contentWindow.postMessage(code, '*');
-	}, [code, htmlExt]);
-
-	React.useEffect(() => {
-		console.log('use effect called 000000000000000000: ', htmlExt);
 		iframeRef.current.srcdoc = html(htmlExt);
-	}, [htmlExt]);
+		setTimeout(() => {
+			iframeRef.current.contentWindow.postMessage(code, '*');
+		}, 50);
+	}, [code, htmlExt]);
 
 	return (
 		<div className='preview-wrapper'>

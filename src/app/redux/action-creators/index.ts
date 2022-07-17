@@ -31,8 +31,6 @@ export const startBundle = (store: ReturnType<typeof reducer>) => {
 			type: ActionType.BUNDLE_START,
 		});
 
-		// console.log('store in action creator: ', store);
-
 		const buildOutput = await bundleCode(store);
 		const outputText =
 			buildOutput.outputFiles && buildOutput.outputFiles[0].text;
@@ -43,5 +41,25 @@ export const startBundle = (store: ReturnType<typeof reducer>) => {
 				code: outputText,
 			},
 		});
+	};
+};
+
+export const clearBundle = () => {
+	return {
+		type: ActionType.CLEAR_BUNDLE,
+	};
+};
+
+export const updateConsoleLogs = (logs: []) => {
+	console.log('logs in action creator: ', logs);
+	return {
+		type: ActionType.CONSOLE_LOGS,
+		payload: logs,
+	};
+};
+
+export const clearConsole = () => {
+	return {
+		type: ActionType.CLEAR_LOGS,
 	};
 };
