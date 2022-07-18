@@ -21,6 +21,7 @@ const App = () => {
 	const [htmlValue, setHtmlValue] = React.useState('');
 	const [cssValue, setCssValue] = React.useState('');
 	const counter = React.useRef(0);
+	const previewRef = React.useRef(null);
 
 	const { updateCSS, updateHTML, updateJavascript } = useActions();
 	let { bundle, _html } = useTypedSelector(({ bundle, _html }) => ({
@@ -100,8 +101,8 @@ const App = () => {
 										height: '100%',
 										border: '0.1px solid #39464e',
 									}}>
-									<Preview code={bundle} htmlExt={_html} />
-									<Console />
+									<Preview code={bundle} htmlExt={_html} ref={previewRef} />
+									<Console previewRef={previewRef} />
 								</div>
 							</Panel>
 						</div>

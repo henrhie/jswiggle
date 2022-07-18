@@ -27,7 +27,7 @@ const _ConsoleOutputCell_ = ({ logs }) => {
 
 const ConsoleOutputCell = React.memo(_ConsoleOutputCell_);
 
-const ConsoleIcon = () => {
+const ConsoleIcon: React.FC = () => {
 	return (
 		<svg height='16' version='1.1' viewBox='0 0 24 24' stroke='#4b4d51'>
 			<g
@@ -42,11 +42,21 @@ const ConsoleIcon = () => {
 	);
 };
 
-const Console: React.FC = () => {
+const Console = ({ previewRef }) => {
 	const [minimize, setMinimize] = React.useState(false);
+	const [inputState, setInputState] = React.useState('');
 
 	const logs = useTypedSelector((state) => state.logs);
 	const { clearConsole } = useActions();
+
+	console.log('preview ref: ', previewRef);
+
+	const handleEnterKeyPress = (e: React.KeyboardEvent) => {
+		if (e.key === 'Enter') {
+			console.log('enter key pressed');
+			setInputState('');
+		}
+	};
 
 	React.useLayoutEffect(() => {
 		const consoleBody = document.querySelector('#outer-console');
@@ -130,6 +140,9 @@ const Console: React.FC = () => {
 							className='console-input'
 							placeholder='>_'
 							autoFocus={true}
+							onKeyDown={handleEnterKeyPress}
+							value={inputState}
+							onChange={(e) => setInputState(e.target.value)}
 						/>
 					</div>
 				</>

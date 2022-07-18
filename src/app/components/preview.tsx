@@ -2,14 +2,12 @@ import * as React from 'react';
 import { useActions } from '../hooks/use-actions';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
-const Preview: React.FC<{ code: string; htmlExt: string }> = ({
-	code,
-	htmlExt,
-}) => {
-	console.log('code in preview: ', code);
-	console.log('html: ', htmlExt);
-	const { updateConsoleLogs } = useActions();
-	const html = (ext: string) => `
+const Preview: React.FC<{ code: string; htmlExt: string; ref: any }> =
+	React.forwardRef(({ code, htmlExt, ref }) => {
+		console.log('code in preview: ', code);
+		console.log('html: ', htmlExt);
+		const { updateConsoleLogs } = useActions();
+		const html = (ext: string) => `
     <html>
     <head>
 			<meta http-equiv="content-type" content="text/html; charset=UTF-8">
@@ -51,36 +49,41 @@ const Preview: React.FC<{ code: string; htmlExt: string }> = ({
     </body>
     </html>
   `;
-	const iframeRef = React.useRef<any>();
+		const iframeRef = React.useRef<any>();
+		ref = iframeRef;
 
-	React.useEffect(() => {
-		const logListener = (e: any) => {
-			console.log('event: ', e.data);
-			if (e.data.length > 0) {
-				updateConsoleLogs(e.data);
+		React.useEffect(() => {
+			const logListener = (e: any) => {
+				console.log('event: ', e.data);
+				if (e.data.length > 0) {
+					updateConsoleLogs(e.data);
+				}
+			};
+			window.addEventListener('message', logListener);
+			return () => {
+				window.removeEventListener('message', logListener);
+			};
+		});
+
+		React.useEffect(() => {
+			if (!iframeRef) {
+				return;
 			}
-		};
-		window.addEventListener('message', logListener);
-		return () => {
-			window.removeEventListener('message', logListener);
-		};
+			iframeRef.current.srcdoc = html(htmlExt);
+			setTimeout(() => {
+				iframeRef.current.contentWindow.postMessage(code, '*');
+			}, 50);
+		}, [code, htmlExt]);
+
+		return (
+			<div className='preview-wrapper'>
+				<iframe
+					ref={iframeRef}
+					sandbox='allow-scripts'
+					srcDoc={html(htmlExt)}
+				/>
+			</div>
+		);
 	});
-
-	React.useEffect(() => {
-		if (!iframeRef) {
-			return;
-		}
-		iframeRef.current.srcdoc = html(htmlExt);
-		setTimeout(() => {
-			iframeRef.current.contentWindow.postMessage(code, '*');
-		}, 50);
-	}, [code, htmlExt]);
-
-	return (
-		<div className='preview-wrapper'>
-			<iframe ref={iframeRef} sandbox='allow-scripts' srcDoc={html(htmlExt)} />
-		</div>
-	);
-};
 
 export default React.memo(Preview);
