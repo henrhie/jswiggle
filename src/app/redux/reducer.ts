@@ -68,7 +68,12 @@ export const reducer = (state = initState, action: Action) => {
 			return {
 				...state,
 				consoleInput: state.consoleInput + ';' + action.payload,
-				logs: [...state.logs, action.payload, 'Running fiddle'],
+				logs: [
+					...state.logs,
+					// { payload: action.payload, type: 'console_input' },
+					action.payload,
+					'Running fiddle',
+				],
 			};
 		}
 		case ActionType.CLEAR_LOGS:
