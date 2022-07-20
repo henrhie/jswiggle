@@ -47,13 +47,14 @@ const Console = ({ previewRef }) => {
 	const [inputState, setInputState] = React.useState('');
 
 	const logs = useTypedSelector((state) => state.logs);
-	const { clearConsole } = useActions();
+	const { clearConsole, runConsoleInput } = useActions();
 
 	console.log('preview ref: ', previewRef);
 
 	const handleEnterKeyPress = (e: React.KeyboardEvent) => {
 		if (e.key === 'Enter') {
 			console.log('enter key pressed');
+			runConsoleInput(inputState);
 			setInputState('');
 		}
 	};

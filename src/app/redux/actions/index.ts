@@ -39,6 +39,11 @@ export interface ClearBundle {
 	type: ActionType.CLEAR_BUNDLE;
 }
 
+export interface RunConsoleInput {
+	type: ActionType.RUN_CONSOLE_INPUT;
+	payload: string;
+}
+
 export type Action =
 	| UpdateCSSAction
 	| UpdateHTMLAction
@@ -47,4 +52,5 @@ export type Action =
 	| ConsoleLogs
 	| ClearLogs
 	| ClearBundle
+	| RunConsoleInput
 	| BundleStartAction;

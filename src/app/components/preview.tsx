@@ -1,13 +1,8 @@
 import * as React from 'react';
 import { useActions } from '../hooks/use-actions';
+import { useTypedSelector } from '../hooks/use-typed-selector';
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
-const Preview: React.FC<{ code: string; htmlExt: string; ref: any }> =
-	React.forwardRef(({ code, htmlExt, ref }) => {
-		console.log('code in preview: ', code);
-		console.log('html: ', htmlExt);
-		const { updateConsoleLogs } = useActions();
-		const html = (ext: string) => `
+const html = (ext: string) => `
     <html>
     <head>
 			<meta http-equiv="content-type" content="text/html; charset=UTF-8">
@@ -49,6 +44,16 @@ const Preview: React.FC<{ code: string; htmlExt: string; ref: any }> =
     </body>
     </html>
   `;
+
+// eslint-disable-next-line @typescript-eslint/naming-convention
+const Preview: React.FC<{ code: string; htmlExt: string; ref: any }> =
+	React.forwardRef(({ code, htmlExt, ref }) => {
+		const { updateConsoleLogs } = useActions();
+
+		const consoleInput = useTypedSelector(({ consoleInput }) => {
+			return consoleInput;
+		});
+
 		const iframeRef = React.useRef<any>();
 		ref = iframeRef;
 
@@ -64,6 +69,16 @@ const Preview: React.FC<{ code: string; htmlExt: string; ref: any }> =
 				window.removeEventListener('message', logListener);
 			};
 		});
+
+		React.useEffect(() => {
+			if (!iframeRef) {
+				return;
+			}
+			setTimeout(() => {
+				iframeRef.current.contentWindow.postMessage(consoleInput, '*');
+				console.log('input console:::: ', consoleInput);
+			}, 50);
+		}, [consoleInput]);
 
 		React.useEffect(() => {
 			if (!iframeRef) {

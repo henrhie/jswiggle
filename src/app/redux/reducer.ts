@@ -9,6 +9,7 @@ export interface IState {
 	error: string;
 	bundle: string;
 	logs: any[];
+	consoleInput: string;
 }
 
 const initState: Partial<IState> = {
@@ -17,6 +18,7 @@ const initState: Partial<IState> = {
 	_js: '',
 	bundle: '',
 	logs: [],
+	consoleInput: '',
 };
 
 export const reducer = (state = initState, action: Action) => {
@@ -62,6 +64,13 @@ export const reducer = (state = initState, action: Action) => {
 				...state,
 				logs: [...state.logs, ...sanitized],
 			};
+		case ActionType.RUN_CONSOLE_INPUT: {
+			return {
+				...state,
+				consoleInput: state.consoleInput + ';' + action.payload,
+				logs: [...state.logs, action.payload, 'Running fiddle'],
+			};
+		}
 		case ActionType.CLEAR_LOGS:
 			return {
 				...state,

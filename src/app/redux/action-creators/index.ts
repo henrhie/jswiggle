@@ -63,3 +63,10 @@ export const clearConsole = () => {
 		type: ActionType.CLEAR_LOGS,
 	};
 };
+
+export const runConsoleInput = (input: string) => {
+	return {
+		type: ActionType.RUN_CONSOLE_INPUT,
+		payload: input,
+	};
+};
