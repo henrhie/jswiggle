@@ -45,7 +45,8 @@ const App = () => {
 							display: 'flex',
 							flexDirection: 'column',
 							height: '100%',
-						}}>
+						}}
+					>
 						<Resizable direction='vertical'>
 							<Panel height='calc(100% - 3px)' color='purple'>
 								<PanelEditor
@@ -76,7 +77,8 @@ const App = () => {
 							display: 'flex',
 							flexDirection: 'column',
 							height: '100%',
-						}}>
+						}}
+					>
 						<Resizable direction='vertical'>
 							<Panel height='calc(100% - 3px)'>
 								<PanelEditor
@@ -92,7 +94,8 @@ const App = () => {
 								padding: '4px 0',
 								paddingBottom: '0',
 								overflow: 'hidden',
-							}}>
+							}}
+						>
 							<Panel height='100%'>
 								<div
 									style={{
@@ -100,7 +103,9 @@ const App = () => {
 										flexDirection: 'column',
 										height: '100%',
 										border: '0.1px solid #39464e',
-									}}>
+										width: '85%',
+									}}
+								>
 									<Preview code={bundle} htmlExt={_html} ref={previewRef} />
 									<Console previewRef={previewRef} />
 								</div>
