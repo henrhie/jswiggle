@@ -44,6 +44,10 @@ export interface RunConsoleInput {
 	payload: string;
 }
 
+export interface ClearConsoleLogsFromInput {
+	type: ActionType.CLEAR_CONSOLE_LOGS_FROM_INPUT;
+}
+
 export type Action =
 	| UpdateCSSAction
 	| UpdateHTMLAction
@@ -52,5 +56,6 @@ export type Action =
 	| ConsoleLogs
 	| ClearLogs
 	| ClearBundle
+	| ClearConsoleLogsFromInput
 	| RunConsoleInput
 	| BundleStartAction;

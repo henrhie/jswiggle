@@ -83,7 +83,7 @@ const Preview: React.FC<{ code: string; htmlExt: string; ref: any }> =
 			if (!iframeRef) {
 				return;
 			}
-			iframeRef.current.srcdoc = html(htmlExt);
+			// iframeRef.current.srcdoc = html(htmlExt);
 			setTimeout(() => {
 				iframeRef.current.contentWindow.postMessage(code, '*');
 			}, 50);

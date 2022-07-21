@@ -64,6 +64,12 @@ export const clearConsole = () => {
 	};
 };
 
+export const clearLogsFromInput = () => {
+	return {
+		type: ActionType.CLEAR_CONSOLE_LOGS_FROM_INPUT,
+	};
+};
+
 export const runConsoleInput = (input: string) => {
 	return {
 		type: ActionType.RUN_CONSOLE_INPUT,

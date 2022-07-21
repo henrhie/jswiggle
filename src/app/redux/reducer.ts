@@ -75,6 +75,13 @@ export const reducer = (state = initState, action: Action) => {
 				],
 			};
 		}
+		case ActionType.CLEAR_CONSOLE_LOGS_FROM_INPUT: {
+			const clgMatch = /console.*/s;
+			return {
+				...state,
+				consoleInput: state.consoleInput.replace(clgMatch, ''),
+			};
+		}
 		case ActionType.CLEAR_LOGS:
 			return {
 				...state,
