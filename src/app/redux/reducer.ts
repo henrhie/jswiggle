@@ -8,7 +8,7 @@ export interface IState {
 	loading: string;
 	error: string;
 	bundle: string;
-	logs: any[];
+	logs: { payload: any; type: string }[];
 	consoleInput: string;
 }
 
@@ -42,7 +42,7 @@ export const reducer = (state = initState, action: Action) => {
 			return {
 				...state,
 				loading: true,
-				logs: [...state.logs, 'Running fiddle'],
+				logs: [...state.logs, { payload: 'Running fiddle', type: 'loading' }],
 			};
 		case ActionType.BUNDLE_COMPLETE:
 			return {
@@ -58,7 +58,7 @@ export const reducer = (state = initState, action: Action) => {
 		case ActionType.CONSOLE_LOGS:
 			console.log('action.payload: ', action.payload);
 			const sanitized = action.payload.map((log) => {
-				return log[0];
+				return { payload: log[0], type: 'iframe_output' };
 			});
 			return {
 				...state,
@@ -70,9 +70,8 @@ export const reducer = (state = initState, action: Action) => {
 				consoleInput: state.consoleInput + ';' + action.payload,
 				logs: [
 					...state.logs,
-					// { payload: action.payload, type: 'console_input' },
-					action.payload,
-					'Running fiddle',
+					{ payload: action.payload, type: 'console_input' },
+					{ payload: 'Running fiddle', type: 'loading' },
 				],
 			};
 		}

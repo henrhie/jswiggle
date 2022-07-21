@@ -103,7 +103,7 @@ const App = () => {
 										flexDirection: 'column',
 										height: '100%',
 										border: '0.1px solid #39464e',
-										width: '85%',
+										// width: '85%',
 									}}
 								>
 									<Preview code={bundle} htmlExt={_html} ref={previewRef} />

@@ -63,14 +63,6 @@ const Preview: React.FC<{ code: string; htmlExt: string; ref: any }> =
 		}, []);
 
 		React.useEffect(() => {
-<<<<<<< HEAD
-			const logListener = (e: any) => {
-				if (e.data.length > 0) {
-					updateConsoleLogs(e.data);
-				}
-			};
-=======
->>>>>>> 726cf21f3e72b9b2b9cbc389cccd5df61c47b9fd
 			window.addEventListener('message', logListener);
 			return () => {
 				window.removeEventListener('message', logListener);

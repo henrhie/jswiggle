@@ -5,24 +5,33 @@ import { useTypedSelector } from '../hooks/use-typed-selector';
 
 const _ConsoleOutputCell_ = ({ logs }) => {
 	return logs.map((log: any, i: number) => {
-		const isLoadingIndicator = log === 'Running fiddle';
-		const isObject = typeof log === 'object';
-		const isString = typeof log === 'string';
+		// const isString = typeof log.payload === 'string';
+		// const isObject = typeof log.payload === 'object';
 
-		// log = isString ? `"${log}"` : log;
+		console.log('iframe output===>', log);
 
-		console.log('logs: ', log);
-		log = isObject ? JSON.stringify(log) : log;
+		let _log: any;
+		switch (log.type) {
+			case 'loading':
+				_log = `"${log.payload}"`;
+				break;
+			case 'iframe_output':
+				_log = `"${log.payload}"`;
+				break;
+			default:
+				_log = log.payload;
+		}
 
 		return (
 			<li
 				key={`${i}${log}`}
 				style={{
 					width: '100%',
-					color: isLoadingIndicator ? '#1363DF' : '#fff',
+					color: log.type === 'loading' ? '#1363DF' : '#fff',
 					fontSize: '11px',
-				}}>
-				<span>{log}</span>
+				}}
+			>
+				<span>{_log}</span>
 			</li>
 		);
 	});
@@ -37,7 +46,8 @@ const ConsoleIcon: React.FC = () => {
 				stroke-linecap='round'
 				stroke-width='1.8'
 				fill='none'
-				stroke-linejoin='round'>
+				stroke-linejoin='round'
+			>
 				<polyline points='4,17 10,11 4,5'></polyline>
 				<line x1='12' x2='20' y1='19' y2='19'></line>
 			</g>
@@ -73,7 +83,8 @@ const Console = ({ previewRef }) => {
 					return;
 				}
 				setMinimize(!minimize);
-			}}>
+			}}
+		>
 			<div
 				className='console-header-wrapper'
 				style={{
@@ -84,14 +95,16 @@ const Console = ({ previewRef }) => {
 					borderBottom: '1px solid #39464e',
 					top: 0,
 					left: 0,
-				}}>
+				}}
+			>
 				<div
 					style={{
 						display: 'flex',
 						justifyContent: 'center',
 						alignItems: 'center',
 						marginLeft: '8px',
-					}}>
+					}}
+				>
 					<ConsoleIcon />
 				</div>
 
@@ -103,7 +116,8 @@ const Console = ({ previewRef }) => {
 							marginLeft: 'auto',
 							marginRight: '8px',
 							display: 'flex',
-						}}>
+						}}
+					>
 						<p style={{ marginRight: '6px' }} onClick={() => clearConsole()}>
 							Clear Console
 						</p>
@@ -121,7 +135,8 @@ const Console = ({ previewRef }) => {
 							overflow: 'auto',
 							padding: 0,
 							// height: 'calc(100% - 32px)',
-						}}>
+						}}
+					>
 						<ConsoleOutputCell logs={logs} />
 					</ul>
 					<div
@@ -135,7 +150,8 @@ const Console = ({ previewRef }) => {
 							position: 'sticky',
 							bottom: 0,
 							left: 0,
-						}}>
+						}}
+					>
 						<input
 							style={{ height: '67%', width: '95%' }}
 							className='console-input'
