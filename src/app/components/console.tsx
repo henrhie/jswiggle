@@ -8,9 +8,12 @@ const _ConsoleOutputCell_ = ({ logs }) => {
 		const isLoadingIndicator = log === 'Running fiddle';
 		const isObject = typeof log === 'object';
 		const isString = typeof log === 'string';
+
+		// log = isString ? `"${log}"` : log;
+
+		console.log('logs: ', log);
 		log = isObject ? JSON.stringify(log) : log;
 
-		log = isString ? `"${log}"` : log;
 		return (
 			<li
 				key={`${i}${log}`}
@@ -49,11 +52,8 @@ const Console = ({ previewRef }) => {
 	const logs = useTypedSelector((state) => state.logs);
 	const { clearConsole, runConsoleInput } = useActions();
 
-	console.log('preview ref: ', previewRef);
-
 	const handleEnterKeyPress = (e: React.KeyboardEvent) => {
 		if (e.key === 'Enter') {
-			console.log('enter key pressed');
 			runConsoleInput(inputState);
 			setInputState('');
 		}

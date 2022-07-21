@@ -14,9 +14,7 @@ const html = (ext: string) => `
     ${ext}
     <script>
     const handleError = (err) => {
-      const root = document.querySelector('#root');
-      root.innerHTML = '<div style="color: red;"><h4>Runtime Error</h4>' + err + '</div>'; 
-      console.log(err);
+      window.parent.postMessage(err, '*')
     };
     window.addEventListener('error', (e) => {
       e.preventDefault();
@@ -57,17 +55,27 @@ const Preview: React.FC<{ code: string; htmlExt: string; ref: any }> =
 		const iframeRef = React.useRef<any>();
 		ref = iframeRef;
 
+		const logListener = React.useCallback((e: any) => {
+			console.log('event: ', e);
+			if (e.data.length > 0) {
+				updateConsoleLogs(e.data);
+			}
+		}, []);
+
 		React.useEffect(() => {
+<<<<<<< HEAD
 			const logListener = (e: any) => {
 				if (e.data.length > 0) {
 					updateConsoleLogs(e.data);
 				}
 			};
+=======
+>>>>>>> 726cf21f3e72b9b2b9cbc389cccd5df61c47b9fd
 			window.addEventListener('message', logListener);
 			return () => {
 				window.removeEventListener('message', logListener);
 			};
-		});
+		}, [logListener]);
 
 		React.useEffect(() => {
 			if (!iframeRef) {
