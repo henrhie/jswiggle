@@ -57,22 +57,30 @@ export const reducer = (state = initState, action: Action) => {
 			};
 		case ActionType.CONSOLE_LOGS:
 			console.log('action.payload: ', action.payload);
-			const sanitized = action.payload.map((log) => {
+			const sanitized = action.payload.map((log: any) => {
+				let logPayload = log[0];
+				if (
+					typeof logPayload === 'object' &&
+					logPayload.hasOwnProperty('err')
+				) {
+					return { payload: logPayload.err.stack, type: 'err_output' };
+				}
 				return { payload: log[0], type: 'iframe_output' };
 			});
+			const withoutErroredCode = state.consoleInput.substring(
+				state.consoleInput.lastIndexOf(';'),
+				-1
+			);
 			return {
 				...state,
 				logs: [...state.logs, ...sanitized],
+				consoleInput: withoutErroredCode,
 			};
 		case ActionType.RUN_CONSOLE_INPUT: {
 			return {
 				...state,
 				consoleInput: state.consoleInput + ';' + action.payload,
-				logs: [
-					...state.logs,
-					{ payload: action.payload, type: 'console_input' },
-					{ payload: 'Running fiddle', type: 'loading' },
-				],
+				logs: [...state.logs, { payload: 'Running fiddle', type: 'loading' }],
 			};
 		}
 		case ActionType.CLEAR_CONSOLE_LOGS_FROM_INPUT: {

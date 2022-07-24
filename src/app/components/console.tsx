@@ -7,7 +7,7 @@ const _ConsoleOutputCell_ = ({ logs }) => {
 	const { clearLogsFromInput } = useActions();
 	return logs.map((log: any, i: number) => {
 		let _log: any;
-		console.log('log////////////>', log);
+		console.log('lgoer: ', typeof log.payload);
 		switch (log.type && typeof log.payload) {
 			case 'loading' && 'string':
 				_log = `"${log.payload}"`;
@@ -18,9 +18,12 @@ const _ConsoleOutputCell_ = ({ logs }) => {
 			case 'iframe_output' && 'object':
 				_log = JSON.stringify(log.payload);
 				break;
+			case 'err_output' && 'string':
+				console.log('erroghot here: ', log);
+				_log = log.payload;
+				break;
 			default:
 				_log = log.payload;
-				console.log('defaulllllt=====');
 		}
 		clearLogsFromInput();
 
@@ -31,6 +34,7 @@ const _ConsoleOutputCell_ = ({ logs }) => {
 					width: '100%',
 					color: log.type === 'loading' ? '#1363DF' : '#fff',
 					fontSize: '11px',
+					backgroundColor: log.type === 'err_output' ? '#3B2931' : '',
 				}}>
 				<span>{_log}</span>
 			</li>
@@ -64,6 +68,11 @@ const Console = ({ previewRef }) => {
 
 	const handleEnterKeyPress = (e: React.KeyboardEvent) => {
 		if (e.key === 'Enter') {
+			if (inputState === 'clear') {
+				clearConsole();
+				setInputState('');
+				return;
+			}
 			runConsoleInput(inputState);
 			setInputState('');
 		}
@@ -128,7 +137,7 @@ const Console = ({ previewRef }) => {
 							width: '100%',
 							display: 'flex',
 							flexDirection: 'column',
-							overflow: 'auto',
+							overflow: 'hidden',
 							padding: 0,
 							// height: 'calc(100% - 32px)',
 						}}>

@@ -44,9 +44,9 @@ li {
 	background-color: #272c35;
 }
 
-/* .react-resizable-handle-s:-moz-drag-over {
+.react-resizable-handle-s:-moz-drag-over {
 	cursor: row-resize;
-} */
+}
 
 .react-resizable-handle-e {
 	width: 8px;

@@ -14,12 +14,12 @@ const html = (ext: string) => `
     ${ext}
     <script>
     const handleError = (err) => {
-      window.parent.postMessage(err, '*')
+      window.parent.postMessage([[{ err }]], '*')
     };
-    window.addEventListener('error', (e) => {
-      e.preventDefault();
-      handleError(e.error);
-    });
+    // window.addEventListener('error', (e) => {
+    //   e.preventDefault();
+    //   handleError(e.error);
+    // });
 
     console.stdlog = console.log.bind(console);
 	  console.logs = [];
@@ -75,7 +75,6 @@ const Preview: React.FC<{ code: string; htmlExt: string; ref: any }> =
 			}
 			setTimeout(() => {
 				iframeRef.current.contentWindow.postMessage(consoleInput, '*');
-				console.log('input console:::: ', consoleInput);
 			}, 50);
 		}, [consoleInput]);
 
@@ -83,7 +82,7 @@ const Preview: React.FC<{ code: string; htmlExt: string; ref: any }> =
 			if (!iframeRef) {
 				return;
 			}
-			// iframeRef.current.srcdoc = html(htmlExt);
+			iframeRef.current.srcdoc = html(htmlExt);
 			setTimeout(() => {
 				iframeRef.current.contentWindow.postMessage(code, '*');
 			}, 50);
