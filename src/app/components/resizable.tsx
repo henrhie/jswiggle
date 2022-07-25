@@ -9,13 +9,22 @@ import '../styles/resizable.css';
 interface ResizableProps {
 	direction: 'horizontal' | 'vertical';
 	children: React.ReactNode;
+	initialHeight?: number;
+	initialWidth?: number;
 }
 
-const Resizable: FC<ResizableProps> = ({ direction, children }) => {
+const Resizable: FC<ResizableProps> = ({
+	direction,
+	children,
+	initialHeight,
+	initialWidth,
+}) => {
 	const [innerWidth, setInnerWidth] = useState(window.innerWidth);
 	const [innerHeight, setInnerHeight] = useState(window.innerHeight);
-	const [width, setWidth] = useState(window.innerWidth * 0.5);
-	const [height, setHeight] = useState(window.innerHeight * 0.5);
+	const [width, setWidth] = useState(window.innerWidth * (initialWidth || 0.5));
+	const [height, setHeight] = useState(
+		window.innerHeight * (initialHeight || 0.5)
+	);
 
 	useEffect(() => {
 		let timer: NodeJS.Timeout;

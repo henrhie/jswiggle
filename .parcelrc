@@ -4,6 +4,9 @@
 		"jsx:*.svg": [
 			"...",
 			"@parcel/transformer-svg-react"
+		],
+		"jsx:*": [
+			"..."
 		]
 	}
 }
