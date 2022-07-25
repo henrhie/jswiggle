@@ -14,6 +14,11 @@
 }
 
 @font-face {
+	font-family: 'inter-regular';
+	src: url('./assets/fonts/Inter-Regular.otf') format('woff2');
+}
+
+@font-face {
 	font-family: 'ibm-plex-regular';
 	src: url('./assets/fonts/ibm-plex-sans-v8-latin-regular.woff2')
 		format('woff2');
