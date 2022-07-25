@@ -14,12 +14,26 @@ export const loaderPlugin: PluginFactoryType = (store) => {
 		name: 'loader-plugin',
 		setup(build: esbuild.PluginBuild) {
 			build.onLoad({ filter: /^index\.js$/ }, () => {
+				const css_ = store._css;
+				console.log('css]]]]]]]]]]]>>>: ', css_);
+				const escaped = css_
+					.replace(/\n/g, '')
+					.replace(/"/g, '\\"')
+					.replace(/'/g, "\\'");
+
+				const contents = `
+			    const style = document.createElement("style");
+			    style.innerText = "${escaped}";
+			    document.head.appendChild(style);
+			  `;
+				const jsWithCss = store._js + contents;
 				return {
 					loader: 'jsx',
-					contents: store._js,
+					contents: jsWithCss,
 				};
 			});
 
+			//@ts-ignore
 			build.onLoad({ filter: /.*/, namespace: 'unpkg' }, async (args) => {
 				const cacheData = await fileCache.getItem<esbuild.OnLoadResult>(
 					args.path
@@ -44,21 +58,6 @@ export const loaderPlugin: PluginFactoryType = (store) => {
 					return chunk;
 				}
 			);
-
-			// build.onEnd((result: esbuild.BuildResult) => {
-			// 	const css_ = store._css;
-			// 	const escaped = css_
-			// 			.replace(/\n/g, '')
-			// 			.replace(/"/g, '\\"')
-			// 			.replace(/'/g, "\\'");
-
-			// 		const contents = `
-			//     const style = document.createElement("style");
-			//     style.innerText = "${escaped}";
-			//     document.head.appendChild(style);
-			//   `;
-			// 	result.outputFiles[0].text += contents;
-			// });
 
 			build.onLoad(
 				{ filter: /.css$/, namespace: 'unpkg-css' },
@@ -89,6 +88,21 @@ export const loaderPlugin: PluginFactoryType = (store) => {
 					return result;
 				}
 			);
+
+			// build.onEnd((result: esbuild.BuildResult) => {
+			// 	const css_ = store._css;
+			// 	const escaped = css_
+			// 		.replace(/\n/g, '')
+			// 		.replace(/"/g, '\\"')
+			// 		.replace(/'/g, "\\'");
+
+			// 	const contents = `
+			//     const style = document.createElement("style");
+			//     style.innerText = "${escaped}";
+			//     document.head.appendChild(style);
+			//   `;
+			// 	result.outputFiles[0].text += contents;
+			// });
 		},
 	};
 };
