@@ -77,7 +77,7 @@ const App = () => {
 							flexDirection: 'column',
 							height: '100%',
 						}}>
-						<Resizable direction='vertical' initialHeight={0.3}>
+						<Resizable direction='vertical' initialHeight={0.33}>
 							<Panel height='calc(100% - 3px)'>
 								<PanelEditor
 									setValue={setCssValue}
