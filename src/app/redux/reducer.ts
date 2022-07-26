@@ -10,6 +10,9 @@ export interface IState {
 	bundle: string;
 	logs: { payload: any; type: string }[];
 	consoleInput: string;
+	activeMarkdown: 'HTML';
+	activeScript: 'JavaScript' | 'TypeScript' | 'CoffeeScript';
+	activeStyleSheet: 'SASS' | 'LESS' | 'CSS';
 }
 
 const initState: Partial<IState> = {
@@ -19,6 +22,9 @@ const initState: Partial<IState> = {
 	bundle: '',
 	logs: [],
 	consoleInput: '',
+	activeMarkdown: 'HTML',
+	activeScript: 'JavaScript',
+	activeStyleSheet: 'CSS',
 };
 
 export const reducer = (state = initState, action: Action) => {
@@ -94,6 +100,36 @@ export const reducer = (state = initState, action: Action) => {
 			return {
 				...state,
 				logs: [],
+			};
+		case ActionType.CSS:
+			return {
+				...state,
+				activeStyleSheet: 'CSS',
+			};
+		case ActionType.LESS:
+			return {
+				...state,
+				activeStyleSheet: 'LESS',
+			};
+		case ActionType.SASS:
+			return {
+				...state,
+				activeStyleSheet: 'SASS',
+			};
+		case ActionType.JavaScript:
+			return {
+				...state,
+				activeScript: 'JavaScript',
+			};
+		case ActionType.CoffeeScript:
+			return {
+				...state,
+				activeScript: 'JavaScript',
+			};
+		case ActionType.TypeScript:
+			return {
+				...state,
+				activeScript: 'TypeScript',
 			};
 		default:
 			return state;

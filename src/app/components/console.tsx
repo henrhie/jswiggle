@@ -2,7 +2,7 @@
 import * as React from 'react';
 import { useActions } from '../hooks/use-actions';
 import { useTypedSelector } from '../hooks/use-typed-selector';
-import CLIcon from '../assets/svg/code.png';
+// import CLIcon from '../assets/svg/code.png';
 
 const _ConsoleOutputCell_ = ({ logs }) => {
 	const { clearLogsFromInput } = useActions();

@@ -48,6 +48,18 @@ export interface ClearConsoleLogsFromInput {
 	type: ActionType.CLEAR_CONSOLE_LOGS_FROM_INPUT;
 }
 
+export type ModeType =
+	| ActionType.TypeScript
+	| ActionType.JavaScript
+	| ActionType.CoffeeScript
+	| ActionType.CSS
+	| ActionType.LESS
+	| ActionType.SASS;
+
+export interface UpdateMode {
+	type: ModeType;
+}
+
 export type Action =
 	| UpdateCSSAction
 	| UpdateHTMLAction
@@ -58,4 +70,5 @@ export type Action =
 	| ClearBundle
 	| ClearConsoleLogsFromInput
 	| RunConsoleInput
-	| BundleStartAction;
+	| BundleStartAction
+	| UpdateMode;

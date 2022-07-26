@@ -4,6 +4,7 @@ import { useStore } from 'react-redux';
 import { Dropdown, DropdownItemProps } from 'semantic-ui-react';
 
 import { useActions } from '../hooks/use-actions';
+import { updateMode } from '../redux/action-creators';
 import { reducer } from '../redux/reducer';
 import Editor from './editor';
 
@@ -84,8 +85,7 @@ const PanelEditor: React.FC<IProps> = ({
 			style={{
 				height: '100%',
 				backgroundColor: '#272c35',
-			}}
-		>
+			}}>
 			<div
 				style={{
 					height: '100%',
@@ -93,16 +93,14 @@ const PanelEditor: React.FC<IProps> = ({
 					display: 'flex',
 					flexDirection: 'column',
 					alignItems: 'stretch',
-				}}
-			>
+				}}>
 				<div
 					style={{
 						padding: '5px',
 						backgroundColor: '#272c35',
 						margin: '8px 6px',
 						display: 'flex',
-					}}
-				>
+					}}>
 					{/* <p
 						style={{
 							margin: '0',
@@ -119,6 +117,9 @@ const PanelEditor: React.FC<IProps> = ({
 						inline
 						options={variants}
 						defaultValue={variants[0].value}
+						onChange={(e, { value }) => {
+							updateMode(value);
+						}}
 					/>
 					{testJs && (
 						<div
@@ -128,15 +129,13 @@ const PanelEditor: React.FC<IProps> = ({
 								padding: '3px 12px',
 							}}
 							className='run-wrapper'
-							onClick={() => runProcess()}
-						>
+							onClick={() => runProcess()}>
 							<p
 								style={{
 									color: 'white',
 									margin: 0,
 									fontFamily: 'inter-regular',
-								}}
-							>
+								}}>
 								Run
 							</p>
 							{/* <img src='../assets/svg/play.svg' /> */}

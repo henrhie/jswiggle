@@ -1,7 +1,7 @@
 import { Dispatch } from 'redux';
 import { bundleCode } from '../../esbuild';
 import { ActionType } from '../action-types';
-import { Action } from '../actions';
+import { Action, ModeType } from '../actions';
 import { reducer } from '../reducer';
 
 export const updateHTML = (content: string) => {
@@ -100,5 +100,11 @@ export const runConsoleInput = (input: string) => {
 	return {
 		type: ActionType.RUN_CONSOLE_INPUT,
 		payload: input,
+	};
+};
+
+export const updateMode = (mode: any) => {
+	return {
+		type: mode,
 	};
 };

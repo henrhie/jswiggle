@@ -59,6 +59,14 @@ li {
 
 .divider.text {
 	color: white;
+	font-family: inter-regular !important;
+	font-weight: unset !important;
+	font-size: 12px;
+}
+
+.item > .text {
+	font-family: inter-regular;
+	font-size: 13px;
 }
 
 .dropdown.icon {
