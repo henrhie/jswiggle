@@ -15,11 +15,11 @@ export const loaderPlugin: PluginFactoryType = (store) => {
 		setup(build: esbuild.PluginBuild) {
 			build.onLoad({ filter: /^index\.js$/ }, () => {
 				const css_ = store._css;
-				console.log('css]]]]]]]]]]]>>>: ', css_);
 				const escaped = css_
 					.replace(/\n/g, '')
 					.replace(/"/g, '\\"')
-					.replace(/'/g, "\\'");
+					.replace(/'/g, "\\'")
+					.replace(/\r/g, '');
 
 				const contents = `
 			    const style = document.createElement("style");
@@ -63,8 +63,7 @@ export const loaderPlugin: PluginFactoryType = (store) => {
 				{ filter: /.css$/, namespace: 'unpkg-css' },
 				async (args: esbuild.OnLoadArgs) => {
 					const { data, request } = await axios.get<string>(
-						// args.path.replace(/.css$/, '')
-						args.path
+						args.path.replace(/.css$/, '')
 					);
 
 					const escaped = data
@@ -88,21 +87,6 @@ export const loaderPlugin: PluginFactoryType = (store) => {
 					return result;
 				}
 			);
-
-			// build.onEnd((result: esbuild.BuildResult) => {
-			// 	const css_ = store._css;
-			// 	const escaped = css_
-			// 		.replace(/\n/g, '')
-			// 		.replace(/"/g, '\\"')
-			// 		.replace(/'/g, "\\'");
-
-			// 	const contents = `
-			//     const style = document.createElement("style");
-			//     style.innerText = "${escaped}";
-			//     document.head.appendChild(style);
-			//   `;
-			// 	result.outputFiles[0].text += contents;
-			// });
 		},
 	};
 };

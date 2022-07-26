@@ -57,6 +57,14 @@ li {
 	justify-content: center;
 }
 
+.divider.text {
+	color: white;
+}
+
+.dropdown.icon {
+	color: white;
+}
+
 .preview-wrapper {
 	/* height: 55%; */
 	/* overflow: hidden; */
@@ -92,14 +100,14 @@ li {
 
 .run-wrapper {
 	cursor: pointer;
-	background-color: #2e71ff;
+	/* background-color: #2e71ff; */
 	border-radius: 5px;
 }
 
-/* .run-wrapper:hover {
-	background-color: #2e71ff;
-	opacity: 0.7;
-} */
+.run-wrapper:hover {
+	background-color: #232830;
+	/* opacity: 0.7;/ */
+}
 
 .console-header-wrapper p {
 	margin: 5px;
@@ -114,6 +122,14 @@ li {
 
 .console-actions {
 	cursor: pointer;
+}
+
+.console-actions > p:first-child {
+	margin-top: 10px;
+}
+
+.console-actions > p:last-child {
+	margin-top: unset;
 }
 
 .console-actions p:hover {

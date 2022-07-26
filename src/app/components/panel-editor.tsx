@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import * as React from 'react';
 import { useStore } from 'react-redux';
+import { Dropdown, DropdownItemProps } from 'semantic-ui-react';
+
 import { useActions } from '../hooks/use-actions';
 import { reducer } from '../redux/reducer';
 import Editor from './editor';
@@ -26,15 +28,28 @@ const PanelEditor: React.FC<IProps> = ({
 
 	console.log('panel editor:', language);
 
+	let variants: DropdownItemProps[];
+
 	switch (language) {
 		case 'html':
 			display_lang = 'HTML';
+			variants = [{ text: 'HTML', value: 'HTML', key: 'HTML' }];
 			break;
 		case 'css':
 			display_lang = 'CSS';
+			variants = [
+				{ text: 'CSS', value: 'CSS', key: 'CSS' },
+				{ text: 'LESS', value: 'LESS', key: 'LESS' },
+				{ text: 'SASS', value: 'SASS', key: 'SASS' },
+			];
 			break;
 		case 'javascript':
 			display_lang = 'JavaScript';
+			variants = [
+				{ text: 'JavaScript', value: 'JavaScript', key: 'JavaScript' },
+				{ text: 'TypeScript', value: 'TypeScript', key: 'TypeScript' },
+				{ text: 'CoffeeScript', value: 'CoffeeScript', key: 'CoffeeScript' },
+			];
 			break;
 		default:
 			display_lang = language;
@@ -88,7 +103,7 @@ const PanelEditor: React.FC<IProps> = ({
 						display: 'flex',
 					}}
 				>
-					<p
+					{/* <p
 						style={{
 							margin: '0',
 							marginBottom: '0px',
@@ -99,7 +114,12 @@ const PanelEditor: React.FC<IProps> = ({
 						}}
 					>
 						{display_lang}
-					</p>
+					</p> */}
+					<Dropdown
+						inline
+						options={variants}
+						defaultValue={variants[0].value}
+					/>
 					{testJs && (
 						<div
 							style={{
@@ -119,6 +139,7 @@ const PanelEditor: React.FC<IProps> = ({
 							>
 								Run
 							</p>
+							{/* <img src='../assets/svg/play.svg' /> */}
 						</div>
 					)}
 				</div>

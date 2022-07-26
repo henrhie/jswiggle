@@ -1,9 +1,8 @@
-import { count } from 'console';
 import * as React from 'react';
 import { render } from 'react-dom';
-// import Editor from './components/editor';
 import { Provider } from 'react-redux';
 import Console from './components/console';
+import 'semantic-ui-css/semantic.min.css';
 
 import Panel from './components/panel';
 import PanelEditor from './components/panel-editor';
@@ -79,7 +78,7 @@ const App = () => {
 							height: '100%',
 						}}
 					>
-						<Resizable direction='vertical'>
+						<Resizable direction='vertical' initialHeight={0.33}>
 							<Panel height='calc(100% - 3px)'>
 								<PanelEditor
 									setValue={setCssValue}
