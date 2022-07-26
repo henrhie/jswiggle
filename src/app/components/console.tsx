@@ -8,7 +8,6 @@ const _ConsoleOutputCell_ = ({ logs }) => {
 	const { clearLogsFromInput } = useActions();
 	return logs.map((log: any, i: number) => {
 		let _log: any;
-		console.log('lgoer: ', typeof log.payload);
 		switch (log.type && typeof log.payload) {
 			case 'loading' && 'string':
 				_log = `"${log.payload}"`;
@@ -20,21 +19,31 @@ const _ConsoleOutputCell_ = ({ logs }) => {
 				_log = JSON.stringify(log.payload);
 				break;
 			case 'err_output' && 'string':
-				console.log('erroghot here: ', log);
 				_log = log.payload;
 				break;
 			default:
 				_log = log.payload;
 		}
-		console.log('defaulllllt=====');
 		clearLogsFromInput();
+
+		let color: string;
+		switch (log.type) {
+			case 'loading':
+				color = '#1363DF';
+				break;
+			case 'err_output':
+				color = '#D61C4E';
+				break;
+			default:
+				color = '#ffffff';
+		}
 
 		return (
 			<li
 				key={`${i}${log}`}
 				style={{
 					width: '100%',
-					color: log.type === 'loading' ? '#1363DF' : '#fff',
+					color,
 					fontSize: '11px',
 					backgroundColor: log.type === 'err_output' ? '#3B2931' : '',
 				}}>
@@ -94,7 +103,8 @@ const Console = ({ previewRef }) => {
 					return;
 				}
 				setMinimize(!minimize);
-			}}>
+			}}
+			style={{ backgroundColor: '#272c35' }}>
 			<div
 				className='console-header-wrapper'
 				style={{
@@ -116,7 +126,14 @@ const Console = ({ previewRef }) => {
 					<ConsoleIcon />
 				</div>
 
-				<p style={{ marginLeft: '8px' }}>console</p>
+				<p
+					style={{
+						marginLeft: '8px',
+						marginTop: '10px',
+						marginBottom: '10px',
+					}}>
+					console
+				</p>
 				{!minimize && (
 					<div
 						className='console-actions'
@@ -124,6 +141,7 @@ const Console = ({ previewRef }) => {
 							marginLeft: 'auto',
 							marginRight: '8px',
 							display: 'flex',
+							alignItems: 'center',
 						}}>
 						<p style={{ marginRight: '6px' }} onClick={() => clearConsole()}>
 							Clear Console

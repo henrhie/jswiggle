@@ -31,14 +31,41 @@ export const startBundle = (store: ReturnType<typeof reducer>) => {
 			type: ActionType.BUNDLE_START,
 		});
 
+		const js = store._js;
+		if (js.search(/import/g) < 0) {
+			const css_ = store._css;
+			const escaped = css_
+				.replace(/\n/g, '')
+				.replace(/"/g, '\\"')
+				.replace(/'/g, "\\'")
+				.replace(/\r/g, '');
+
+			const contents = `
+			    var style = document.createElement("style");
+			    style.innerText = "${escaped}";
+			    document.head.appendChild(style);
+			  `;
+			const jsWithCss = `(() => {${js + contents}})()`;
+
+			console.log('got into no import');
+
+			dispatch({
+				type: ActionType.BUNDLE_COMPLETE,
+				payload: {
+					code: jsWithCss,
+				},
+			});
+			return;
+		}
 		const buildOutput = await bundleCode(store);
-		const outputText =
-			buildOutput.outputFiles && buildOutput.outputFiles[0].text;
+		const output = buildOutput.outputFiles && buildOutput.outputFiles[0].text;
+
+		console.log('bundled code', output);
 
 		dispatch({
 			type: ActionType.BUNDLE_COMPLETE,
 			payload: {
-				code: outputText,
+				code: output,
 			},
 		});
 	};
@@ -51,7 +78,6 @@ export const clearBundle = () => {
 };
 
 export const updateConsoleLogs = (logs: []) => {
-	console.log('logs in action creator: ', logs);
 	return {
 		type: ActionType.CONSOLE_LOGS,
 		payload: logs,

@@ -56,7 +56,6 @@ const Preview: React.FC<{ code: string; htmlExt: string; ref: any }> =
 		ref = iframeRef;
 
 		const logListener = React.useCallback((e: any) => {
-			console.log('event: ', e);
 			if (e.data.length > 0) {
 				updateConsoleLogs(e.data);
 			}
@@ -83,6 +82,7 @@ const Preview: React.FC<{ code: string; htmlExt: string; ref: any }> =
 				return;
 			}
 			iframeRef.current.srcdoc = html(htmlExt);
+			console.log('code herererererere: ', code);
 			setTimeout(() => {
 				iframeRef.current.contentWindow.postMessage(code, '*');
 			}, 50);
@@ -92,8 +92,11 @@ const Preview: React.FC<{ code: string; htmlExt: string; ref: any }> =
 			<div className='preview-wrapper'>
 				<iframe
 					ref={iframeRef}
-					sandbox='allow-scripts'
+					sandbox='allow-forms allow-modals allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-top-navigation-by-user-activation allow-downloads allow-presentation'
 					srcDoc={html(htmlExt)}
+					allow='accelerometer; camera; encrypted-media; display-capture; geolocation; gyroscope; microphone; midi; clipboard-read; clipboard-write; web-share'
+					allowFullScreen
+					allowTransparency
 				/>
 			</div>
 		);

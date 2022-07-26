@@ -9,8 +9,8 @@ import '../styles/resizable.css';
 interface ResizableProps {
 	direction: 'horizontal' | 'vertical';
 	children: React.ReactNode;
-	initialHeight?: number;
 	initialWidth?: number;
+	initialHeight?: number;
 }
 
 const Resizable: FC<ResizableProps> = ({

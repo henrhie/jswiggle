@@ -57,6 +57,14 @@ li {
 	justify-content: center;
 }
 
+.divider.text {
+	color: white;
+}
+
+.dropdown.icon {
+	color: white;
+}
+
 .preview-wrapper {
 	/* height: 55%; */
 	/* overflow: hidden; */
@@ -97,7 +105,8 @@ li {
 }
 
 .run-wrapper:hover {
-	background-color: #2f333f;
+	background-color: #232830;
+	/* opacity: 0.7;/ */
 }
 
 .console-header-wrapper p {
@@ -113,6 +122,14 @@ li {
 
 .console-actions {
 	cursor: pointer;
+}
+
+.console-actions > p:first-child {
+	margin-top: 10px;
+}
+
+.console-actions > p:last-child {
+	margin-top: unset;
 }
 
 .console-actions p:hover {
