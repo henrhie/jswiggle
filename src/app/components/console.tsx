@@ -46,7 +46,8 @@ const _ConsoleOutputCell_ = ({ logs }) => {
 					color,
 					fontSize: '11px',
 					backgroundColor: log.type === 'err_output' ? '#3B2931' : '',
-				}}>
+				}}
+			>
 				<span>{_log}</span>
 			</li>
 		);
@@ -62,7 +63,8 @@ const ConsoleIcon: React.FC = () => {
 				stroke-linecap='round'
 				stroke-width='1.8'
 				fill='none'
-				stroke-linejoin='round'>
+				stroke-linejoin='round'
+			>
 				<polyline points='4,17 10,11 4,5'></polyline>
 				<line x1='12' x2='20' y1='19' y2='19'></line>
 			</g>
@@ -104,7 +106,8 @@ const Console = ({ previewRef }) => {
 				}
 				setMinimize(!minimize);
 			}}
-			style={{ backgroundColor: '#272c35' }}>
+			style={{ backgroundColor: '#272c35' }}
+		>
 			<div
 				className='console-header-wrapper'
 				style={{
@@ -115,14 +118,16 @@ const Console = ({ previewRef }) => {
 					borderBottom: '1px solid #39464e',
 					top: 0,
 					left: 0,
-				}}>
+				}}
+			>
 				<div
 					style={{
 						display: 'flex',
 						justifyContent: 'center',
 						alignItems: 'center',
 						marginLeft: '8px',
-					}}>
+					}}
+				>
 					<ConsoleIcon />
 				</div>
 
@@ -131,7 +136,8 @@ const Console = ({ previewRef }) => {
 						marginLeft: '8px',
 						marginTop: '10px',
 						marginBottom: '10px',
-					}}>
+					}}
+				>
 					console
 				</p>
 				{!minimize && (
@@ -142,11 +148,17 @@ const Console = ({ previewRef }) => {
 							marginRight: '8px',
 							display: 'flex',
 							alignItems: 'center',
-						}}>
+						}}
+					>
 						<p style={{ marginRight: '6px' }} onClick={() => clearConsole()}>
 							Clear Console
 						</p>
-						<p onClick={() => setMinimize(!minimize)}>Minimize</p>
+						<p
+							style={{ marginBottom: '0' }}
+							onClick={() => setMinimize(!minimize)}
+						>
+							Minimize
+						</p>
 					</div>
 				)}
 			</div>
@@ -160,7 +172,8 @@ const Console = ({ previewRef }) => {
 							overflow: 'hidden',
 							padding: 0,
 							// height: 'calc(100% - 32px)',
-						}}>
+						}}
+					>
 						<ConsoleOutputCell logs={logs} />
 					</ul>
 					<div
@@ -174,7 +187,8 @@ const Console = ({ previewRef }) => {
 							position: 'sticky',
 							bottom: 0,
 							left: 0,
-						}}>
+						}}
+					>
 						<input
 							style={{ height: '67%', width: '95%' }}
 							className='console-input'

@@ -81,7 +81,7 @@ const Preview: React.FC<{ code: string; htmlExt: string; ref: any }> =
 			if (!iframeRef) {
 				return;
 			}
-			iframeRef.current.srcdoc = html(htmlExt);
+			// iframeRef.current.srcdoc = html(htmlExt);
 			console.log('code herererererere: ', code);
 			setTimeout(() => {
 				iframeRef.current.contentWindow.postMessage(code, '*');

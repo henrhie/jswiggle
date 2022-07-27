@@ -10,9 +10,9 @@ export interface IState {
 	bundle: string;
 	logs: { payload: any; type: string }[];
 	consoleInput: string;
-	activeMarkdown: 'HTML';
-	activeScript: 'JavaScript' | 'TypeScript' | 'CoffeeScript';
-	activeStyleSheet: 'SASS' | 'LESS' | 'CSS';
+	activeMarkdown: 'html';
+	activeScript: 'javascript' | 'typescript' | 'coffee';
+	activeStyleSheet: 'sass' | 'less' | 'css';
 }
 
 const initState: Partial<IState> = {
@@ -22,12 +22,13 @@ const initState: Partial<IState> = {
 	bundle: '',
 	logs: [],
 	consoleInput: '',
-	activeMarkdown: 'HTML',
-	activeScript: 'JavaScript',
-	activeStyleSheet: 'CSS',
+	activeMarkdown: 'html',
+	activeScript: 'javascript',
+	activeStyleSheet: 'css',
 };
 
 export const reducer = (state = initState, action: Action) => {
+	console.log('action: ', action);
 	switch (action.type) {
 		case ActionType.UPDATE_HTML_STORE:
 			return {
@@ -109,27 +110,28 @@ export const reducer = (state = initState, action: Action) => {
 		case ActionType.LESS:
 			return {
 				...state,
-				activeStyleSheet: 'LESS',
+				activeStyleSheet: 'less',
 			};
 		case ActionType.SASS:
 			return {
 				...state,
-				activeStyleSheet: 'SASS',
+				activeStyleSheet: 'sass',
 			};
 		case ActionType.JavaScript:
 			return {
 				...state,
-				activeScript: 'JavaScript',
+				activeScript: 'javascript',
 			};
 		case ActionType.CoffeeScript:
+			console.log('in coffeescript');
 			return {
 				...state,
-				activeScript: 'JavaScript',
+				activeScript: 'coffee',
 			};
 		case ActionType.TypeScript:
 			return {
 				...state,
-				activeScript: 'TypeScript',
+				activeScript: 'typescript',
 			};
 		default:
 			return state;

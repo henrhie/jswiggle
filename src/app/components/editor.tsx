@@ -8,62 +8,67 @@ import AceEditor from 'react-ace';
 import 'ace-builds/src-noconflict/mode-javascript';
 import 'ace-builds/src-noconflict/mode-css';
 import 'ace-builds/src-noconflict/mode-html';
+import 'ace-builds/src-noconflict/mode-typescript';
+import 'ace-builds/src-noconflict/mode-coffee';
+import 'ace-builds/src-noconflict/mode-less';
+import 'ace-builds/src-noconflict/mode-sass';
 import 'ace-builds/src-noconflict/mode-jsx';
 import 'ace-builds/src-noconflict/theme-one_dark';
 import 'ace-builds/src-noconflict/ext-language_tools';
-// import { useActions } from '../hooks/use-actions';
 
-// import 'codemirror/lib/codemirror.css';
-// import 'codemirror/theme/material.css';
-// import 'codemirror/mode/xml/xml';
-// import 'codemirror/mode/javascript/javascript';
-// import 'codemirror/mode/css/css';
-// import 'codemirror/addon/edit/closebrackets';
+import 'ace-builds/src-noconflict/ext-error_marker';
+import 'ace-builds/src-noconflict/ext-language_tools';
+
+import { useTypedSelector } from '../hooks/use-typed-selector';
 
 interface EditorProps {
 	value: string;
 	handleValueChange: (v: string, e: Event) => void;
 	language: string;
+	editorType: string;
 }
 
 const Editor: React.FC<EditorProps> = ({
 	value,
 	handleValueChange,
-	language,
+	editorType,
 }) => {
-	// const [text, setText] = React.useState('');
+	const { activeMarkdown, activeScript, activeStyleSheet } = useTypedSelector(
+		({ activeMarkdown, activeScript, activeStyleSheet }) => {
+			return {
+				activeMarkdown,
+				activeScript,
+				activeStyleSheet,
+			};
+		}
+	);
 
-	// const { updateHTML, updateCSS, updateJavascript } = useActions();
+	let mode: string;
 
-	// const onChange = (nText: string) => {
-	// 	switch (language) {
-	// 		case 'javascript':
-	// 			updateJavascript(nText);
-	// 			break;
-	// 		case 'html':
-	// 			updateHTML(nText);
-	// 			break;
-	// 		case 'css':
-	// 			updateCSS(nText);
-	// 			break;
-	// 		default:
-	// 		//do nothing
-	// 	}
-	// 	setText(nText);
-	// };
+	switch (editorType) {
+		case 'markdown':
+			mode = activeMarkdown;
+			break;
+		case 'stylesheet':
+			mode = activeStyleSheet;
+			break;
+		case 'script':
+			mode = activeScript;
+			break;
+	}
 
 	return (
 		<AceEditor
 			value={value}
-			mode={language}
+			mode={mode}
 			theme='one_dark'
 			onChange={handleValueChange}
 			showPrintMargin={false}
 			wrapEnabled
-			// enableLiveAutocompletion
 			enableSnippets
 			enableBasicAutocompletion
 			tabSize={2}
+			placeholder='Happy coding :)'
 		/>
 	);
 };

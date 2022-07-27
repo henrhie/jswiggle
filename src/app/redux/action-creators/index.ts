@@ -32,7 +32,11 @@ export const startBundle = (store: ReturnType<typeof reducer>) => {
 		});
 
 		const js = store._js;
-		if (js.search(/import/g) < 0) {
+		if (
+			js.search(/import/g) < 0 &&
+			store.activeScript === 'javascript' &&
+			store.activeStyleSheet === 'css'
+		) {
 			const css_ = store._css;
 			const escaped = css_
 				.replace(/\n/g, '')
@@ -46,8 +50,6 @@ export const startBundle = (store: ReturnType<typeof reducer>) => {
 			    document.head.appendChild(style);
 			  `;
 			const jsWithCss = `(() => {${js + contents}})()`;
-
-			console.log('got into no import');
 
 			dispatch({
 				type: ActionType.BUNDLE_COMPLETE,
@@ -104,7 +106,8 @@ export const runConsoleInput = (input: string) => {
 };
 
 export const updateMode = (mode: any) => {
+	console.log('action creator mode: ', ActionType[mode]);
 	return {
-		type: mode,
+		type: ActionType[mode],
 	};
 };

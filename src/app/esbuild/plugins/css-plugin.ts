@@ -1,17 +1,16 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import * as esbuild from 'esbuild';
 import { PluginFactoryType } from './unpkg-plugin';
-import less from 'less';
 
-export const LessPlugin: PluginFactoryType = (store) => {
+export const cssPlugin: PluginFactoryType = (store) => {
 	return {
-		name: 'less-plugin',
+		name: 'css-plugin',
 		setup(build: esbuild.PluginBuild) {
 			//@ts-ignore
-			build.onLoad({ filter: /.*/ }, async () => {
-				if (store.activeStyleSheet === 'less') {
-					const transformOutput = await less.render(store._css);
-					const escaped = transformOutput.css
+			build.onLoad({ filter: /.*/ }, () => {
+				console.log('cssss calllled');
+				if (store.activeStyleSheet === 'css') {
+					const escaped = store._css
 						.replace(/\n/g, '')
 						.replace(/"/g, '\\"')
 						.replace(/'/g, "\\'")

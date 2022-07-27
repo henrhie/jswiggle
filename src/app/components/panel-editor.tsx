@@ -2,9 +2,7 @@
 import * as React from 'react';
 import { useStore } from 'react-redux';
 import { Dropdown, DropdownItemProps } from 'semantic-ui-react';
-
 import { useActions } from '../hooks/use-actions';
-import { updateMode } from '../redux/action-creators';
 import { reducer } from '../redux/reducer';
 import Editor from './editor';
 
@@ -13,6 +11,7 @@ interface IProps {
 	setValue: (v: string, e: Event) => void;
 	language: string;
 	dispatchGlobalAction?: Function;
+	editorType: string;
 }
 
 const PanelEditor: React.FC<IProps> = ({
@@ -20,14 +19,13 @@ const PanelEditor: React.FC<IProps> = ({
 	setValue,
 	language,
 	dispatchGlobalAction,
+	editorType,
 }) => {
 	let display_lang: string;
 	const testJs = language === 'javascript';
 
-	const { startBundle } = useActions();
+	const { startBundle, updateMode } = useActions();
 	const store = useStore<ReturnType<typeof reducer>>();
-
-	console.log('panel editor:', language);
 
 	let variants: DropdownItemProps[];
 
@@ -85,7 +83,8 @@ const PanelEditor: React.FC<IProps> = ({
 			style={{
 				height: '100%',
 				backgroundColor: '#272c35',
-			}}>
+			}}
+		>
 			<div
 				style={{
 					height: '100%',
@@ -93,14 +92,16 @@ const PanelEditor: React.FC<IProps> = ({
 					display: 'flex',
 					flexDirection: 'column',
 					alignItems: 'stretch',
-				}}>
+				}}
+			>
 				<div
 					style={{
 						padding: '5px',
 						backgroundColor: '#272c35',
 						margin: '8px 6px',
 						display: 'flex',
-					}}>
+					}}
+				>
 					{/* <p
 						style={{
 							margin: '0',
@@ -129,13 +130,15 @@ const PanelEditor: React.FC<IProps> = ({
 								padding: '3px 12px',
 							}}
 							className='run-wrapper'
-							onClick={() => runProcess()}>
+							onClick={() => runProcess()}
+						>
 							<p
 								style={{
 									color: 'white',
 									margin: 0,
 									fontFamily: 'inter-regular',
-								}}>
+								}}
+							>
 								Run
 							</p>
 							{/* <img src='../assets/svg/play.svg' /> */}
@@ -147,6 +150,7 @@ const PanelEditor: React.FC<IProps> = ({
 						language={language}
 						value={value}
 						handleValueChange={setValue}
+						editorType={editorType}
 					/>
 				</div>
 			</div>

@@ -6,33 +6,15 @@ const fileCache = localForage.createInstance({
 	name: 'cache',
 });
 
-type MapModuleNametoModule = { [key: string]: string };
-type PluginFactoryType = (cells: MapModuleNametoModule) => esbuild.Plugin;
+export type MapModuleNametoModule = { [key: string]: string };
+export type PluginFactoryType = (
+	cells: MapModuleNametoModule
+) => esbuild.Plugin;
 
-export const loaderPlugin: PluginFactoryType = (store) => {
+export const unpkgPlugin = () => {
 	return {
-		name: 'loader-plugin',
+		name: 'unpkg-plugin',
 		setup(build: esbuild.PluginBuild) {
-			build.onLoad({ filter: /^index\.js$/ }, () => {
-				const css_ = store._css;
-				const escaped = css_
-					.replace(/\n/g, '')
-					.replace(/"/g, '\\"')
-					.replace(/'/g, "\\'")
-					.replace(/\r/g, '');
-
-				const contents = `
-			    const style = document.createElement("style");
-			    style.innerText = "${escaped}";
-			    document.head.appendChild(style);
-			  `;
-				const jsWithCss = store._js + contents;
-				return {
-					loader: 'jsx',
-					contents: jsWithCss,
-				};
-			});
-
 			//@ts-ignore
 			build.onLoad({ filter: /.*/, namespace: 'unpkg' }, async (args) => {
 				const cacheData = await fileCache.getItem<esbuild.OnLoadResult>(
