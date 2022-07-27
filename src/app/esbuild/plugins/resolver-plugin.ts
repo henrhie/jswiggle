@@ -6,6 +6,7 @@ export const resolverPlugin: PluginFactoryType = () => {
 		name: 'resolver-plugin',
 		setup(build: esbuild.PluginBuild) {
 			build.onResolve({ filter: /^index\.js$/ }, () => {
+				console.log('first onresolve');
 				return {
 					path: 'index.js',
 					namespace: 'a',

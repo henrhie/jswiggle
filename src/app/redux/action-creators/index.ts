@@ -1,7 +1,7 @@
 import { Dispatch } from 'redux';
 import { bundleCode } from '../../esbuild';
 import { ActionType } from '../action-types';
-import { Action, ModeType } from '../actions';
+import { Action } from '../actions';
 import { reducer } from '../reducer';
 
 export const updateHTML = (content: string) => {
