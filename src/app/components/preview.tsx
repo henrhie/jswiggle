@@ -44,62 +44,65 @@ const html = (ext: string) => `
   `;
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
-const Preview: React.FC<{ code: string; htmlExt: string; ref: any }> =
-	React.forwardRef(({ code, htmlExt, ref }) => {
-		const { updateConsoleLogs } = useActions();
+const Preview: React.FC<{ code: string; htmlExt: string; ref: any }> = ({
+	code,
+	htmlExt,
+	ref,
+}) => {
+	const { updateConsoleLogs } = useActions();
 
-		const consoleInput = useTypedSelector(({ consoleInput }) => {
-			return consoleInput;
-		});
-
-		const iframeRef = React.useRef<any>();
-		ref = iframeRef;
-
-		const logListener = React.useCallback((e: any) => {
-			if (e.data.length > 0) {
-				updateConsoleLogs(e.data);
-			}
-		}, []);
-
-		React.useEffect(() => {
-			window.addEventListener('message', logListener);
-			return () => {
-				window.removeEventListener('message', logListener);
-			};
-		}, [logListener]);
-
-		React.useEffect(() => {
-			if (!iframeRef) {
-				return;
-			}
-			setTimeout(() => {
-				iframeRef.current.contentWindow.postMessage(consoleInput, '*');
-			}, 50);
-		}, [consoleInput]);
-
-		React.useEffect(() => {
-			if (!iframeRef) {
-				return;
-			}
-			// iframeRef.current.srcdoc = html(htmlExt);
-			console.log('code herererererere: ', code);
-			setTimeout(() => {
-				iframeRef.current.contentWindow.postMessage(code, '*');
-			}, 50);
-		}, [code, htmlExt]);
-
-		return (
-			<div className='preview-wrapper'>
-				<iframe
-					ref={iframeRef}
-					sandbox='allow-forms allow-modals allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-top-navigation-by-user-activation allow-downloads allow-presentation'
-					srcDoc={html(htmlExt)}
-					allow='accelerometer; camera; encrypted-media; display-capture; geolocation; gyroscope; microphone; midi; clipboard-read; clipboard-write; web-share'
-					allowFullScreen
-					allowTransparency
-				/>
-			</div>
-		);
+	const consoleInput = useTypedSelector(({ consoleInput }) => {
+		return consoleInput;
 	});
+
+	const iframeRef = React.useRef<any>();
+	ref = iframeRef;
+
+	const logListener = React.useCallback((e: any) => {
+		if (e.data.length > 0) {
+			updateConsoleLogs(e.data);
+		}
+	}, []);
+
+	React.useEffect(() => {
+		window.addEventListener('message', logListener);
+		return () => {
+			window.removeEventListener('message', logListener);
+		};
+	}, [logListener]);
+
+	React.useEffect(() => {
+		if (!iframeRef) {
+			return;
+		}
+		setTimeout(() => {
+			iframeRef.current.contentWindow.postMessage(consoleInput, '*');
+		}, 50);
+	}, [consoleInput]);
+
+	React.useEffect(() => {
+		if (!iframeRef) {
+			return;
+		}
+		// iframeRef.current.srcdoc = html(htmlExt);
+		console.log('code herererererere: ', code);
+		setTimeout(() => {
+			iframeRef.current.contentWindow.postMessage(code, '*');
+		}, 50);
+	}, [code, htmlExt]);
+
+	return (
+		<div className='preview-wrapper'>
+			<iframe
+				ref={iframeRef}
+				sandbox='allow-forms allow-modals allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-top-navigation-by-user-activation allow-downloads allow-presentation'
+				srcDoc={html(htmlExt)}
+				allow='accelerometer; camera; encrypted-media; display-capture; geolocation; gyroscope; microphone; midi; clipboard-read; clipboard-write; web-share'
+				allowFullScreen
+				allowTransparency
+			/>
+		</div>
+	);
+};
 
 export default React.memo(Preview);

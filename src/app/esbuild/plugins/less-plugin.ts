@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import * as esbuild from 'esbuild';
 import { PluginFactoryType } from './unpkg-plugin';
-import less from 'less';
+import * as less from 'less';
 
 export const LessPlugin: PluginFactoryType = (store) => {
 	return {
