@@ -1,6 +1,7 @@
 import * as esbuild from 'esbuild-wasm';
 import { coffeescriptPlugin } from './plugins/coffeescript-plugin';
 import { cssPlugin } from './plugins/css-plugin';
+import { experimentalPlugin } from './plugins/experimental-plugin';
 import { javascriptPlugin } from './plugins/javascript-plugin';
 import { LessPlugin } from './plugins/less-plugin';
 import { resolverPlugin } from './plugins/resolver-plugin';
@@ -26,12 +27,13 @@ export const bundleCode = async (store: IStore) => {
 		write: false,
 		plugins: [
 			resolverPlugin(),
-			javascriptPlugin(store),
-			typeScriptPlugin(store),
-			coffeescriptPlugin(store),
-			cssPlugin(store),
-			sassPlugin(store),
-			LessPlugin(store),
+			experimentalPlugin(store),
+			// javascriptPlugin(store),
+			// typeScriptPlugin(store),
+			// coffeescriptPlugin(store),
+			// cssPlugin(store),
+			// sassPlugin(store),
+			// LessPlugin(store),
 			unpkgPlugin(),
 		],
 		define: {
