@@ -68,7 +68,7 @@ const Editor: React.FC<EditorProps> = ({
 			enableSnippets
 			enableBasicAutocompletion
 			tabSize={2}
-			placeholder='Happy coding :)'
+			// placeholder='Happy coding :)'
 		/>
 	);
 };

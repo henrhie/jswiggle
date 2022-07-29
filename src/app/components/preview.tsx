@@ -7,7 +7,10 @@ const html = (ext: string) => `
     <head>
 			<meta http-equiv="content-type" content="text/html; charset=UTF-8">
 			<meta name="viewport" content="width=device-width, initial-scale=1">
-      <style>html { background-color: white }</style>
+      <style>
+				html {  }
+				body { padding: 0, margin: 0}
+			</style>
     </head>
     <body>
     <div id="root"></div>
