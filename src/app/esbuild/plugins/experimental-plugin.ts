@@ -58,7 +58,6 @@ export const experimentalPlugin: PluginFactoryType = (store) => {
 			  `;
 				}
 				if (store.activeStyleSheet === 'sass') {
-					console.log('got into sasssssssssss');
 					const sassCompile = (): Promise<string> => {
 						return new Promise((resolve, reject) => {
 							Sass.compile(store._css, (result: any) => {
@@ -79,7 +78,6 @@ export const experimentalPlugin: PluginFactoryType = (store) => {
 						});
 					};
 					stylesheetContent = await sassCompile();
-					console.log('syytelshots content;s ;, ', stylesheetContent);
 				}
 
 				return {
