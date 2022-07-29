@@ -36,85 +36,86 @@ const App = () => {
 	};
 
 	return (
-		<div style={{ display: 'flex' }}>
-			<Resizable direction='horizontal'>
-				<Panel width='100%' height='100vh'>
-					<div
-						style={{
-							display: 'flex',
-							flexDirection: 'column',
-							height: '100%',
-						}}
-					>
-						<Resizable direction='vertical'>
-							<Panel height='calc(100% - 3px)' color='purple'>
-								<PanelEditor
-									value={htmlValue}
-									setValue={setHtmlValue}
-									language='html'
-									editorType='markdown'
-								/>
-							</Panel>
-						</Resizable>
-						<div style={{ flexGrow: 1 }}>
-							<Panel height='100%'>
-								<PanelEditor
-									value={jsValue}
-									setValue={setJsValue}
-									language='javascript'
-									dispatchGlobalAction={dispatchGlobalAction_}
-									editorType='script'
-								/>
-							</Panel>
-						</div>
-					</div>
-				</Panel>
-			</Resizable>
-
-			<div style={{ flexGrow: 1 }}>
-				<Panel width='100%' flexGrow={1} height='100vh'>
-					<div
-						style={{
-							display: 'flex',
-							flexDirection: 'column',
-							height: '100%',
-						}}
-					>
-						<Resizable direction='vertical' initialHeight={0.33}>
-							<Panel height='calc(100% - 3px)'>
-								<PanelEditor
-									setValue={setCssValue}
-									value={cssValue}
-									language='css'
-									editorType='stylesheet'
-								/>
-							</Panel>
-						</Resizable>
+		<div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+			{/* <div
+				style={{
+					height: '40px',
+					width: '100%',
+					backgroundColor: 'red',
+				}}></div> */}
+			<div className='top-wrapper'>
+				<Resizable direction='horizontal'>
+					<Panel width='100%'>
 						<div
 							style={{
-								flexGrow: 1,
-								padding: '4px 0',
-								paddingBottom: '0',
-								overflow: 'hidden',
-							}}
-						>
-							<Panel height='100%'>
-								<div
-									style={{
-										display: 'flex',
-										flexDirection: 'column',
-										height: '100%',
-										border: '0.1px solid #39464e',
-										// width: '85%',
-									}}
-								>
-									<Preview code={bundle} htmlExt={_html} ref={previewRef} />
-									<Console previewRef={previewRef} />
-								</div>
-							</Panel>
+								display: 'flex',
+								flexDirection: 'column',
+								height: '100%',
+							}}>
+							<Resizable direction='vertical'>
+								<Panel height='100%' color='purple'>
+									<PanelEditor
+										value={htmlValue}
+										setValue={setHtmlValue}
+										language='html'
+										editorType='markdown'
+									/>
+								</Panel>
+							</Resizable>
+							<div style={{ flexGrow: 1 }}>
+								<Panel height='100%'>
+									<PanelEditor
+										value={jsValue}
+										setValue={setJsValue}
+										language='javascript'
+										dispatchGlobalAction={dispatchGlobalAction_}
+										editorType='script'
+									/>
+								</Panel>
+							</div>
 						</div>
-					</div>
-				</Panel>
+					</Panel>
+				</Resizable>
+
+				<div style={{ flexGrow: 1 }}>
+					<Panel width='100%' flexGrow={1} height='100vh'>
+						<div
+							style={{
+								display: 'flex',
+								flexDirection: 'column',
+								height: '100%',
+							}}>
+							<Resizable direction='vertical' initialHeight={0.33}>
+								<Panel height='calc(100% - 3px)'>
+									<PanelEditor
+										setValue={setCssValue}
+										value={cssValue}
+										language='css'
+										editorType='stylesheet'
+									/>
+								</Panel>
+							</Resizable>
+							<div
+								style={{
+									flexGrow: 1,
+									paddingBottom: '0',
+									overflow: 'hidden',
+								}}>
+								<Panel height='100%'>
+									<div
+										style={{
+											display: 'flex',
+											flexDirection: 'column',
+											height: '100%',
+										}}>
+										<Preview code={bundle} htmlExt={_html} ref={previewRef} />
+										<Console previewRef={previewRef} />
+									</div>
+								</Panel>
+							</div>
+						</div>
+					</Panel>
+				</div>
 			</div>
 		</div>
 	);

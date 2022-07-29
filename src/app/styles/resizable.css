@@ -6,6 +6,11 @@
 	position: relative;
 }
 
+.top-wrapper {
+	display: flex;
+	/* height: calc(100% - 40px) !important; */
+}
+
 ul {
 	list-style: none;
 	margin: 0;
@@ -18,18 +23,6 @@ li {
 	white-space: pre;
 }
 
-.inner_line {
-	background-color: #39464e;
-	width: 100%;
-	height: 1px;
-}
-
-.center_line {
-	background-color: #39464e;
-	width: 0.1px;
-	height: 100%;
-}
-
 .resize-horizontal {
 	display: flex;
 	flex-direction: row;
@@ -38,10 +31,19 @@ li {
 .react-resizable-handle-s {
 	display: flex;
 	align-items: center;
-	height: 8px;
+	height: 0.2px;
 	width: 100%;
 	cursor: n-resize;
-	background-color: #272c35;
+}
+
+.react-resizable-handle-s::after {
+	content: '';
+	display: block;
+	width: 100%;
+	height: 10px;
+	position: absolute;
+	top: -4px;
+	z-index: 10;
 }
 
 .react-resizable-handle-s:-moz-drag-over {
@@ -49,12 +51,21 @@ li {
 }
 
 .react-resizable-handle-e {
-	width: 8px;
+	width: 1px;
 	height: 100%;
 	cursor: e-resize;
-	background-color: #272c35;
 	display: flex;
 	justify-content: center;
+}
+
+.react-resizable-handle-e::after {
+	content: '';
+	display: block;
+	height: 100%;
+	width: 10px;
+	position: absolute;
+	left: -4px;
+	z-index: 10;
 }
 
 .divider.text {
