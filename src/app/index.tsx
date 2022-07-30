@@ -40,7 +40,7 @@ const App = () => {
 			<header
 				style={{
 					height: '40px',
-					backgroundColor: 'red',
+					borderBottom: '1px solid #39464e',
 				}}
 			></header>
 			<div
