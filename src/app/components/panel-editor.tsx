@@ -59,31 +59,13 @@ const PanelEditor: React.FC<IProps> = ({
 		startBundle(store.getState());
 	};
 
-	// React.useLayoutEffect(() => {
-	// 	const innerLineLeft = document.createElement('div');
-	// 	const innerLineRight = document.createElement('div');
-	// 	const centerLine = document.createElement('div');
-	// 	innerLineLeft.className = 'inner_line';
-	// 	innerLineRight.className = 'inner_line';
-	// 	centerLine.className = 'center_line';
-	// 	const s_handles = document.querySelectorAll('.react-resizable-handle-s');
-	// 	if (!s_handles[0].hasChildNodes()) {
-	// 		s_handles[0].appendChild(innerLineLeft);
-	// 		s_handles[1].appendChild(innerLineRight);
-	// 	}
-
-	// 	const centerLine_ = document.querySelector('.react-resizable-handle-e');
-	// 	if (!centerLine_.hasChildNodes()) {
-	// 		centerLine_.appendChild(centerLine);
-	// 	}
-	// });
-
 	return (
 		<div
 			style={{
 				height: '100%',
 				backgroundColor: '#272c35',
-			}}>
+			}}
+		>
 			<div
 				style={{
 					height: '100%',
@@ -91,14 +73,16 @@ const PanelEditor: React.FC<IProps> = ({
 					display: 'flex',
 					flexDirection: 'column',
 					alignItems: 'stretch',
-				}}>
+				}}
+			>
 				<div
 					style={{
 						padding: '5px',
 						backgroundColor: '#272c35',
 						margin: '8px 6px',
 						display: 'flex',
-					}}>
+					}}
+				>
 					{/* <p
 						style={{
 							margin: '0',
@@ -119,26 +103,6 @@ const PanelEditor: React.FC<IProps> = ({
 							updateMode(value);
 						}}
 					/>
-					{testJs && (
-						<div
-							style={{
-								marginLeft: 'auto',
-								marginRight: '10px',
-								padding: '3px 12px',
-							}}
-							className='run-wrapper'
-							onClick={() => runProcess()}>
-							<p
-								style={{
-									color: 'white',
-									margin: 0,
-									fontFamily: 'inter-regular',
-								}}>
-								Run
-							</p>
-							{/* <img src='../assets/svg/play.svg' /> */}
-						</div>
-					)}
 				</div>
 				<div style={{ flexGrow: '1', marginRight: '10px' }}>
 					<Editor

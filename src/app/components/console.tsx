@@ -116,6 +116,7 @@ const Console = ({ previewRef }) => {
 					display: 'flex',
 					position: 'sticky',
 					borderBottom: '1px solid #39464e',
+					borderTop: '1px solid #39464e',
 					top: 0,
 					left: 0,
 				}}

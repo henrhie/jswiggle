@@ -9,7 +9,7 @@ const html = (ext: string) => `
 			<meta name="viewport" content="width=device-width, initial-scale=1">
       <style>
 				html {  }
-				body { padding: 0, margin: 0}
+				body { padding: 0, margin: 0, background-color: 'red'}
 			</style>
     </head>
     <body>
@@ -103,6 +103,7 @@ const Preview: React.FC<{ code: string; htmlExt: string; ref: any }> = ({
 				allow='accelerometer; camera; encrypted-media; display-capture; geolocation; gyroscope; microphone; midi; clipboard-read; clipboard-write; web-share'
 				allowFullScreen
 				allowTransparency
+				// style={{ height: '100%' }}
 			/>
 		</div>
 	);

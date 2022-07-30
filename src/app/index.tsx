@@ -37,13 +37,18 @@ const App = () => {
 
 	return (
 		<div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-			{/* <div
+			<header
 				style={{
 					height: '40px',
-					width: '100%',
 					backgroundColor: 'red',
-				}}></div> */}
-			<div className='top-wrapper'>
+				}}
+			></header>
+			<div
+				style={{
+					display: 'flex',
+					height: 'calc(100vh - 40px)',
+				}}
+			>
 				<Resizable direction='horizontal'>
 					<Panel width='100%'>
 						<div
@@ -51,7 +56,8 @@ const App = () => {
 								display: 'flex',
 								flexDirection: 'column',
 								height: '100%',
-							}}>
+							}}
+						>
 							<Resizable direction='vertical'>
 								<Panel height='100%' color='purple'>
 									<PanelEditor
@@ -78,15 +84,16 @@ const App = () => {
 				</Resizable>
 
 				<div style={{ flexGrow: 1 }}>
-					<Panel width='100%' flexGrow={1} height='100vh'>
+					<Panel width='100%' flexGrow={1} height='calc(100vh - 40px)'>
 						<div
 							style={{
 								display: 'flex',
 								flexDirection: 'column',
 								height: '100%',
-							}}>
+							}}
+						>
 							<Resizable direction='vertical' initialHeight={0.33}>
-								<Panel height='calc(100% - 3px)'>
+								<Panel height='100%'>
 									<PanelEditor
 										setValue={setCssValue}
 										value={cssValue}
@@ -100,14 +107,16 @@ const App = () => {
 									flexGrow: 1,
 									paddingBottom: '0',
 									overflow: 'hidden',
-								}}>
+								}}
+							>
 								<Panel height='100%'>
 									<div
 										style={{
 											display: 'flex',
 											flexDirection: 'column',
 											height: '100%',
-										}}>
+										}}
+									>
 										<Preview code={bundle} htmlExt={_html} ref={previewRef} />
 										<Console previewRef={previewRef} />
 									</div>
