@@ -36,24 +36,11 @@
 }
 
 body {
+	padding: 0;
+}
+
+#root {
 	background-color: #272c35;
-	padding: 0;
-}
-
-.CodeMirror {
-	height: 100% !important;
-	font-family: hack-regular !important;
-	width: 100%;
-	position: unset;
-}
-
-.CodeMirror-line {
-	padding: 0;
-}
-
-.react-codemirror2 {
-	/* width: 90%; */
-	height: 90%;
 }
 
 .vscode-light {
@@ -68,6 +55,12 @@ body {
 	color: black;
 }
 
-.cm-content {
-	font-family: hack-regular;
+.header-item {
+	cursor: pointer;
+}
+
+.header-item:hover {
+	border-bottom: 2.5px solid #0066cc;
+	padding-bottom: 3px;
+	transition: all 0.1s;
 }

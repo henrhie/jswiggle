@@ -117,6 +117,11 @@ export const reducer = (state = initState, action: Action) => {
 				...state,
 				activeStyleSheet: 'sass',
 			};
+		case ActionType.SCSS:
+			return {
+				...state,
+				activeStyleSheet: 'scss',
+			};
 		case ActionType.JavaScript:
 			return {
 				...state,

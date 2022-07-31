@@ -16,9 +16,6 @@ export const experimentalPlugin: PluginFactoryType = (store) => {
 			build.onLoad({ filter: /.*/, namespace: 'a' }, async () => {
 				let scriptContent: string;
 				let stylesheetContent: string;
-				const setSheet = function (s: string) {
-					stylesheetContent = s;
-				};
 				if (store.activeScript === 'javascript') {
 					scriptContent = store._js;
 				}
@@ -57,24 +54,32 @@ export const experimentalPlugin: PluginFactoryType = (store) => {
 			    document.head.appendChild(style);
 			  `;
 				}
-				if (store.activeStyleSheet === 'sass') {
+				if (
+					store.activeStyleSheet === 'sass' ||
+					store.activeStyleSheet === 'scss'
+				) {
+					const isSass = store.activeStyleSheet === 'sass';
 					const sassCompile = (): Promise<string> => {
 						return new Promise((resolve, reject) => {
-							Sass.compile(store._css, (result: any) => {
-								let transformOutput = result.text;
-								const escaped = transformOutput
-									.replace(/\n/g, '')
-									.replace(/"/g, '\\"')
-									.replace(/'/g, "\\'")
-									.replace(/\r/g, '');
+							Sass.compile(
+								store._css,
+								{ indentedSyntax: isSass },
+								(result: any) => {
+									let transformOutput = result.text;
+									const escaped = transformOutput
+										.replace(/\n/g, '')
+										.replace(/"/g, '\\"')
+										.replace(/'/g, "\\'")
+										.replace(/\r/g, '');
 
-								let stylesheetContent_ = `
+									let stylesheetContent_ = `
                   const style = document.createElement("style");
                   style.innerText = "${escaped}";
                   document.head.appendChild(style);
                 `;
-								resolve(stylesheetContent_);
-							});
+									resolve(stylesheetContent_);
+								}
+							);
 						});
 					};
 					stylesheetContent = await sassCompile();
@@ -82,6 +87,7 @@ export const experimentalPlugin: PluginFactoryType = (store) => {
 
 				return {
 					contents: scriptContent + stylesheetContent,
+					loader: 'jsx',
 				};
 			});
 		},

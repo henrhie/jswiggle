@@ -50,16 +50,16 @@ const html = (ext: string) => `
 const Preview: React.FC<{ code: string; htmlExt: string; ref: any }> = ({
 	code,
 	htmlExt,
-	ref,
 }) => {
 	const { updateConsoleLogs } = useActions();
 
-	const consoleInput = useTypedSelector(({ consoleInput }) => {
-		return consoleInput;
-	});
+	const { consoleInput, loading } = useTypedSelector(
+		({ consoleInput, loading }) => {
+			return { consoleInput, loading };
+		}
+	);
 
 	const iframeRef = React.useRef<any>();
-	ref = iframeRef;
 
 	const logListener = React.useCallback((e: any) => {
 		if (e.data.length > 0) {
@@ -88,11 +88,14 @@ const Preview: React.FC<{ code: string; htmlExt: string; ref: any }> = ({
 			return;
 		}
 		// iframeRef.current.srcdoc = html(htmlExt);
-		console.log('code herererererere: ', code);
 		setTimeout(() => {
 			iframeRef.current.contentWindow.postMessage(code, '*');
 		}, 50);
 	}, [code, htmlExt]);
+
+	if (loading) {
+		htmlExt = '';
+	}
 
 	return (
 		<div className='preview-wrapper'>
@@ -103,7 +106,7 @@ const Preview: React.FC<{ code: string; htmlExt: string; ref: any }> = ({
 				allow='accelerometer; camera; encrypted-media; display-capture; geolocation; gyroscope; microphone; midi; clipboard-read; clipboard-write; web-share'
 				allowFullScreen
 				allowTransparency
-				// style={{ height: '100%' }}
+				style={{ backgroundColor: 'white' }}
 			/>
 		</div>
 	);

@@ -54,7 +54,8 @@ export type ModeType =
 	| ActionType.CoffeeScript
 	| ActionType.CSS
 	| ActionType.LESS
-	| ActionType.SASS;
+	| ActionType.SASS
+	| ActionType.SCSS;
 
 export interface UpdateMode {
 	type: ModeType;

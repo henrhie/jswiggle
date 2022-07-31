@@ -40,6 +40,7 @@ const PanelEditor: React.FC<IProps> = ({
 				{ text: 'CSS', value: 'CSS', key: 'CSS' },
 				{ text: 'LESS', value: 'LESS', key: 'LESS' },
 				{ text: 'SASS', value: 'SASS', key: 'SASS' },
+				{ text: 'SCSS', value: 'SCSS', key: 'SCSS' },
 			];
 			break;
 		case 'javascript':
@@ -54,18 +55,17 @@ const PanelEditor: React.FC<IProps> = ({
 			display_lang = language;
 	}
 
-	const runProcess = () => {
-		dispatchGlobalAction();
-		startBundle(store.getState());
-	};
+	// const runProcess = () => {
+	// 	dispatchGlobalAction();
+	// 	startBundle(store.getState());
+	// };
 
 	return (
 		<div
 			style={{
 				height: '100%',
 				backgroundColor: '#272c35',
-			}}
-		>
+			}}>
 			<div
 				style={{
 					height: '100%',
@@ -73,16 +73,14 @@ const PanelEditor: React.FC<IProps> = ({
 					display: 'flex',
 					flexDirection: 'column',
 					alignItems: 'stretch',
-				}}
-			>
+				}}>
 				<div
 					style={{
 						padding: '5px',
 						backgroundColor: '#272c35',
 						margin: '8px 6px',
 						display: 'flex',
-					}}
-				>
+					}}>
 					{/* <p
 						style={{
 							margin: '0',

@@ -13,6 +13,7 @@ export enum ActionType {
 	LESS = 'LESS',
 	CSS = 'CSS',
 	SASS = 'SASS',
+	SCSS = 'SCSS',
 	TypeScript = 'TYPESCRIPT',
 	JavaScript = 'JAVASCRIPT',
 	CoffeeScript = 'COFFEESCRIPT',

@@ -31,6 +31,8 @@ export const startBundle = (store: ReturnType<typeof reducer>) => {
 			type: ActionType.BUNDLE_START,
 		});
 
+		console.log('store: ', store);
+
 		const js = store._js;
 		if (
 			js.search(/import/g) < 0 &&
