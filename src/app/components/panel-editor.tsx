@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import * as React from 'react';
-import { useStore } from 'react-redux';
+// import { useStore } from 'react-redux';
 import { Dropdown, DropdownItemProps } from 'semantic-ui-react';
 import { useActions } from '../hooks/use-actions';
-import { reducer } from '../redux/reducer';
 import Editor from './editor';
+// import { IState } from '../redux/reducers';
 
 interface IProps {
 	value: string;
@@ -22,10 +22,9 @@ const PanelEditor: React.FC<IProps> = ({
 	editorType,
 }) => {
 	let display_lang: string;
-	const testJs = language === 'javascript';
 
-	const { startBundle, updateMode } = useActions();
-	const store = useStore<ReturnType<typeof reducer>>();
+	const { updateMode } = useActions();
+	// const store = useStore<IState>();
 
 	let variants: DropdownItemProps[];
 
@@ -55,11 +54,6 @@ const PanelEditor: React.FC<IProps> = ({
 			display_lang = language;
 	}
 
-	// const runProcess = () => {
-	// 	dispatchGlobalAction();
-	// 	startBundle(store.getState());
-	// };
-
 	return (
 		<div
 			style={{
@@ -81,18 +75,6 @@ const PanelEditor: React.FC<IProps> = ({
 						margin: '8px 6px',
 						display: 'flex',
 					}}>
-					{/* <p
-						style={{
-							margin: '0',
-							marginBottom: '0px',
-							marginLeft: '4px',
-							color: '#fff',
-							fontFamily: 'inter-regular',
-							fontWeight: 'lighter',
-						}}
-					>
-						{display_lang}
-					</p> */}
 					<Dropdown
 						inline
 						options={variants}

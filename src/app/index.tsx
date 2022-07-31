@@ -19,6 +19,7 @@ import ForkIcon from 'jsx:./assets/svg/hierarchy.svg';
 
 import './index.css';
 import { store } from './redux/store';
+import { IState } from './redux';
 
 const HeaderItem = ({ text, Icon, handleClick }) => {
 	return (
@@ -41,27 +42,28 @@ const HeaderItem = ({ text, Icon, handleClick }) => {
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const App = () => {
-	const [jsValue, setJsValue] = React.useState('');
-	const [htmlValue, setHtmlValue] = React.useState('');
-	const [cssValue, setCssValue] = React.useState('');
+	const [script_, setScript_] = React.useState('');
+	const [markdown_, setMarkdown_] = React.useState('');
+	const [stylesheet_, setStylesheet_] = React.useState('');
 	const counter = React.useRef(0);
 	const previewRef = React.useRef(null);
 
-	const { updateCSS, updateHTML, updateJavascript, startBundle } = useActions();
-	let { bundle, _html, loading } = useTypedSelector(
-		({ bundle, _html, loading }) => ({
-			bundle,
-			_html,
-			loading,
+	const { updateMarkdown, updateScript, updateStylesheet, startBundle } =
+		useActions();
+	let { bundle, markdown, loading } = useTypedSelector(
+		({ code, execution }) => ({
+			bundle: execution.bundle,
+			markdown: code.markdown,
+			loading: execution.loading,
 		})
 	);
 
-	const store = useStore();
+	const store = useStore<IState>();
 
-	const dispatchGlobalAction_ = () => {
-		updateHTML(htmlValue);
-		updateCSS(cssValue);
-		updateJavascript(jsValue);
+	const updateCodeStore = () => {
+		updateMarkdown(markdown_);
+		updateStylesheet(stylesheet_);
+		updateScript(script_);
 		counter.current += 1;
 	};
 
@@ -79,7 +81,7 @@ const App = () => {
 					text='Run'
 					Icon={FlashIcon}
 					handleClick={() => {
-						dispatchGlobalAction_();
+						updateCodeStore();
 						startBundle(store.getState());
 					}}
 				/>
@@ -89,9 +91,6 @@ const App = () => {
 					Icon={ShareIcon}
 					handleClick={() => {}}
 				/>
-				<div style={{ marginLeft: 'auto', marginRight: '12px' }}>
-					{loading && <SwapSpinner size={22} color='#0066CC' />}
-				</div>
 			</header>
 			<div
 				style={{
@@ -109,8 +108,8 @@ const App = () => {
 							<Resizable direction='vertical'>
 								<Panel height='100%' color='purple'>
 									<PanelEditor
-										value={htmlValue}
-										setValue={setHtmlValue}
+										value={markdown_}
+										setValue={setMarkdown_}
 										language='html'
 										editorType='markdown'
 									/>
@@ -119,10 +118,10 @@ const App = () => {
 							<div style={{ flexGrow: 1 }}>
 								<Panel height='100%'>
 									<PanelEditor
-										value={jsValue}
-										setValue={setJsValue}
+										value={script_}
+										setValue={setScript_}
 										language='javascript'
-										dispatchGlobalAction={dispatchGlobalAction_}
+										dispatchGlobalAction={updateCodeStore}
 										editorType='script'
 									/>
 								</Panel>
@@ -142,8 +141,8 @@ const App = () => {
 							<Resizable direction='vertical' initialHeight={0.33}>
 								<Panel height='100%'>
 									<PanelEditor
-										setValue={setCssValue}
-										value={cssValue}
+										setValue={setStylesheet_}
+										value={stylesheet_}
 										language='css'
 										editorType='stylesheet'
 									/>
@@ -162,8 +161,12 @@ const App = () => {
 											flexDirection: 'column',
 											height: '100%',
 										}}>
-										<Preview code={bundle} htmlExt={_html} ref={previewRef} />
-										<Console previewRef={previewRef} />
+										<Preview
+											code={bundle}
+											htmlExt={markdown}
+											ref={previewRef}
+										/>
+										<Console />
 									</div>
 								</Panel>
 							</div>

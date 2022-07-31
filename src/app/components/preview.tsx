@@ -53,11 +53,9 @@ const Preview: React.FC<{ code: string; htmlExt: string; ref: any }> = ({
 }) => {
 	const { updateConsoleLogs } = useActions();
 
-	const { consoleInput, loading } = useTypedSelector(
-		({ consoleInput, loading }) => {
-			return { consoleInput, loading };
-		}
-	);
+	const { consoleInput, loading } = useTypedSelector(({ execution }) => {
+		return { consoleInput: execution.consoleInput, loading: execution.loading };
+	});
 
 	const iframeRef = React.useRef<any>();
 
@@ -87,7 +85,7 @@ const Preview: React.FC<{ code: string; htmlExt: string; ref: any }> = ({
 		if (!iframeRef) {
 			return;
 		}
-		// iframeRef.current.srcdoc = html(htmlExt);
+		iframeRef.current.srcdoc = html(htmlExt);
 		setTimeout(() => {
 			iframeRef.current.contentWindow.postMessage(code, '*');
 		}, 50);

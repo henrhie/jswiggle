@@ -1,4 +1,5 @@
 import * as esbuild from 'esbuild-wasm';
+import { IState } from '../redux';
 import { coffeescriptPlugin } from './plugins/coffeescript-plugin';
 import { cssPlugin } from './plugins/css-plugin';
 import { experimentalPlugin } from './plugins/experimental-plugin';
@@ -9,11 +10,9 @@ import { sassPlugin } from './plugins/sass-plugin';
 import { typeScriptPlugin } from './plugins/typescript-plugin';
 import { unpkgPlugin } from './plugins/unpkg-plugin';
 
-export type IStore = { [key: string]: any };
-
 export let service: esbuild.Service;
 
-export const bundleCode = async (store: IStore) => {
+export const bundleCode = async (store: IState) => {
 	if (!service) {
 		service = await esbuild.startService({
 			worker: true,

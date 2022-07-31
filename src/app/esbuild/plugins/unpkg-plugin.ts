@@ -1,15 +1,14 @@
 import * as esbuild from 'esbuild';
 import * as localForage from 'localforage';
 import axios from 'axios';
+import { IState } from '../../redux';
 
 const fileCache = localForage.createInstance({
 	name: 'cache',
 });
 
 export type MapModuleNametoModule = { [key: string]: string };
-export type PluginFactoryType = (
-	cells: MapModuleNametoModule
-) => esbuild.Plugin;
+export type PluginFactoryType = (store: IState) => esbuild.Plugin;
 
 export const unpkgPlugin = () => {
 	return {

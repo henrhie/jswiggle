@@ -1,17 +1,17 @@
 import { ActionType } from '../action-types';
 
-export interface UpdateHTMLAction {
-	type: ActionType.UPDATE_HTML_STORE;
+export interface UpdateMarkdownAction {
+	type: ActionType.UPDATE_MARKDOWN;
 	payload: string;
 }
 
-export interface UpdateCSSAction {
-	type: ActionType.UPDATE_CSS_STORE;
+export interface UpdateStylesheetAction {
+	type: ActionType.UPDATE_STYLESHEET;
 	payload: string;
 }
 
-export interface UpdateJavascriptAction {
-	type: ActionType.UPDATE_JAVASCRIPT_STORE;
+export interface UpdateScriptAction {
+	type: ActionType.UPDATE_SCRIPT;
 	payload: string;
 }
 
@@ -62,9 +62,9 @@ export interface UpdateMode {
 }
 
 export type Action =
-	| UpdateCSSAction
-	| UpdateHTMLAction
-	| UpdateJavascriptAction
+	| UpdateMarkdownAction
+	| UpdateScriptAction
+	| UpdateStylesheetAction
 	| BundleCompleteAction
 	| ConsoleLogs
 	| ClearLogs

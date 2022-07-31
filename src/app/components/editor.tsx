@@ -34,11 +34,11 @@ const Editor: React.FC<EditorProps> = ({
 	editorType,
 }) => {
 	const { activeMarkdown, activeScript, activeStyleSheet } = useTypedSelector(
-		({ activeMarkdown, activeScript, activeStyleSheet }) => {
+		({ mode }) => {
 			return {
-				activeMarkdown,
-				activeScript,
-				activeStyleSheet,
+				activeMarkdown: mode.activeMarkdown,
+				activeScript: mode.activeScript,
+				activeStyleSheet: mode.activeStyleSheet,
 			};
 		}
 	);

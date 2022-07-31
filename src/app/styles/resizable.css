@@ -160,9 +160,9 @@ li {
 	border: 0;
 }
 
-.ace_conent {
+/* .ace_conent {
 	width: 300px !important;
-}
+} */
 
 .react-draggable-transparent-selection .preview-wrapper:after {
 	content: '';

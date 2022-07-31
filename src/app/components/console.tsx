@@ -2,7 +2,7 @@
 import * as React from 'react';
 import { useActions } from '../hooks/use-actions';
 import { useTypedSelector } from '../hooks/use-typed-selector';
-// import CLIcon from '../assets/svg/code.png';
+import { SwapSpinner } from 'react-spinners-kit';
 
 const _ConsoleOutputCell_ = ({ logs }) => {
 	const { clearLogsFromInput } = useActions();
@@ -46,8 +46,7 @@ const _ConsoleOutputCell_ = ({ logs }) => {
 					color,
 					fontSize: '11px',
 					backgroundColor: log.type === 'err_output' ? '#3B2931' : '',
-				}}
-			>
+				}}>
 				<span>{_log}</span>
 			</li>
 		);
@@ -63,8 +62,7 @@ const ConsoleIcon: React.FC = () => {
 				stroke-linecap='round'
 				stroke-width='1.8'
 				fill='none'
-				stroke-linejoin='round'
-			>
+				stroke-linejoin='round'>
 				<polyline points='4,17 10,11 4,5'></polyline>
 				<line x1='12' x2='20' y1='19' y2='19'></line>
 			</g>
@@ -72,11 +70,14 @@ const ConsoleIcon: React.FC = () => {
 	);
 };
 
-const Console = ({ previewRef }) => {
+const Console = () => {
 	const [minimize, setMinimize] = React.useState(false);
 	const [inputState, setInputState] = React.useState('');
 
-	const logs = useTypedSelector((state) => state.logs);
+	const { logs, loading } = useTypedSelector(({ execution }) => ({
+		logs: execution.logs,
+		loading: execution.loading,
+	}));
 	const { clearConsole, runConsoleInput } = useActions();
 
 	const handleEnterKeyPress = (e: React.KeyboardEvent) => {
@@ -106,8 +107,7 @@ const Console = ({ previewRef }) => {
 				}
 				setMinimize(!minimize);
 			}}
-			style={{ backgroundColor: '#272c35' }}
-		>
+			style={{ backgroundColor: '#272c35' }}>
 			<div
 				className='console-header-wrapper'
 				style={{
@@ -119,16 +119,14 @@ const Console = ({ previewRef }) => {
 					borderTop: '1px solid #39464e',
 					top: 0,
 					left: 0,
-				}}
-			>
+				}}>
 				<div
 					style={{
 						display: 'flex',
 						justifyContent: 'center',
 						alignItems: 'center',
 						marginLeft: '8px',
-					}}
-				>
+					}}>
 					<ConsoleIcon />
 				</div>
 
@@ -137,10 +135,19 @@ const Console = ({ previewRef }) => {
 						marginLeft: '8px',
 						marginTop: '10px',
 						marginBottom: '10px',
-					}}
-				>
+					}}>
 					console
 				</p>
+				<div
+					style={{
+						marginLeft: '12px',
+						marginRight: '12px',
+						display: 'flex',
+						alignItems: 'center',
+						marginBottom: '4px',
+					}}>
+					{loading && <SwapSpinner size={22} color='#0066CC' />}
+				</div>
 				{!minimize && (
 					<div
 						className='console-actions'
@@ -149,15 +156,13 @@ const Console = ({ previewRef }) => {
 							marginRight: '8px',
 							display: 'flex',
 							alignItems: 'center',
-						}}
-					>
+						}}>
 						<p style={{ marginRight: '6px' }} onClick={() => clearConsole()}>
 							Clear Console
 						</p>
 						<p
 							style={{ marginBottom: '0' }}
-							onClick={() => setMinimize(!minimize)}
-						>
+							onClick={() => setMinimize(!minimize)}>
 							Minimize
 						</p>
 					</div>
@@ -173,8 +178,7 @@ const Console = ({ previewRef }) => {
 							overflow: 'hidden',
 							padding: 0,
 							// height: 'calc(100% - 32px)',
-						}}
-					>
+						}}>
 						<ConsoleOutputCell logs={logs} />
 					</ul>
 					<div
@@ -188,8 +192,7 @@ const Console = ({ previewRef }) => {
 							position: 'sticky',
 							bottom: 0,
 							left: 0,
-						}}
-					>
+						}}>
 						<input
 							style={{ height: '67%', width: '95%' }}
 							className='console-input'

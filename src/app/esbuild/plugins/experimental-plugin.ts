@@ -1,13 +1,12 @@
 import * as esbuild from 'esbuild';
 import coffeescript from 'coffeescript/lib/coffeescript-browser-compiler-modern/coffeescript';
 import * as less from 'less';
-// import * as sass from 'sass';
 import Sass from 'sass.js/dist/sass.sync.js';
 
 import { PluginFactoryType } from './unpkg-plugin';
 import { service } from '..';
 
-export const experimentalPlugin: PluginFactoryType = (store) => {
+export const experimentalPlugin: PluginFactoryType = ({ code, mode }) => {
 	return {
 		name: 'experimental-plugin',
 		setup(build: esbuild.PluginBuild) {
@@ -16,20 +15,22 @@ export const experimentalPlugin: PluginFactoryType = (store) => {
 			build.onLoad({ filter: /.*/, namespace: 'a' }, async () => {
 				let scriptContent: string;
 				let stylesheetContent: string;
-				if (store.activeScript === 'javascript') {
-					scriptContent = store._js;
+				const { activeScript, activeStyleSheet } = mode;
+				const { script, stylesheet } = code;
+				if (activeScript === 'javascript') {
+					scriptContent = script;
 				}
-				if (store.activeScript === 'typescript') {
-					const transformOutput = await service.transform(store._js, {
+				if (activeScript === 'typescript') {
+					const transformOutput = await service.transform(script, {
 						loader: 'ts',
 					});
 					scriptContent = transformOutput.code;
 				}
-				if (store.activeScript === 'coffeescript') {
-					scriptContent = coffeescript.compile(store._js);
+				if (activeScript === 'coffee') {
+					scriptContent = coffeescript.compile(script);
 				}
-				if (store.activeStyleSheet === 'css') {
-					const escaped = store._css
+				if (activeStyleSheet === 'css') {
+					const escaped = stylesheet
 						.replace(/\n/g, '')
 						.replace(/"/g, '\\"')
 						.replace(/'/g, "\\'")
@@ -40,8 +41,8 @@ export const experimentalPlugin: PluginFactoryType = (store) => {
 			    style.innerText = "${escaped}";
 			    document.head.appendChild(style);`;
 				}
-				if (store.activeStyleSheet === 'less') {
-					const transformOutput = await less.render(store._css);
+				if (activeStyleSheet === 'less') {
+					const transformOutput = await less.render(stylesheet);
 					const escaped = transformOutput.css
 						.replace(/\n/g, '')
 						.replace(/"/g, '\\"')
@@ -54,15 +55,12 @@ export const experimentalPlugin: PluginFactoryType = (store) => {
 			    document.head.appendChild(style);
 			  `;
 				}
-				if (
-					store.activeStyleSheet === 'sass' ||
-					store.activeStyleSheet === 'scss'
-				) {
-					const isSass = store.activeStyleSheet === 'sass';
+				if (activeStyleSheet === 'sass' || activeStyleSheet === 'scss') {
+					const isSass = activeStyleSheet === 'sass';
 					const sassCompile = (): Promise<string> => {
 						return new Promise((resolve, reject) => {
 							Sass.compile(
-								store._css,
+								stylesheet,
 								{ indentedSyntax: isSass },
 								(result: any) => {
 									let transformOutput = result.text;

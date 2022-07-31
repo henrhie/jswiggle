@@ -2,44 +2,42 @@ import { Dispatch } from 'redux';
 import { bundleCode } from '../../esbuild';
 import { ActionType } from '../action-types';
 import { Action } from '../actions';
-import { reducer } from '../reducer';
+import { IState } from '../reducers';
 
-export const updateHTML = (content: string) => {
+export const updateMarkdown = (content: string) => {
 	return {
-		type: ActionType.UPDATE_HTML_STORE,
+		type: ActionType.UPDATE_MARKDOWN,
 		payload: content,
 	};
 };
 
-export const updateCSS = (content: string) => {
+export const updateStylesheet = (content: string) => {
 	return {
-		type: ActionType.UPDATE_CSS_STORE,
+		type: ActionType.UPDATE_STYLESHEET,
 		payload: content,
 	};
 };
 
-export const updateJavascript = (content: string) => {
+export const updateScript = (content: string) => {
 	return {
-		type: ActionType.UPDATE_JAVASCRIPT_STORE,
+		type: ActionType.UPDATE_SCRIPT,
 		payload: content,
 	};
 };
 
-export const startBundle = (store: ReturnType<typeof reducer>) => {
+export const startBundle = (store: IState) => {
 	return async (dispatch: Dispatch<Action>) => {
 		dispatch({
 			type: ActionType.BUNDLE_START,
 		});
-
-		console.log('store: ', store);
-
-		const js = store._js;
+		const { code, mode } = store;
+		const js = code.script;
 		if (
 			js.search(/import/g) < 0 &&
-			store.activeScript === 'javascript' &&
-			store.activeStyleSheet === 'css'
+			mode.activeScript === 'javascript' &&
+			mode.activeStyleSheet === 'css'
 		) {
-			const css_ = store._css;
+			const css_ = code.stylesheet;
 			const escaped = css_
 				.replace(/\n/g, '')
 				.replace(/"/g, '\\"')
@@ -63,8 +61,6 @@ export const startBundle = (store: ReturnType<typeof reducer>) => {
 		}
 		const buildOutput = await bundleCode(store);
 		const output = buildOutput.outputFiles && buildOutput.outputFiles[0].text;
-
-		console.log('bundled code', output);
 
 		dispatch({
 			type: ActionType.BUNDLE_COMPLETE,
