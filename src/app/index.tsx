@@ -2,7 +2,6 @@
 import * as React from 'react';
 import { render } from 'react-dom';
 import { Provider, useStore } from 'react-redux';
-import { SwapSpinner } from 'react-spinners-kit';
 
 import Console from './components/console';
 import 'semantic-ui-css/semantic.min.css';
@@ -33,7 +32,8 @@ const HeaderItem = ({ text, Icon, handleClick }) => {
 				alignItems: 'center',
 				justifyContent: 'center',
 				flexDirection: 'row',
-			}}>
+			}}
+		>
 			<Icon />
 			<p style={{ color: '#0066CC', marginLeft: '6px' }}>{text}</p>
 		</div>
@@ -50,13 +50,11 @@ const App = () => {
 
 	const { updateMarkdown, updateScript, updateStylesheet, startBundle } =
 		useActions();
-	let { bundle, markdown, loading } = useTypedSelector(
-		({ code, execution }) => ({
-			bundle: execution.bundle,
-			markdown: code.markdown,
-			loading: execution.loading,
-		})
-	);
+	let { bundle, markdown } = useTypedSelector(({ code, execution }) => ({
+		bundle: execution.bundle,
+		markdown: code.markdown,
+		loading: execution.loading,
+	}));
 
 	const store = useStore<IState>();
 
@@ -76,7 +74,8 @@ const App = () => {
 					alignItems: 'center',
 					display: 'flex',
 					backgroundColor: '#1C1F25',
-				}}>
+				}}
+			>
 				<HeaderItem
 					text='Run'
 					Icon={FlashIcon}
@@ -96,7 +95,8 @@ const App = () => {
 				style={{
 					display: 'flex',
 					height: 'calc(100vh - 40px)',
-				}}>
+				}}
+			>
 				<Resizable direction='horizontal'>
 					<Panel width='100%'>
 						<div
@@ -104,7 +104,8 @@ const App = () => {
 								display: 'flex',
 								flexDirection: 'column',
 								height: '100%',
-							}}>
+							}}
+						>
 							<Resizable direction='vertical'>
 								<Panel height='100%' color='purple'>
 									<PanelEditor
@@ -137,7 +138,8 @@ const App = () => {
 								display: 'flex',
 								flexDirection: 'column',
 								height: '100%',
-							}}>
+							}}
+						>
 							<Resizable direction='vertical' initialHeight={0.33}>
 								<Panel height='100%'>
 									<PanelEditor
@@ -153,14 +155,16 @@ const App = () => {
 									flexGrow: 1,
 									paddingBottom: '0',
 									overflow: 'hidden',
-								}}>
+								}}
+							>
 								<Panel height='100%'>
 									<div
 										style={{
 											display: 'flex',
 											flexDirection: 'column',
 											height: '100%',
-										}}>
+										}}
+									>
 										<Preview
 											code={bundle}
 											htmlExt={markdown}

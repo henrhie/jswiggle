@@ -19,10 +19,10 @@ const html = (ext: string) => `
     const handleError = (err) => {
       window.parent.postMessage([[{ err }]], '*')
     };
-    // window.addEventListener('error', (e) => {
-    //   e.preventDefault();
-    //   handleError(e.error);
-    // });
+    window.addEventListener('error', (e) => {
+      e.preventDefault();
+      handleError(e.error);
+    });
 
     console.stdlog = console.log.bind(console);
 	  console.logs = [];
