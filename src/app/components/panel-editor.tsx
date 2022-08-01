@@ -21,7 +21,7 @@ const PanelEditor: React.FC<IProps> = ({
 	dispatchGlobalAction,
 	editorType,
 }) => {
-	let display_lang: string;
+	// let display_lang: string;
 
 	const { updateMode } = useActions();
 	// const store = useStore<IState>();
@@ -30,11 +30,9 @@ const PanelEditor: React.FC<IProps> = ({
 
 	switch (language) {
 		case 'html':
-			display_lang = 'HTML';
 			variants = [{ text: 'HTML', value: 'HTML', key: 'HTML' }];
 			break;
 		case 'css':
-			display_lang = 'CSS';
 			variants = [
 				{ text: 'CSS', value: 'CSS', key: 'CSS' },
 				{ text: 'LESS', value: 'LESS', key: 'LESS' },
@@ -43,7 +41,6 @@ const PanelEditor: React.FC<IProps> = ({
 			];
 			break;
 		case 'javascript':
-			display_lang = 'JavaScript';
 			variants = [
 				{ text: 'JavaScript', value: 'JavaScript', key: 'JavaScript' },
 				{ text: 'TypeScript', value: 'TypeScript', key: 'TypeScript' },
@@ -51,7 +48,6 @@ const PanelEditor: React.FC<IProps> = ({
 			];
 			break;
 		default:
-			display_lang = language;
 	}
 
 	return (
