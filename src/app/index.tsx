@@ -32,10 +32,9 @@ const HeaderItem = ({ text, Icon, handleClick }) => {
 				alignItems: 'center',
 				justifyContent: 'center',
 				flexDirection: 'row',
-			}}
-		>
+			}}>
 			<Icon />
-			<p style={{ color: '#0066CC', marginLeft: '6px' }}>{text}</p>
+			<p style={{ color: '#fff', marginLeft: '6px' }}>{text}</p>
 		</div>
 	);
 };
@@ -70,12 +69,10 @@ const App = () => {
 			<header
 				style={{
 					height: '40px',
-					justifyContent: 'center',
-					alignItems: 'center',
 					display: 'flex',
-					backgroundColor: '#1C1F25',
-				}}
-			>
+					backgroundColor: '#242931',
+					paddingLeft: '12px',
+				}}>
 				<HeaderItem
 					text='Run'
 					Icon={FlashIcon}
@@ -95,8 +92,7 @@ const App = () => {
 				style={{
 					display: 'flex',
 					height: 'calc(100vh - 40px)',
-				}}
-			>
+				}}>
 				<Resizable direction='horizontal'>
 					<Panel width='100%'>
 						<div
@@ -104,8 +100,7 @@ const App = () => {
 								display: 'flex',
 								flexDirection: 'column',
 								height: '100%',
-							}}
-						>
+							}}>
 							<Resizable direction='vertical'>
 								<Panel height='100%' color='purple'>
 									<PanelEditor
@@ -138,8 +133,7 @@ const App = () => {
 								display: 'flex',
 								flexDirection: 'column',
 								height: '100%',
-							}}
-						>
+							}}>
 							<Resizable direction='vertical' initialHeight={0.33}>
 								<Panel height='100%'>
 									<PanelEditor
@@ -155,16 +149,14 @@ const App = () => {
 									flexGrow: 1,
 									paddingBottom: '0',
 									overflow: 'hidden',
-								}}
-							>
+								}}>
 								<Panel height='100%'>
 									<div
 										style={{
 											display: 'flex',
 											flexDirection: 'column',
 											height: '100%',
-										}}
-									>
+										}}>
 										<Preview
 											code={bundle}
 											htmlExt={markdown}

@@ -84,7 +84,8 @@ const PanelEditor: React.FC<IProps> = ({
 						}}
 					/>
 				</div>
-				<div style={{ flexGrow: '1', marginRight: '10px' }}>
+				<div
+					style={{ flexGrow: '1', marginRight: '10px', paddingBottom: '12px' }}>
 					<Editor
 						language={language}
 						value={value}

@@ -41,14 +41,14 @@ export const executionReducer = (
 				}
 				return { payload: log[0], type: 'iframe_output' };
 			});
-			const withoutErroredCode = state.consoleInput.substring(
+			const nonErrorCode = state.consoleInput.substring(
 				state.consoleInput.lastIndexOf(';'),
 				-1
 			);
 			return {
 				...state,
 				logs: [...state.logs, ...sanitized],
-				consoleInput: withoutErroredCode,
+				consoleInput: nonErrorCode,
 			};
 		case ActionType.RUN_CONSOLE_INPUT: {
 			return {
