@@ -49,12 +49,8 @@ body {
 	color: black;
 }
 
-::-webkit-scrollbar-track {
-	box-shadow: inset 0 0 5px grey;
-}
-
-::-webkit-scrollbar {
-	height: 100%;
+.ace_scrollbar {
+	width: unset !important;
 }
 
 .top-wrapper {

@@ -6,6 +6,7 @@
 	justify-content: center;
 	flex-direction: row;
 	cursor: pointer;
+	border-right: 1.5px solid #37414b;
 }
 
 .header-item:hover {
@@ -17,8 +18,10 @@
 header {
 	height: 40px;
 	display: flex;
-	background-color: #242931;
+	background-color: #1c2128;
 	padding-left: 12px;
+	border-bottom: 1.5px solid #444c56;
+	border-top: 1.5px solid #444c56;
 }
 
 ul {

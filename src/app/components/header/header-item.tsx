@@ -5,7 +5,9 @@ const HeaderItem = ({ text, Icon, handleClick }) => {
 	return (
 		<div onClick={handleClick} className='header-item' style={{}}>
 			<Icon />
-			<p style={{ color: '#fff', marginLeft: '6px' }}>{text}</p>
+			<p style={{ color: '#adbac7', marginLeft: '6px', fontSize: '12px' }}>
+				{text}
+			</p>
 		</div>
 	);
 };
