@@ -1,16 +1,15 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import * as React from 'react';
-// import { useStore } from 'react-redux';
 import { Dropdown, DropdownItemProps } from 'semantic-ui-react';
-import { useActions } from '../hooks/use-actions';
-import Editor from './editor';
-// import { IState } from '../redux/reducers';
+import { useActions } from '../../hooks/use-actions';
+import Editor from '../editor';
+
+import './panel-editor.css';
 
 interface IProps {
 	value: string;
 	setValue: (v: string, e: Event) => void;
 	language: string;
-	dispatchGlobalAction?: Function;
 	editorType: string;
 }
 
@@ -18,13 +17,9 @@ const PanelEditor: React.FC<IProps> = ({
 	value,
 	setValue,
 	language,
-	dispatchGlobalAction,
 	editorType,
 }) => {
-	// let display_lang: string;
-
 	const { updateMode } = useActions();
-	// const store = useStore<IState>();
 
 	let variants: DropdownItemProps[];
 
@@ -51,26 +46,9 @@ const PanelEditor: React.FC<IProps> = ({
 	}
 
 	return (
-		<div
-			style={{
-				height: '100%',
-				backgroundColor: '#272c35',
-			}}>
-			<div
-				style={{
-					height: '100%',
-					backgroundColor: '#272c35',
-					display: 'flex',
-					flexDirection: 'column',
-					alignItems: 'stretch',
-				}}>
-				<div
-					style={{
-						padding: '5px',
-						backgroundColor: '#272c35',
-						margin: '8px 6px',
-						display: 'flex',
-					}}>
+		<div className='panel-editor'>
+			<div>
+				<div className='dropdown-wrapper'>
 					<Dropdown
 						inline
 						options={variants}
@@ -80,8 +58,7 @@ const PanelEditor: React.FC<IProps> = ({
 						}}
 					/>
 				</div>
-				<div
-					style={{ flexGrow: '1', marginRight: '10px', paddingBottom: '12px' }}>
+				<div className='editor-wrapper'>
 					<Editor
 						language={language}
 						value={value}

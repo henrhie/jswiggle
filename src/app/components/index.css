@@ -1,0 +1,63 @@
+@font-face {
+	font-family: 'hack-bold';
+	src: url('../assets/fonts/hack-bold.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'fira-regular';
+	src: url('../assets/fonts/FiraCode-Regular.ttf') format('woff2');
+}
+
+@font-face {
+	font-family: 'hack-regular';
+	src: url('../assets/fonts/hack-regular.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'inter-regular';
+	src: url('../assets/fonts/Inter-Regular.otf') format('woff2');
+}
+
+@font-face {
+	font-family: 'ibm-plex-regular';
+	src: url('../assets/fonts/ibm-plex-sans-v8-latin-regular.woff2')
+		format('woff2');
+}
+
+@font-face {
+	font-family: 'sf-mono-regular';
+	src: url('../assets/fonts/FontsFree-Net-SFMono-Regular.ttf') format('woff2');
+}
+
+body {
+	padding: 0;
+}
+
+#root {
+	background-color: #272c35;
+}
+
+.vscode-light {
+	color: black;
+}
+
+.vscode-dark {
+	color: black;
+}
+
+.vscode-high-contrast {
+	color: black;
+}
+
+::-webkit-scrollbar-track {
+	box-shadow: inset 0 0 5px grey;
+}
+
+::-webkit-scrollbar {
+	height: 100%;
+}
+
+.top-wrapper {
+	display: flex;
+	height: calc(100vh - 40px) !important;
+}

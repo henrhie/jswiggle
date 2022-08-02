@@ -1,0 +1,12 @@
+.preview-wrapper {
+	/* height: 55%; */
+	/* overflow: hidden; */
+	flex-grow: 1;
+}
+
+.preview-wrapper iframe {
+	height: 100%;
+	width: 100%;
+	border: 0;
+	background-color: white;
+}

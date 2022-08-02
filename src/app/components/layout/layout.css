@@ -1,0 +1,22 @@
+.layout {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+}
+
+.layout > div {
+	display: flex;
+	height: calc(100vh - 40px);
+}
+
+.layout-vertical-wrapper {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+}
+
+.preview-panel-wrapper {
+	flex-grow: 1;
+	padding-bottom: 0;
+	overflow: hidden;
+}

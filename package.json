@@ -3,7 +3,7 @@
 	"displayName": "jsFiddle",
 	"description": "",
 	"version": "0.0.1",
-	"source": "src/app/index.tsx",
+	"source": "src/app/components/index.tsx",
 	"targets": {
 		"default": {
 			"distDir": "./dist"

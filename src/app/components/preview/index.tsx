@@ -1,6 +1,8 @@
 import * as React from 'react';
-import { useActions } from '../hooks/use-actions';
-import { useTypedSelector } from '../hooks/use-typed-selector';
+import { useActions } from '../../hooks/use-actions';
+import { useTypedSelector } from '../../hooks/use-typed-selector';
+
+import './preview.css';
 
 const html = (ext: string) => `
     <html>
@@ -104,7 +106,6 @@ const Preview: React.FC<{ code: string; htmlExt: string; ref: any }> = ({
 				allow='accelerometer; camera; encrypted-media; display-capture; geolocation; gyroscope; microphone; midi; clipboard-read; clipboard-write; web-share'
 				allowFullScreen
 				allowTransparency
-				style={{ backgroundColor: 'white' }}
 			/>
 		</div>
 	);

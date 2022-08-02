@@ -14,16 +14,15 @@ const Panel: React.FC<Partial<IPanel>> = ({
 	height,
 	children,
 	flexGrow,
-	color,
 }) => {
 	return (
 		<div
 			style={{
 				height,
 				width,
-				backgroundColor: color,
 				flexGrow,
-			}}>
+			}}
+		>
 			{children}
 		</div>
 	);

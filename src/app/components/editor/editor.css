@@ -1,0 +1,14 @@
+/* overwrite some ace editor styles */
+
+.ace_editor {
+	height: 100% !important;
+	width: 100% !important;
+	font-family: fira-regular;
+}
+
+.divider.text {
+	color: white;
+	font-family: inter-regular !important;
+	font-weight: unset !important;
+	font-size: 12px;
+}

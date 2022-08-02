@@ -1,0 +1,43 @@
+.header-item {
+	height: 100%;
+	padding: 0 12px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: row;
+	cursor: pointer;
+}
+
+.header-item:hover {
+	border-bottom: 2.5px solid #0066cc;
+	padding-bottom: 3px;
+	transition: all 0.1s;
+}
+
+header {
+	height: 40px;
+	display: flex;
+	background-color: #242931;
+	padding-left: 12px;
+}
+
+ul {
+	list-style: none;
+	margin: 0;
+}
+
+li {
+	border-bottom: 1px solid #39464e;
+	padding: 7px 12px;
+	font-family: 'sf-mono-regular';
+	white-space: pre;
+}
+
+.item > .text {
+	font-family: inter-regular;
+	font-size: 13px;
+}
+
+.dropdown.icon {
+	color: white;
+}
