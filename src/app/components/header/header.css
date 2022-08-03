@@ -6,7 +6,7 @@
 	justify-content: center;
 	flex-direction: row;
 	cursor: pointer;
-	border-right: 1.5px solid #37414b;
+	/* border-right: 1.5px solid #37414b; */
 }
 
 .header-item:hover {
@@ -20,8 +20,8 @@ header {
 	display: flex;
 	background-color: #1c2128;
 	padding-left: 12px;
-	border-bottom: 1.5px solid #444c56;
-	border-top: 1.5px solid #444c56;
+	/* border-bottom: 1.5px solid #444c56; */
+	/* border-top: 1.5px solid #444c56; */
 }
 
 ul {

@@ -30,7 +30,7 @@ const ConsoleOutput = ({ logs }) => {
 				color = '#1363DF';
 				break;
 			case 'err_output':
-				color = '#D61C4E';
+				color = '#fff';
 				break;
 			default:
 				color = '#ffffff';

@@ -44,7 +44,6 @@ export const modeReducer = (
 				activeScript: 'javascript',
 			};
 		case ActionType.CoffeeScript:
-			console.log('in coffeescript');
 			return {
 				...state,
 				activeScript: 'coffee',
