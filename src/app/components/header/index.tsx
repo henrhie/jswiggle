@@ -4,13 +4,14 @@ import HeaderItem from './header-item';
 import FlashIcon from 'jsx:../../assets/svg/flash.svg';
 import ShareIcon from 'jsx:../../assets/svg/share.svg';
 import ForkIcon from 'jsx:../../assets/svg/hierarchy.svg';
+import Note from 'jsx:../../assets/svg/note.svg';
 import { useActions } from '../../hooks/use-actions';
 import { useStore } from 'react-redux';
 import { IState } from '../../redux';
 
 import './header.css';
 
-const Header = ({ updateCodeStore }) => {
+const Header = ({ updateCodeStore, resetPreviewContent }) => {
 	const { startBundle } = useActions();
 	const store = useStore<IState>();
 
@@ -24,8 +25,12 @@ const Header = ({ updateCodeStore }) => {
 					startBundle(store.getState());
 				}}
 			/>
-			<HeaderItem text='Fork' Icon={ForkIcon} handleClick={() => {}} />
-			<HeaderItem text='Collaborate' Icon={ShareIcon} handleClick={() => {}} />
+			<HeaderItem
+				text='Reset Preview'
+				Icon={Note}
+				handleClick={resetPreviewContent}
+			/>
+			{/* <HeaderItem text='Collaborate' Icon={ShareIcon} handleClick={() => {}} /> */}
 		</header>
 	);
 };

@@ -11,6 +11,9 @@ import './console.css';
 const Console = () => {
 	const [minimize, setMinimize] = React.useState(false);
 	const [inputState, setInputState] = React.useState('');
+	const prevInputs = React.useRef<any[]>([]);
+	const prevInputsTracker = React.useRef(prevInputs.current.length);
+	const inputRef = React.useRef();
 
 	const { logs } = useTypedSelector(({ execution }) => ({
 		logs: execution.logs,
@@ -18,8 +21,13 @@ const Console = () => {
 	}));
 	const { clearConsole, runConsoleInput } = useActions();
 
-	const handleEnterKeyPress = (e: React.KeyboardEvent) => {
+	const handleKeyDownEvent = (e: React.KeyboardEvent) => {
 		if (e.key === 'Enter') {
+			if (inputState === prevInputs.current[prevInputsTracker.current]) {
+				prevInputs.current.splice(prevInputsTracker.current, 1);
+			}
+			prevInputs.current.push(inputState);
+			prevInputsTracker.current = prevInputs.current.length;
 			if (inputState === 'clear') {
 				clearConsole();
 				setInputState('');
@@ -27,6 +35,26 @@ const Console = () => {
 			}
 			runConsoleInput(inputState);
 			setInputState('');
+			return;
+		}
+		if (e.key === 'ArrowUp') {
+			e.preventDefault();
+			if (prevInputsTracker.current <= 0) {
+				return;
+			}
+			prevInputsTracker.current -= 1;
+			setInputState(prevInputs.current[prevInputsTracker.current]);
+			return;
+		}
+		if (e.key === 'ArrowDown') {
+			e.preventDefault();
+			if (prevInputsTracker.current === prevInputs.current.length - 1) {
+				prevInputsTracker.current += 1;
+				setInputState('');
+			} else if (prevInputsTracker.current < prevInputs.current.length - 1) {
+				prevInputsTracker.current += 1;
+				setInputState(prevInputs.current[prevInputsTracker.current]);
+			}
 		}
 	};
 
@@ -45,8 +73,7 @@ const Console = () => {
 				}
 				setMinimize(!minimize);
 			}}
-			style={{ backgroundColor: '#272c35' }}
-		>
+			style={{ backgroundColor: '#272c35' }}>
 			<ConsoleHeader minimize={minimize} setMinimize={setMinimize} />
 
 			{!minimize && (
@@ -58,8 +85,7 @@ const Console = () => {
 							flexDirection: 'column',
 							overflow: 'hidden',
 							padding: 0,
-						}}
-					>
+						}}>
 						<ConsoleOutput logs={logs} />
 					</ul>
 					<div className='console-input-wrapper'>
@@ -68,9 +94,10 @@ const Console = () => {
 							className='console-input'
 							placeholder='>_'
 							autoFocus={true}
-							onKeyDown={handleEnterKeyPress}
+							onKeyDown={handleKeyDownEvent}
 							value={inputState}
 							onChange={(e) => setInputState(e.target.value)}
+							ref={inputRef}
 						/>
 					</div>
 				</>

@@ -13,8 +13,15 @@ import 'ace-builds/src-noconflict/mode-jsx';
 import 'ace-builds/src-noconflict/theme-one_dark';
 import 'ace-builds/src-noconflict/ext-language_tools';
 
+import 'ace-builds/src-noconflict/snippets/javascript';
+import 'ace-builds/src-noconflict/snippets/css';
+import 'ace-builds/src-noconflict/snippets/html';
+import 'ace-builds/src-noconflict/snippets/typescript';
+import 'ace-builds/src-noconflict/snippets/coffee';
+import 'ace-builds/src-noconflict/snippets/less';
+import 'ace-builds/src-noconflict/snippets/sass';
+
 import 'ace-builds/src-noconflict/ext-error_marker';
-import 'ace-builds/src-noconflict/ext-language_tools';
 
 import { useTypedSelector } from '../../hooks/use-typed-selector';
 import './editor.css';
@@ -65,6 +72,7 @@ const Editor: React.FC<EditorProps> = ({
 			wrapEnabled
 			enableSnippets
 			enableBasicAutocompletion
+			enableLiveAutocompletion
 			tabSize={2}
 			placeholder='Happy coding :)'
 		/>

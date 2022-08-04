@@ -38,9 +38,16 @@ const Layout = () => {
 		counter.current += 1;
 	};
 
+	const resetPreviewContent = () => {
+		updateMarkdown('');
+	};
+
 	return (
 		<div className='layout'>
-			<Header updateCodeStore={updateCodeStore} />
+			<Header
+				updateCodeStore={updateCodeStore}
+				resetPreviewContent={resetPreviewContent}
+			/>
 			<div>
 				<Resizable direction='horizontal'>
 					<Panel width='100%'>

@@ -1,5 +1,11 @@
 /* overwrite some ace editor styles */
 
+.ace_editor.ace_autocomplete {
+	width: 350px !important;
+	height: 90px !important;
+	overflow-y: auto;
+}
+
 .ace_editor {
 	height: 100% !important;
 	width: 100% !important;

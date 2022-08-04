@@ -1,12 +1,12 @@
 .header-item {
 	height: 100%;
-	padding: 0 12px;
+	padding: 0 15px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	flex-direction: row;
 	cursor: pointer;
-	/* border-right: 1.5px solid #37414b; */
+	border-right: 1px solid #37414b;
 }
 
 .header-item:hover {
@@ -18,8 +18,9 @@
 header {
 	height: 40px;
 	display: flex;
-	background-color: #1c2128;
-	padding-left: 12px;
+	background-color: #272c35;
+	/* padding-left: 12px; */
+	border-bottom: 1px solid #37414b;
 	/* border-bottom: 1.5px solid #444c56; */
 	/* border-top: 1.5px solid #444c56; */
 }
