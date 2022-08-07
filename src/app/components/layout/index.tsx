@@ -77,7 +77,7 @@ const Layout = () => {
 				</Resizable>
 
 				<div style={{ flexGrow: 1 }}>
-					<Panel width='100%' flexGrow={1} height='calc(100vh - 40px)'>
+					<Panel width='100%' flexGrow={1} height='calc(100vh - 50px)'>
 						<div className='layout-vertical-wrapper'>
 							<Resizable direction='vertical' initialHeight={0.33}>
 								<Panel height='100%'>

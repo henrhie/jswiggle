@@ -74,7 +74,7 @@ const Editor: React.FC<EditorProps> = ({
 			enableBasicAutocompletion
 			enableLiveAutocompletion
 			tabSize={2}
-			placeholder='Happy coding :)'
+			// placeholder='Happy coding :)'
 		/>
 	);
 };

@@ -10,11 +10,12 @@
 	height: 100% !important;
 	width: 100% !important;
 	font-family: fira-regular;
+	font-size: 12.5px;
 }
 
 .divider.text {
 	color: white;
 	font-family: inter-regular !important;
 	font-weight: unset !important;
-	font-size: 12px;
+	font-size: 12px !important;
 }
