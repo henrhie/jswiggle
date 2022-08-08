@@ -5,6 +5,7 @@ import { useActions } from '../../hooks/use-actions';
 import Editor from '../editor';
 
 import './panel-editor.css';
+import MonacoEditor from '../editor/monaco-editor-experimental';
 
 interface IProps {
 	value: string;
@@ -65,6 +66,7 @@ const PanelEditor: React.FC<IProps> = ({
 						handleValueChange={setValue}
 						editorType={editorType}
 					/>
+					{/* <MonacoEditor /> */}
 				</div>
 			</div>
 		</div>

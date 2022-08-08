@@ -59,12 +59,13 @@ export const experimentalPlugin: PluginFactoryType = ({ code, mode }) => {
 					const isSass = activeStyleSheet === 'sass';
 					const sassCompile = (): Promise<string> => {
 						return new Promise((resolve, reject) => {
+							console.log('sheet: ', stylesheet);
 							Sass.compile(
 								stylesheet,
 								{ indentedSyntax: isSass },
 								(result: any) => {
 									let transformOutput = result.text;
-									const escaped = transformOutput
+									const escaped = (transformOutput || '')
 										.replace(/\n/g, '')
 										.replace(/"/g, '\\"')
 										.replace(/'/g, "\\'")

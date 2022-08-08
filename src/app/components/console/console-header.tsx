@@ -33,9 +33,9 @@ const ConsoleHeader = ({ minimize, setMinimize }) => {
 				<ConsoleIcon />
 			</div>
 			<p>console</p>
-			<div className='spinner-wrapper'>
+			{/* <div className='spinner-wrapper'>
 				{loading && <SwapSpinner size={22} color='#0066CC' />}
-			</div>
+			</div> */}
 			{!minimize && (
 				<div className='console-actions'>
 					<p style={{ marginRight: '6px' }} onClick={() => clearConsole()}>
