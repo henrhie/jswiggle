@@ -4,7 +4,8 @@ import HeaderItem from './header-item';
 import FlashIcon from 'jsx:../../assets/svg/flash.svg';
 import Fiddle from 'jsx:../../assets/svg/fiddle.svg';
 import TextAlign from 'jsx:../../assets/svg/textalign-left.svg';
-import Note from 'jsx:../../assets/svg/note.svg';
+import Refresh from 'jsx:../../assets/svg/refresh.svg';
+// import Sub from 'jsx:../../assets/svg/sub-48.svg';
 import { useActions } from '../../hooks/use-actions';
 import { useStore } from 'react-redux';
 import { IState } from '../../redux';
@@ -44,7 +45,7 @@ const Header = ({ updateCodeStore, resetPreviewContent }) => {
 				/>
 				<HeaderItem
 					text='Reset Preview'
-					Icon={Note}
+					Icon={Refresh}
 					handleClick={resetPreviewContent}
 				/>
 				<HeaderItem text='Prettify' Icon={TextAlign} handleClick={() => {}} />
