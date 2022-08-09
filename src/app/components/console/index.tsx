@@ -15,9 +15,9 @@ const Console = () => {
 	const prevInputsTracker = React.useRef(prevInputs.current.length);
 	const inputRef = React.useRef();
 
-	const { logs } = useTypedSelector(({ execution }) => ({
-		logs: execution.logs,
-		loading: execution.loading,
+	const { logs } = useTypedSelector(({ execution: { logs, loading } }) => ({
+		logs,
+		loading,
 	}));
 	const { clearConsole, runConsoleInput } = useActions();
 
@@ -73,7 +73,8 @@ const Console = () => {
 				}
 				setMinimize(!minimize);
 			}}
-			style={{ backgroundColor: '#272c35' }}>
+			style={{ backgroundColor: '#272c35' }}
+		>
 			<ConsoleHeader minimize={minimize} setMinimize={setMinimize} />
 
 			{!minimize && (
@@ -85,7 +86,8 @@ const Console = () => {
 							flexDirection: 'column',
 							overflow: 'hidden',
 							padding: 0,
-						}}>
+						}}
+					>
 						<ConsoleOutput logs={logs} />
 					</ul>
 					<div className='console-input-wrapper'>

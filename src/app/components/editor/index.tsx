@@ -11,7 +11,9 @@ import 'ace-builds/src-noconflict/mode-less';
 import 'ace-builds/src-noconflict/mode-sass';
 import 'ace-builds/src-noconflict/mode-jsx';
 import 'ace-builds/src-noconflict/theme-one_dark';
-import 'ace-builds/src-noconflict/ext-language_tools';
+import 'ace-builds/src-noconflict/ext-error_marker';
+import 'ace-builds/src-noconflict/ext-spellcheck';
+import 'ace-builds/src-noconflict/worker-javascript.js';
 
 import 'ace-builds/src-noconflict/snippets/javascript';
 import 'ace-builds/src-noconflict/snippets/css';
@@ -39,11 +41,11 @@ const Editor: React.FC<EditorProps> = ({
 	editorType,
 }) => {
 	const { activeMarkdown, activeScript, activeStyleSheet } = useTypedSelector(
-		({ mode }) => {
+		({ mode: { activeMarkdown, activeScript, activeStyleSheet } }) => {
 			return {
-				activeMarkdown: mode.activeMarkdown,
-				activeScript: mode.activeScript,
-				activeStyleSheet: mode.activeStyleSheet,
+				activeMarkdown,
+				activeScript,
+				activeStyleSheet,
 			};
 		}
 	);
@@ -74,7 +76,10 @@ const Editor: React.FC<EditorProps> = ({
 			enableBasicAutocompletion
 			enableLiveAutocompletion
 			tabSize={2}
-			// placeholder='Happy coding :)'
+			editorProps={{ $blockScrolling: true }}
+			setOptions={{
+				useWorker: true,
+			}}
 		/>
 	);
 };

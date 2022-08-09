@@ -5,7 +5,7 @@ import { useActions } from '../../hooks/use-actions';
 import Editor from '../editor';
 
 import './panel-editor.css';
-import MonacoEditor from '../editor/monaco-editor-experimental';
+// import MonacoEditor from '../editor/monaco-editor-experimental';
 
 interface IProps {
 	value: string;
