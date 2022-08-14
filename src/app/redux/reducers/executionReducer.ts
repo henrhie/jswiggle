@@ -6,6 +6,7 @@ interface IState {
 	bundle: string;
 	logs: { payload: any; type: string }[];
 	consoleInput: string;
+	bundleId: number;
 }
 
 const initialState: Partial<IState> = {
@@ -13,6 +14,7 @@ const initialState: Partial<IState> = {
 	bundle: '',
 	logs: [],
 	consoleInput: '',
+	bundleId: 0,
 };
 
 export const executionReducer = (
@@ -27,7 +29,12 @@ export const executionReducer = (
 				logs: [...state.logs, { payload: 'Running fiddle', type: 'loading' }],
 			};
 		case ActionType.BUNDLE_COMPLETE:
-			return { ...state, loading: false, bundle: action.payload.code };
+			return {
+				...state,
+				loading: false,
+				bundle: action.payload.code + ';' + state.bundleId,
+				bundleId: state.bundleId + 1,
+			};
 		case ActionType.CLEAR_BUNDLE:
 			return { ...state, bundle: '' };
 		case ActionType.CONSOLE_LOGS:
@@ -35,6 +42,7 @@ export const executionReducer = (
 				let logPayload = log[0];
 				if (
 					typeof logPayload === 'object' &&
+					logPayload &&
 					logPayload.hasOwnProperty('err')
 				) {
 					const err = logPayload.err.stack as string;

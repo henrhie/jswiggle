@@ -59,30 +59,35 @@ export const experimentalPlugin: PluginFactoryType = ({ code, mode }) => {
 					const isSass = activeStyleSheet === 'sass';
 					const sassCompile = (): Promise<string> => {
 						return new Promise((resolve, reject) => {
-							console.log('sheet: ', stylesheet);
-							Sass.compile(
-								stylesheet,
-								{ indentedSyntax: isSass },
-								(result: any) => {
-									let transformOutput = result.text;
-									const escaped = (transformOutput || '')
-										.replace(/\n/g, '')
-										.replace(/"/g, '\\"')
-										.replace(/'/g, "\\'")
-										.replace(/\r/g, '');
+							try {
+								Sass.compile(
+									stylesheet,
+									{ indentedSyntax: isSass },
+									(result: any) => {
+										let transformOutput = result.text;
+										const escaped = (transformOutput || '')
+											.replace(/@import url\(\/\//, '@import url(https://')
+											.replace(/\n/g, '')
+											.replace(/"/g, '\\"')
+											.replace(/'/g, "\\'")
+											.replace(/\r/g, '');
 
-									let stylesheetContent_ = `
+										let stylesheetContent_ = `
                   const style = document.createElement("style");
                   style.innerText = "${escaped}";
                   document.head.appendChild(style);
                 `;
-									resolve(stylesheetContent_);
-								}
-							);
+										resolve(stylesheetContent_);
+									}
+								);
+							} catch (error) {
+								reject(error);
+							}
 						});
 					};
 					stylesheetContent = await sassCompile();
 				}
+				console.log('stylesheet: ', stylesheetContent);
 
 				return {
 					contents: scriptContent + stylesheetContent,

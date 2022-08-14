@@ -3,7 +3,7 @@ import { Action } from '../actions';
 
 interface IState {
 	activeMarkdown: 'html';
-	activeScript: 'javascript' | 'typescript' | 'coffee';
+	activeScript: 'javascript' | 'typescript' | 'coffeescript';
 	activeStyleSheet: 'sass' | 'less' | 'css' | 'scss';
 }
 
@@ -46,7 +46,7 @@ export const modeReducer = (
 		case ActionType.CoffeeScript:
 			return {
 				...state,
-				activeScript: 'coffee',
+				activeScript: 'coffeescript',
 			};
 		case ActionType.TypeScript:
 			return {

@@ -57,6 +57,6 @@
 	flex-direction: row;
 }
 
-.react-resizable-handle-s:-moz-drag-over {
+/* .react-resizable-handle-s:-moz-drag-over {
 	cursor: row-resize;
-}
+} */

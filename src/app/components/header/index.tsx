@@ -26,7 +26,7 @@ const FiddleIcon = () => {
 	);
 };
 
-const Header = ({ updateCodeStore, resetPreviewContent }) => {
+const Header = ({ updateCodeStore, resetPreviewContent, prettify }) => {
 	const { startBundle } = useActions();
 	const store = useStore<IState>();
 
@@ -48,7 +48,11 @@ const Header = ({ updateCodeStore, resetPreviewContent }) => {
 					Icon={Refresh}
 					handleClick={resetPreviewContent}
 				/>
-				<HeaderItem text='Prettify' Icon={TextAlign} handleClick={() => {}} />
+				<HeaderItem
+					text='Prettify'
+					Icon={TextAlign}
+					handleClick={() => prettify()}
+				/>
 			</div>
 		</header>
 	);

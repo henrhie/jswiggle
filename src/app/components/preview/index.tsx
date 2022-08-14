@@ -49,15 +49,14 @@ const html = (ext: string) => `
   `;
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
-const Preview: React.FC<{ code: string; htmlExt: string; ref: any }> = ({
-	code,
-	htmlExt,
-}) => {
+const Preview: React.FC = () => {
 	const { updateConsoleLogs } = useActions();
 
-	const { consoleInput, loading } = useTypedSelector(({ execution }) => {
-		return { consoleInput: execution.consoleInput, loading: execution.loading };
-	});
+	let { consoleInput, loading, bundle, markdown } = useTypedSelector(
+		({ execution: { consoleInput, loading, bundle }, code: { markdown } }) => {
+			return { consoleInput, loading, bundle, markdown };
+		}
+	);
 
 	const iframeRef = React.useRef<any>();
 
@@ -87,14 +86,14 @@ const Preview: React.FC<{ code: string; htmlExt: string; ref: any }> = ({
 		if (!iframeRef) {
 			return;
 		}
-		iframeRef.current.srcdoc = html(htmlExt);
+		iframeRef.current.srcdoc = html(markdown);
 		setTimeout(() => {
-			iframeRef.current.contentWindow.postMessage(code, '*');
+			iframeRef.current.contentWindow.postMessage(bundle, '*');
 		}, 50);
-	}, [code, htmlExt]);
+	}, [bundle, markdown]);
 
 	if (loading) {
-		htmlExt = '';
+		markdown = '';
 	}
 
 	return (
@@ -102,7 +101,7 @@ const Preview: React.FC<{ code: string; htmlExt: string; ref: any }> = ({
 			<iframe
 				ref={iframeRef}
 				sandbox='allow-forms allow-modals allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-top-navigation-by-user-activation allow-downloads allow-presentation'
-				srcDoc={html(htmlExt)}
+				srcDoc={html(markdown)}
 				allow='accelerometer; camera; encrypted-media; display-capture; geolocation; gyroscope; microphone; midi; clipboard-read; clipboard-write; web-share'
 				allowFullScreen
 				allowTransparency

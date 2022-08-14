@@ -9,12 +9,13 @@ import PanelEditor from '../panel-editor';
 import Preview from '../preview';
 import Resizable from '../resizable';
 import { useActions } from '../../hooks/use-actions';
-import { useTypedSelector } from '../../hooks/use-typed-selector';
 
 import '../index.css';
 import './layout.css';
 
 import Header from '../header';
+import { useTypedSelector } from '../../hooks/use-typed-selector';
+import { prettify } from './prettify';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const Layout = () => {
@@ -22,14 +23,9 @@ const Layout = () => {
 	const [markdown_, setMarkdown_] = React.useState('');
 	const [stylesheet_, setStylesheet_] = React.useState('');
 	const counter = React.useRef(0);
-	const previewRef = React.useRef(null);
 
-	const { updateMarkdown, updateScript, updateStylesheet } = useActions();
-	let { bundle, markdown } = useTypedSelector(({ code, execution }) => ({
-		bundle: execution.bundle,
-		markdown: code.markdown,
-		loading: execution.loading,
-	}));
+	const { updateMarkdown, updateScript, updateStylesheet, clearBundle } =
+		useActions();
 
 	const updateCodeStore = () => {
 		updateMarkdown(markdown_);
@@ -38,8 +34,22 @@ const Layout = () => {
 		counter.current += 1;
 	};
 
+	const mode = useTypedSelector(({ mode }) => {
+		return mode;
+	});
+
 	const resetPreviewContent = () => {
 		updateMarkdown('');
+		clearBundle();
+	};
+
+	const prettify_ = () => {
+		const { formattedMarkdown, formattedStyleSheet, formattedScript } =
+			prettify(markdown_, stylesheet_, script_, mode);
+
+		setMarkdown_(formattedMarkdown);
+		setStylesheet_(formattedStyleSheet);
+		setScript_(formattedScript);
 	};
 
 	return (
@@ -47,10 +57,11 @@ const Layout = () => {
 			<Header
 				updateCodeStore={updateCodeStore}
 				resetPreviewContent={resetPreviewContent}
+				prettify={prettify_}
 			/>
 			<div>
 				<Resizable direction='horizontal'>
-					<Panel width='100%'>
+					<Panel width='calc(100% - 1px)'>
 						<div className='layout-vertical-wrapper'>
 							<Resizable direction='vertical'>
 								<Panel height='100%' color='purple'>
@@ -62,7 +73,7 @@ const Layout = () => {
 									/>
 								</Panel>
 							</Resizable>
-							<div style={{ flexGrow: 1 }}>
+							<div style={{ flexGrow: 1, overflow: 'hidden' }}>
 								<Panel height='100%'>
 									<PanelEditor
 										value={script_}
@@ -76,7 +87,7 @@ const Layout = () => {
 					</Panel>
 				</Resizable>
 
-				<div style={{ flexGrow: 1 }}>
+				<div style={{ flexGrow: 1, overflow: 'hidden' }}>
 					<Panel width='100%' flexGrow={1} height='calc(100vh - 50px)'>
 						<div className='layout-vertical-wrapper'>
 							<Resizable direction='vertical' initialHeight={0.33}>
@@ -92,11 +103,7 @@ const Layout = () => {
 							<div className='preview-panel-wrapper'>
 								<Panel height='100%'>
 									<div className='layout-vertical-wrapper'>
-										<Preview
-											code={bundle}
-											htmlExt={markdown}
-											ref={previewRef}
-										/>
+										<Preview />
 										<Console />
 									</div>
 								</Panel>

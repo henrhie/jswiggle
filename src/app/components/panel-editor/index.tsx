@@ -2,10 +2,11 @@
 import * as React from 'react';
 import { Dropdown, DropdownItemProps } from 'semantic-ui-react';
 import { useActions } from '../../hooks/use-actions';
-import Editor from '../editor';
+// import Editor from '../editor';
 
 import './panel-editor.css';
-// import MonacoEditor from '../editor/monaco-editor-experimental';
+// import EditorMonaco from '../editor/monaco-editor-experimental';
+import Editor from '../editor/monaco-editor-experimental';
 
 interface IProps {
 	value: string;
@@ -61,7 +62,6 @@ const PanelEditor: React.FC<IProps> = ({
 				</div>
 				<div className='editor-wrapper'>
 					<Editor
-						language={language}
 						value={value}
 						handleValueChange={setValue}
 						editorType={editorType}
@@ -73,4 +73,4 @@ const PanelEditor: React.FC<IProps> = ({
 	);
 };
 
-export default React.memo(PanelEditor);
+export default PanelEditor;
