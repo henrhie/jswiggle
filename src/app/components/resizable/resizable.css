@@ -10,7 +10,7 @@
 
 .react-resizable-handle {
 	display: block;
-	background-color: #37414b;
+	background-color: #2c2f34;
 	background-repeat: no-repeat;
 	background-position: 50%;
 	position: relative;
@@ -37,7 +37,7 @@
 .react-resizable-handle-s {
 	display: flex;
 	align-items: center;
-	height: 0.2px;
+	height: 1px;
 	width: 100%;
 	cursor: n-resize;
 }

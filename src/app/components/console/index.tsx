@@ -73,8 +73,7 @@ const Console = () => {
 				}
 				setMinimize(!minimize);
 			}}
-			style={{ backgroundColor: '#272c35' }}
-		>
+			style={{ backgroundColor: '#1a1d21' }}>
 			<ConsoleHeader minimize={minimize} setMinimize={setMinimize} />
 
 			{!minimize && (
@@ -86,8 +85,7 @@ const Console = () => {
 							flexDirection: 'column',
 							overflow: 'hidden',
 							padding: 0,
-						}}
-					>
+						}}>
 						<ConsoleOutput logs={logs} />
 					</ul>
 					<div className='console-input-wrapper'>

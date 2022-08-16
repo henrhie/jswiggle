@@ -1,6 +1,6 @@
-#outer-console {
-	background-color: #272c35;
-}
+/* #outer-console {
+	background-color: #1a1d21;
+} */
 
 .console-input-wrapper {
 	height: 32px;
@@ -12,6 +12,7 @@
 	position: sticky;
 	bottom: 0;
 	left: 0;
+	border-bottom: 1px solid #2c2f34;
 }
 
 .console-input-wrapper > input {
@@ -53,11 +54,11 @@
 
 .console-header-wrapper {
 	width: calc(100%-2px);
-	background-color: #272c35;
+	background-color: #202124;
 	display: flex;
 	position: sticky;
-	border-bottom: 1px solid #39464e;
-	border-top: 1px solid #39464e;
+	border-bottom: 1px solid #2c2f34;
+	border-top: 1px solid #2c2f34;
 	top: 0;
 	left: 0;
 	height: 34.4px;
@@ -108,4 +109,16 @@
 .console-actions p:hover {
 	text-decoration: underline;
 	text-decoration-color: white;
+}
+
+ul {
+	list-style: none;
+	margin: 0;
+}
+
+li {
+	border-bottom: 1px solid #2c2f34;
+	padding: 7px 12px;
+	font-family: 'sf-mono-regular';
+	white-space: pre;
 }

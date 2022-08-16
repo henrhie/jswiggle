@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import * as React from 'react';
-import Editor, { EditorDidMount } from '@monaco-editor/react';
+import Editor, { EditorDidMount, monaco } from '@monaco-editor/react';
 import './editor.css';
+import * as draculaTheme from 'monaco-themes/themes/Dracula.json';
 import { useTypedSelector } from '../../hooks/use-typed-selector';
 
 const CodeEditor = ({ value, handleValueChange, editorType }) => {
@@ -20,6 +21,19 @@ const CodeEditor = ({ value, handleValueChange, editorType }) => {
 		monacoEditor.onDidChangeModelContent(() => {
 			handleValueChange(getValue());
 		});
+
+		// monaco
+		// 	.init()
+		// 	.then((monaco) => {
+		// 		monaco.editor.defineTheme('Dracula', draculaTheme as any);
+		// 		monaco.editor.setTheme('Dracula');
+		// 	})
+		// 	.catch((error) =>
+		// 		console.error(
+		// 			'An error occurred during initialization of Monaco: ',
+		// 			error
+		// 		)
+		// 	);
 
 		// if (editorType === 'script') {
 		// 	editorRef.current.languages.typescript.javascriptDefaults.setCompilerOptions(
@@ -44,6 +58,7 @@ const CodeEditor = ({ value, handleValueChange, editorType }) => {
 		// 	() => {}
 		// );
 	};
+	React.useEffect(() => {}, []);
 	let mode: string;
 	switch (editorType) {
 		case 'markdown':
@@ -69,10 +84,11 @@ const CodeEditor = ({ value, handleValueChange, editorType }) => {
 				showUnused: true,
 				folding: false,
 				lineNumbersMinChars: 3,
-				fontSize: 16,
+				fontSize: 13,
 				scrollBeyondLastLine: true,
 				automaticLayout: true,
 				fixedOverflowWidgets: true,
+				fontFamily: 'fira-regular',
 			}}
 		/>
 	);

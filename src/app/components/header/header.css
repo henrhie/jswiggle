@@ -43,23 +43,11 @@ svg#no-war path:last-child {
 	stroke: gold;
 }
 
-ul {
-	list-style: none;
-	margin: 0;
-}
-
-li {
-	border-bottom: 1px solid #39464e;
-	padding: 7px 12px;
-	font-family: 'sf-mono-regular';
-	white-space: pre;
-}
-
 .item > .text {
 	font-family: inter-regular;
 	font-size: 13px;
 }
 
 .dropdown.icon {
-	color: white;
+	color: #cfd0d1;
 }
