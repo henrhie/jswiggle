@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import * as React from 'react';
-import Editor, { EditorDidMount, monaco } from '@monaco-editor/react';
+import Editor, { EditorDidMount } from '@monaco-editor/react';
 import './editor.css';
-import * as draculaTheme from 'monaco-themes/themes/Dracula.json';
+// import * as draculaTheme from 'monaco-themes/themes/Dracula.json';
 import { useTypedSelector } from '../../hooks/use-typed-selector';
 
 const CodeEditor = ({ value, handleValueChange, editorType }) => {
@@ -43,7 +43,7 @@ const CodeEditor = ({ value, handleValueChange, editorType }) => {
 		// 	);
 		// }
 
-		monacoEditor.getModel()?.updateOptions({ tabSize: 2 });
+		monacoEditor.getModel()?.updateOptions({ tabSize: 4 });
 
 		// const highlighter = new Highlighter(
 		// 	// @ts-ignore

@@ -33,7 +33,7 @@ const PanelEditor: React.FC<IProps> = ({
 			variants = [
 				{ text: 'CSS', value: 'CSS', key: 'CSS' },
 				{ text: 'LESS', value: 'LESS', key: 'LESS' },
-				{ text: 'SASS', value: 'SASS', key: 'SASS' },
+				// { text: 'SASS', value: 'SASS', key: 'SASS' },
 				{ text: 'SCSS', value: 'SCSS', key: 'SCSS' },
 			];
 			break;
