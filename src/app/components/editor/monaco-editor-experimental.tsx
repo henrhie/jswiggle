@@ -26,18 +26,18 @@ const CodeEditor = ({ value, handleValueChange, editorType }) => {
 
 		monacoEditor.getModel()?.updateOptions({ tabSize: 2 });
 
-		const highlighter = new Highlighter(
-			// @ts-ignore
-			window.monaco,
-			codeShift,
-			monacoEditor
-		);
-		highlighter.highLightOnDidChangeModelContent(
-			() => {},
-			() => {},
-			undefined,
-			() => {}
-		);
+		// const highlighter = new Highlighter(
+		// 	// @ts-ignore
+		// 	window.monaco,
+		// 	codeShift,
+		// 	monacoEditor
+		// );
+		// highlighter.highLightOnDidChangeModelContent(
+		// 	() => {},
+		// 	() => {},
+		// 	undefined,
+		// 	() => {}
+		// );
 	};
 	React.useEffect(() => {}, []);
 	let mode: string;
