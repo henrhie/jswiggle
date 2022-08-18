@@ -18,9 +18,28 @@
 	display: flex;
 }
 
+.dropdown:hover .divider.text {
+	color: #2d68e6;
+}
+
+.dropdown:hover .icon {
+	color: #2d68e6;
+}
+
 .editor-wrapper {
 	flex-grow: 1;
 	margin-right: 10px;
 	padding-bottom: 12px;
 	overflow: hidden;
 }
+
+.divider.text {
+	color: #cfd0d1;
+	font-family: inter-regular !important;
+	font-weight: unset !important;
+	font-size: 12px !important;
+}
+
+/* .divider.text:hover {
+	color: #2d68e6;
+} */

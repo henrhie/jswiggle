@@ -5,12 +5,14 @@ interface IState {
 	activeMarkdown: 'html';
 	activeScript: 'javascript' | 'typescript' | 'coffeescript';
 	activeStyleSheet: 'sass' | 'less' | 'css' | 'scss';
+	jsxFactory: 'React' | 'Preact' | 'PureJs';
 }
 
 const initialState: Partial<IState> = {
 	activeMarkdown: 'html',
 	activeStyleSheet: 'css',
 	activeScript: 'javascript',
+	jsxFactory: 'React',
 };
 
 export const modeReducer = (
@@ -53,6 +55,24 @@ export const modeReducer = (
 				...state,
 				activeScript: 'typescript',
 			};
+		case ActionType.React: {
+			return {
+				...state,
+				jsxFactory: 'React',
+			};
+		}
+		case ActionType.Preact: {
+			return {
+				...state,
+				jsxFactory: 'Preact',
+			};
+		}
+		case ActionType.PureJs: {
+			return {
+				...state,
+				jsxFactory: 'PureJs',
+			};
+		}
 		default:
 			return state;
 	}

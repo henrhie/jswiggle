@@ -17,4 +17,7 @@ export enum ActionType {
 	TypeScript = 'TYPESCRIPT',
 	JavaScript = 'JAVASCRIPT',
 	CoffeeScript = 'COFFEESCRIPT',
+	React = 'REACT',
+	Preact = 'PREACT',
+	PureJs = 'PURE:JS',
 }

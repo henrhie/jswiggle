@@ -109,3 +109,9 @@ export const updateMode = (mode: any) => {
 		type: ActionType[mode],
 	};
 };
+
+export const updateJsxFactory = (factory: string) => {
+	return {
+		type: ActionType[factory],
+	};
+};

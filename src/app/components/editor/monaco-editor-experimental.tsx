@@ -4,6 +4,8 @@ import Editor, { EditorDidMount } from '@monaco-editor/react';
 import './editor.css';
 // import * as draculaTheme from 'monaco-themes/themes/Dracula.json';
 import { useTypedSelector } from '../../hooks/use-typed-selector';
+import Highlighter from 'monaco-jsx-highlighter';
+import codeShift from 'jscodeshift';
 
 const CodeEditor = ({ value, handleValueChange, editorType }) => {
 	const editorRef = React.useRef<any>();
@@ -22,41 +24,20 @@ const CodeEditor = ({ value, handleValueChange, editorType }) => {
 			handleValueChange(getValue());
 		});
 
-		// monaco
-		// 	.init()
-		// 	.then((monaco) => {
-		// 		monaco.editor.defineTheme('Dracula', draculaTheme as any);
-		// 		monaco.editor.setTheme('Dracula');
-		// 	})
-		// 	.catch((error) =>
-		// 		console.error(
-		// 			'An error occurred during initialization of Monaco: ',
-		// 			error
-		// 		)
-		// 	);
+		monacoEditor.getModel()?.updateOptions({ tabSize: 2 });
 
-		// if (editorType === 'script') {
-		// 	editorRef.current.languages.typescript.javascriptDefaults.setCompilerOptions(
-		// 		{
-		// 			allowNonTsExtensions: true,
-		// 		}
-		// 	);
-		// }
-
-		monacoEditor.getModel()?.updateOptions({ tabSize: 4 });
-
-		// const highlighter = new Highlighter(
-		// 	// @ts-ignore
-		// 	window.monaco,
-		// 	codeShift,
-		// 	monacoEditor
-		// );
-		// highlighter.highLightOnDidChangeModelContent(
-		// 	() => {},
-		// 	() => {},
-		// 	undefined,
-		// 	() => {}
-		// );
+		const highlighter = new Highlighter(
+			// @ts-ignore
+			window.monaco,
+			codeShift,
+			monacoEditor
+		);
+		highlighter.highLightOnDidChangeModelContent(
+			() => {},
+			() => {},
+			undefined,
+			() => {}
+		);
 	};
 	React.useEffect(() => {}, []);
 	let mode: string;

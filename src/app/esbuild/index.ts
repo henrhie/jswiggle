@@ -1,4 +1,5 @@
 import * as esbuild from 'esbuild-wasm';
+import * as _esbuild from 'esbuild';
 import { IState } from '../redux';
 import { experimentalPlugin } from './plugins/experimental-plugin';
 import { resolverPlugin } from './plugins/resolver-plugin';
@@ -13,6 +14,23 @@ export const bundleCode = async (store: IState) => {
 			wasmURL: 'https://unpkg.com/esbuild-wasm@0.8.27/esbuild.wasm',
 		});
 	}
+
+	let jsxFactory: string;
+	let jsxFragment: string;
+	switch (store.mode.jsxFactory) {
+		case 'React':
+			jsxFactory = 'React.createElement';
+			jsxFragment = 'React.Fragment';
+			break;
+		case 'Preact':
+			jsxFactory = 'h';
+			jsxFragment = 'Fragment';
+			break;
+		default:
+			jsxFactory = void 0;
+			jsxFragment = void 0;
+	}
+
 	const buildResult = await service.build({
 		entryPoints: ['index.js'],
 		bundle: true,
@@ -24,8 +42,8 @@ export const bundleCode = async (store: IState) => {
 			'process.env.NODE_ENV': '"production"',
 			global: 'window',
 		},
-		jsxFactory: 'React.createElement',
-		jsxFragment: 'React.Fragment',
+		jsxFactory,
+		jsxFragment,
 	});
 
 	return buildResult;

@@ -26,7 +26,7 @@ export const experimentalPlugin: PluginFactoryType = ({ code, mode }) => {
 					});
 					scriptContent = transformOutput.code;
 				}
-				if (activeScript === 'coffee') {
+				if (activeScript === 'coffeescript') {
 					scriptContent = coffeescript.compile(script);
 				}
 				if (activeStyleSheet === 'css') {

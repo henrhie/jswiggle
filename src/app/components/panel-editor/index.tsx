@@ -21,7 +21,7 @@ const PanelEditor: React.FC<IProps> = ({
 	language,
 	editorType,
 }) => {
-	const { updateMode } = useActions();
+	const { updateMode, updateJsxFactory } = useActions();
 
 	let variants: DropdownItemProps[];
 
@@ -47,9 +47,15 @@ const PanelEditor: React.FC<IProps> = ({
 		default:
 	}
 
+	const jsLibs = [
+		{ text: 'pure JS', value: 'PureJs', key: 'PureJs' },
+		{ text: 'React', value: 'React', key: 'React' },
+		{ text: 'Preact', value: 'Preact', key: 'Preact' },
+	];
+
 	return (
 		<div className='panel-editor'>
-			<div>
+			<div style={{ display: 'flex', flexDirection: 'column' }}>
 				<div className='dropdown-wrapper'>
 					<Dropdown
 						inline
@@ -59,6 +65,18 @@ const PanelEditor: React.FC<IProps> = ({
 							updateMode(value);
 						}}
 					/>
+					{editorType === 'script' && (
+						<div style={{ marginLeft: 'auto', marginRight: '30px' }}>
+							<Dropdown
+								inline
+								options={jsLibs}
+								defaultValue={jsLibs[0].value}
+								onChange={(e, { value }) => {
+									updateJsxFactory(value as string);
+								}}
+							/>
+						</div>
+					)}
 				</div>
 				<div className='editor-wrapper'>
 					<Editor

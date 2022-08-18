@@ -55,7 +55,10 @@ export type ModeType =
 	| ActionType.CSS
 	| ActionType.LESS
 	| ActionType.SASS
-	| ActionType.SCSS;
+	| ActionType.SCSS
+	| ActionType.React
+	| ActionType.Preact
+	| ActionType.PureJs;
 
 export interface UpdateMode {
 	type: ModeType;
