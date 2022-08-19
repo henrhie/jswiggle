@@ -12,6 +12,10 @@
 	/* border-right: 1px solid #37414b; */
 }
 
+.header-item p {
+	font-family: ibm-plex-regular;
+}
+
 .header-item:first-child {
 	margin-left: 12px;
 }
