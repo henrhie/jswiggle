@@ -4,11 +4,11 @@ import Editor, { EditorDidMount } from '@monaco-editor/react';
 import './editor.css';
 // import * as draculaTheme from 'monaco-themes/themes/Dracula.json';
 import { useTypedSelector } from '../../hooks/use-typed-selector';
-import Highlighter from 'monaco-jsx-highlighter';
-import codeShift from 'jscodeshift';
-
+// import Highlighter from 'monaco-jsx-highlighter';
+// import codeShift from 'jscodeshift';
 const CodeEditor = ({ value, handleValueChange, editorType }) => {
 	const editorRef = React.useRef<any>();
+
 	const { activeMarkdown, activeScript, activeStyleSheet } = useTypedSelector(
 		({ mode: { activeMarkdown, activeScript, activeStyleSheet } }) => {
 			return {
@@ -23,6 +23,14 @@ const CodeEditor = ({ value, handleValueChange, editorType }) => {
 		monacoEditor.onDidChangeModelContent(() => {
 			handleValueChange(getValue());
 		});
+
+		// monacoEditor.onKeyDown(({ metaKey, ctrlKey, code, preventDefault }) => {
+		// 	if ((metaKey || ctrlKey) && code === 'Enter') {
+		// 		preventDefault();
+		// 		updateCodeStore();
+		// 		startBundle(store.getState());
+		// 	}
+		// });
 
 		monacoEditor.getModel()?.updateOptions({ tabSize: 2 });
 
@@ -39,6 +47,7 @@ const CodeEditor = ({ value, handleValueChange, editorType }) => {
 		// 	() => {}
 		// );
 	};
+
 	React.useEffect(() => {}, []);
 	let mode: string;
 	switch (editorType) {

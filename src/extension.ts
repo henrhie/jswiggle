@@ -1,5 +1,6 @@
 import * as vscode from 'vscode';
 import { WebViewManager } from './webview';
+import { store } from './app/redux/store';
 
 export function activate(context: vscode.ExtensionContext) {
 	let disposable = vscode.commands.registerCommand(
