@@ -46,7 +46,9 @@ export const executionReducer = (
 					logPayload.hasOwnProperty('err')
 				) {
 					const err = logPayload.err.stack as string;
-					const sanitizedErrorMsg = err.substring(0, err.indexOf('\n'));
+					const sanitizedErrorMsg = logPayload.isEsbuildError
+						? err
+						: err.substring(0, err.indexOf('\n'));
 					return { payload: sanitizedErrorMsg, type: 'err_output' };
 				}
 				return { payload: log[0], type: 'iframe_output' };

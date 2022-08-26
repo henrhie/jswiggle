@@ -1,3 +1,4 @@
+import { BuildResult, OutputFile } from 'esbuild-wasm';
 import { Dispatch } from 'redux';
 import { bundleCode } from '../../esbuild';
 import { ActionType } from '../action-types';
@@ -51,15 +52,27 @@ export const startBundle = (store: IState) => {
 			  `;
 			const jsWithCss = `(() => {${js + contents}})()`;
 
-			dispatch({
+			return dispatch({
 				type: ActionType.BUNDLE_COMPLETE,
 				payload: {
 					code: jsWithCss,
 				},
 			});
-			return;
 		}
-		const buildOutput = await bundleCode(store);
+		let buildOutput: BuildResult & { outputFiles: OutputFile[] };
+		try {
+			buildOutput = await bundleCode(store);
+		} catch (err) {
+			console.log('error from esbuild: ', err);
+			dispatch({
+				type: ActionType.CONSOLE_LOGS,
+				payload: [[{ err, isEsbuildError: true }]] as any,
+			});
+			return dispatch({
+				type: ActionType.BUNDLE_COMPLETE,
+				payload: { code: '' },
+			});
+		}
 		const output = buildOutput.outputFiles && buildOutput.outputFiles[0].text;
 
 		dispatch({
