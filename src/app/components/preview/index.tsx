@@ -104,7 +104,6 @@ const Preview: React.FC = () => {
 				srcDoc={html(markdown)}
 				allow='accelerometer; camera; encrypted-media; display-capture; geolocation; gyroscope; microphone; midi; clipboard-read; clipboard-write; web-share'
 				allowFullScreen
-				allowTransparency
 			/>
 		</div>
 	);
