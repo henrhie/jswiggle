@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import * as React from 'react';
-import { useActions } from '../../hooks/use-actions';
+// import { useActions } from '../../hooks/use-actions';
 
 const ConsoleOutput = ({ logs }) => {
-	const { clearLogsFromInput } = useActions();
+	// const { clearLogsFromInput } = useActions();
 	return logs.map((log: any, i: number) => {
 		let _log: any;
 		switch (log.type && typeof log.payload) {
@@ -22,7 +22,7 @@ const ConsoleOutput = ({ logs }) => {
 			default:
 				_log = log.payload;
 		}
-		clearLogsFromInput();
+		// clearLogsFromInput();
 
 		let color: string;
 		switch (log.type) {

@@ -4,3 +4,7 @@ node_modules
 .vscode-test/
 *.vsix
 .parcel-cache
+web
+# Local Netlify folder
+.netlify
+parcel-bundle-reports

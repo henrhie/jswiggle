@@ -48,7 +48,6 @@ const CodeEditor = ({ value, handleValueChange, editorType }) => {
 		// );
 	};
 
-	React.useEffect(() => {}, []);
 	let mode: string;
 	switch (editorType) {
 		case 'markdown':
@@ -67,6 +66,7 @@ const CodeEditor = ({ value, handleValueChange, editorType }) => {
 			value={value}
 			language={mode}
 			height='100%'
+			width='100%'
 			theme='dark'
 			options={{
 				wordWrap: 'on',

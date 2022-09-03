@@ -1,9 +1,9 @@
 import * as prettier from 'prettier';
-import * as parser from 'prettier/parser-babel';
-import * as html_parser from 'prettier/parser-html';
-import * as style_parser from 'prettier/parser-postcss';
+// import * as parser from 'prettier/parser-babel';
+// import * as html_parser from 'prettier/parser-html';
+// import * as style_parser from 'prettier/parser-postcss';
 
-export const prettify = (
+export const prettify = async (
 	markdown: string,
 	stylesheet: string,
 	script: string,
@@ -17,12 +17,16 @@ export const prettify = (
 	let formattedMarkdown: string;
 	let formattedScript: string;
 
+	const htmlParser = await import('prettier/parser-html');
+	const parser = await import('prettier/parser-babel');
+	const styleParser = await import('prettier/parser-postcss');
+
 	//prettify markdown
 	formattedMarkdown = prettier
 		.format(markdown, {
 			parser: mode.activeMarkdown,
 			singleQuote: true,
-			plugins: [html_parser],
+			plugins: [htmlParser],
 		})
 		.replace(/\n$/, '');
 
@@ -32,7 +36,7 @@ export const prettify = (
 			parser: mode.activeStyleSheet === 'sass' ? 'scss' : mode.activeStyleSheet,
 			semi: true,
 			singleQuote: true,
-			plugins: [style_parser],
+			plugins: [styleParser],
 		})
 		.replace(/\n$/, '');
 

@@ -27,6 +27,7 @@ export const updateScript = (content: string) => {
 };
 
 export const startBundle = (store: IState) => {
+	//@ts-ignore
 	return async (dispatch: Dispatch<Action>) => {
 		dispatch({
 			type: ActionType.BUNDLE_START,

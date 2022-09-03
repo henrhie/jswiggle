@@ -19,14 +19,14 @@
 }
 
 @font-face {
-	font-family: 'ibm-plex-regular';
-	src: url('../assets/fonts/ibm-plex-sans-v8-latin-regular.woff2')
-		format('woff2');
+	font-family: 'sf-mono-regular';
+	src: url('../assets/fonts/FontsFree-Net-SFMono-Regular.ttf') format('woff2');
 }
 
 @font-face {
-	font-family: 'sf-mono-regular';
-	src: url('../assets/fonts/FontsFree-Net-SFMono-Regular.ttf') format('woff2');
+	font-family: 'ibm-plex-regular';
+	src: url('../assets/fonts/ibm-plex-sans-v8-latin-regular.woff2')
+		format('woff2');
 }
 
 body {

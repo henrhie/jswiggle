@@ -5,7 +5,7 @@ import FlashIcon from 'jsx:../../assets/svg/flash.svg';
 import Fiddle from 'jsx:../../assets/svg/fiddle.svg';
 import TextAlign from 'jsx:../../assets/svg/textalign-left.svg';
 import Refresh from 'jsx:../../assets/svg/refresh.svg';
-// import Sub from 'jsx:../../assets/svg/sub-48.svg';
+import Danger from 'jsx:../../assets/svg/danger.svg';
 import { useActions } from '../../hooks/use-actions';
 import { useStore } from 'react-redux';
 import { IState } from '../../redux';
@@ -51,7 +51,15 @@ const Header = ({ updateCodeStore, resetPreviewContent, prettify }) => {
 				<HeaderItem
 					text='Prettify'
 					Icon={TextAlign}
-					handleClick={() => prettify()}
+					handleClick={async () => await prettify()}
+				/>
+				<HeaderItem
+					text='Report issue'
+					Icon={Danger}
+					handleClick={() => {
+						window.open('https://github.com/henrhie', '_blank').focus();
+					}}
+					bugButton
 				/>
 			</div>
 		</header>

@@ -9,7 +9,7 @@ interface IState {
 	bundleId: number;
 }
 
-const initialState: Partial<IState> = {
+const initialState: IState = {
 	loading: false,
 	bundle: '',
 	logs: [],
@@ -63,6 +63,7 @@ export const executionReducer = (
 				consoleInput: nonErrorCode,
 			};
 		case ActionType.RUN_CONSOLE_INPUT: {
+			console.log('console inppput: ', state.consoleInput);
 			return {
 				...state,
 				consoleInput: state.consoleInput + ';' + action.payload,

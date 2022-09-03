@@ -9,16 +9,17 @@
 			"distDir": "./dist"
 		}
 	},
+	"type": "module",
 	"engines": {
 		"vscode": "^1.66.0"
 	},
 	"categories": [
 		"Other"
 	],
+	"main": "./out/extension.js",
 	"activationEvents": [
 		"onCommand:jsfiddle.helloWorld"
 	],
-	"main": "./out/extension.js",
 	"contributes": {
 		"commands": [
 			{

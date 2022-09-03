@@ -1,10 +1,15 @@
 import * as esbuild from 'esbuild';
-import coffeescript from 'coffeescript/lib/coffeescript-browser-compiler-modern/coffeescript';
-import * as less from 'less';
-import Sass from 'sass.js/dist/sass.sync.js';
+// import coffeescript from 'coffeescript/lib/coffeescript-browser-compiler-modern/coffeescript';
+// import * as less from 'less';
+// import sass from 'sass.js/dist/sass.sync.js';
 
 import { PluginFactoryType } from './unpkg-plugin';
 import { service } from '..';
+
+//@ts-ignore
+Sass.setWorkerUrl('./sass.worker.js');
+//@ts-ignore
+var sass = new Sass();
 
 export const experimentalPlugin: PluginFactoryType = ({ code, mode }) => {
 	return {
@@ -27,6 +32,9 @@ export const experimentalPlugin: PluginFactoryType = ({ code, mode }) => {
 					scriptContent = transformOutput.code;
 				}
 				if (activeScript === 'coffeescript') {
+					const coffeescript = await import(
+						'coffeescript/lib/coffeescript-browser-compiler-modern/coffeescript'
+					);
 					scriptContent = coffeescript.compile(script);
 				}
 				if (activeStyleSheet === 'css') {
@@ -42,6 +50,7 @@ export const experimentalPlugin: PluginFactoryType = ({ code, mode }) => {
 			    document.head.appendChild(style);`;
 				}
 				if (activeStyleSheet === 'less') {
+					const less = await import('less');
 					const transformOutput = await less.render(stylesheet);
 					const escaped = transformOutput.css
 						.replace(/\n/g, '')
@@ -56,11 +65,13 @@ export const experimentalPlugin: PluginFactoryType = ({ code, mode }) => {
 			  `;
 				}
 				if (activeStyleSheet === 'sass' || activeStyleSheet === 'scss') {
+					// const sass = await import('sass.js/dist/sass.js');
+					// console.log('compile=======>', sass);
 					const isSass = activeStyleSheet === 'sass';
 					const sassCompile = (): Promise<string> => {
 						return new Promise((resolve, reject) => {
 							try {
-								Sass.compile(
+								sass.compile(
 									stylesheet,
 									{ indentedSyntax: isSass },
 									(result: any) => {

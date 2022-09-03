@@ -20,6 +20,19 @@
 	margin-left: 12px;
 }
 
+.header-item:last-child {
+	position: absolute;
+	right: 12px;
+}
+
+.header-item:last-child .textDisappear {
+	display: none;
+}
+
+.header-item:last-child:hover .textDisappear {
+	display: block;
+}
+
 .header-item:hover {
 	/* border-bottom: 2.5px solid #0066cc; */
 	border: 1px solid #fff;

@@ -16,8 +16,8 @@ import './layout.css';
 import Header from '../header';
 import { useTypedSelector } from '../../hooks/use-typed-selector';
 import { prettify } from './prettify';
-import { useStore } from 'react-redux';
-import { IState } from '../../redux';
+// import { useStore } from 'react-redux';
+// import { IState } from '../../redux';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const Layout = () => {
@@ -26,15 +26,8 @@ const Layout = () => {
 	const [stylesheet_, setStylesheet_] = React.useState('');
 	const counter = React.useRef(0);
 
-	const {
-		updateMarkdown,
-		updateScript,
-		updateStylesheet,
-		clearBundle,
-		startBundle,
-	} = useActions();
-
-	const store = useStore<IState>();
+	const { updateMarkdown, updateScript, updateStylesheet, clearBundle } =
+		useActions();
 
 	const updateCodeStore = () => {
 		updateMarkdown(markdown_);
@@ -52,29 +45,14 @@ const Layout = () => {
 		clearBundle();
 	};
 
-	const prettify_ = () => {
+	const prettify_ = async () => {
 		const { formattedMarkdown, formattedStyleSheet, formattedScript } =
-			prettify(markdown_, stylesheet_, script_, mode);
+			await prettify(markdown_, stylesheet_, script_, mode);
 
 		setMarkdown_(formattedMarkdown);
 		setStylesheet_(formattedStyleSheet);
 		setScript_(formattedScript);
 	};
-
-	const keyHandler = ({ repeat, metaKey, ctrlKey, key }) => {
-		if (repeat) {
-			return;
-		}
-
-		if ((metaKey || ctrlKey) && key === 'Enter') {
-			updateCodeStore();
-			startBundle(store.getState());
-		}
-	};
-	React.useEffect(() => {
-		document.addEventListener('keydown', keyHandler);
-		return () => document.removeEventListener('keydown', keyHandler);
-	}, [keyHandler]);
 
 	return (
 		<div className='layout'>
