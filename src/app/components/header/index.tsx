@@ -2,7 +2,7 @@
 import * as React from 'react';
 import HeaderItem from './header-item';
 import FlashIcon from 'jsx:../../assets/svg/flash.svg';
-import Fiddle from 'jsx:../../assets/svg/fiddle.svg';
+import MainIcon from 'jsx:../../assets/svg/main-icon.svg';
 import TextAlign from 'jsx:../../assets/svg/textalign-left.svg';
 import Refresh from 'jsx:../../assets/svg/refresh.svg';
 import Danger from 'jsx:../../assets/svg/danger.svg';
@@ -21,7 +21,7 @@ const FiddleIcon = () => {
 				position: 'absolute',
 				left: '18px',
 			}}>
-			<Fiddle />
+			<MainIcon />
 		</div>
 	);
 };
@@ -57,7 +57,9 @@ const Header = ({ updateCodeStore, resetPreviewContent, prettify }) => {
 					text='Report issue'
 					Icon={Danger}
 					handleClick={() => {
-						window.open('https://github.com/henrhie', '_blank').focus();
+						window
+							.open('https://github.com/henrhie/jswiggle/issues', '_blank')
+							.focus();
 					}}
 					bugButton
 				/>

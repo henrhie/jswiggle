@@ -41,6 +41,7 @@
 		"test": "node ./out/test/runTest.js"
 	},
 	"devDependencies": {
+		"@parcel/reporter-bundle-analyzer": "^2.7.0",
 		"@parcel/transformer-svg-react": "^2.6.2",
 		"@types/glob": "^7.1.3",
 		"@types/less": "^3.0.3",

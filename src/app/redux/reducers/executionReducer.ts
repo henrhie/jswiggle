@@ -26,7 +26,7 @@ export const executionReducer = (
 			return {
 				...state,
 				loading: true,
-				logs: [...state.logs, { payload: 'Running fiddle', type: 'loading' }],
+				logs: [...state.logs, { payload: 'Running wiggle', type: 'loading' }],
 			};
 		case ActionType.BUNDLE_COMPLETE:
 			return {
@@ -63,11 +63,10 @@ export const executionReducer = (
 				consoleInput: nonErrorCode,
 			};
 		case ActionType.RUN_CONSOLE_INPUT: {
-			console.log('console inppput: ', state.consoleInput);
 			return {
 				...state,
 				consoleInput: state.consoleInput + ';' + action.payload,
-				logs: [...state.logs, { payload: 'Running fiddle', type: 'loading' }],
+				logs: [...state.logs, { payload: 'Running wiggle', type: 'loading' }],
 			};
 		}
 		case ActionType.CLEAR_CONSOLE_LOGS_FROM_INPUT: {
